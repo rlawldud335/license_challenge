@@ -11,6 +11,3 @@ web-build/
 
 # macOS
 .DS_Store
-
-metro.config.js
-assets/
