@@ -1,7 +1,7 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import Home from "../../screens/Home";
-import License from "../../screens/License";
+import Home from "../../screens/Explore/Home";
+import License from "../../screens/Explore/License";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -28,7 +28,7 @@ export default () => (
       navigationOptions={{ gesturesEnabled: false }}
     />
     <Tab.Screen
-      name="license"
+      name="License"
       component={License}
       options={{ tabBarLabel: "자격증" }}
     />

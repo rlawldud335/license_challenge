@@ -1,7 +1,8 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import ChallengeSearch from "../../screens/ChallengeSearch";
-import LicenseSearch from "../../screens/LicenseSearch";
+
+import ChallengeSearch from "../../screens/Explore/ChallengeSearch";
+import LicenseSearch from "../../screens/Explore/LicenseSearch";
 
 const Tab = createMaterialTopTabNavigator();
 

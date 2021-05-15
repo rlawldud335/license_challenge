@@ -1,7 +1,8 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import InProgressChallenge from "../../screens/InProgressChallenge";
-import EndedChallenge from "../../screens/EndedChallenge";
+
+import InProgressChallenge from "../../screens/Challenge/InProgressChallenge";
+import EndedChallenge from "../../screens/Challenge/EndedChallenge";
 
 const Tab = createMaterialTopTabNavigator();
 

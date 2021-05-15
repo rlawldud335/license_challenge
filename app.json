@@ -28,19 +28,8 @@
     },
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": [
-        "expo.ts",
-        "expo.tsx",
-        "expo.js",
-        "expo.jsx",
-        "ts",
-        "tsx",
-        "js",
-        "jsx",
-        "json",
-        "wasm",
-        "svg"
-      ]
+      "sourceExts": ["js", "jsx", "ts", "tsx", "svg"],
+      "transformer": "node_modules/react-native-svg-transformer/index.js"
     }
   }
 }

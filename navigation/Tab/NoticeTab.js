@@ -1,7 +1,8 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import Notice from "../../screens/Notice";
-import Schedule from "../../screens/Schedule";
+
+import Notice from "../../screens/Explore/Notice";
+import Schedule from "../../screens/Explore/Schedule";
 
 const Tab = createMaterialTopTabNavigator();
 

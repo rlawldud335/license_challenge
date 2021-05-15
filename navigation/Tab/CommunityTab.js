@@ -1,7 +1,7 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import InProgressChallenge from "../../screens/InProgressChallenge";
-import EndedChallenge from "../../screens/EndedChallenge";
+import FreeBoard from "../../screens/Community/FreeBoard";
+import DealBoard from "../../screens/Community/DealBoard";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -22,13 +22,13 @@ export default () => (
   >
     <Tab.Screen
       options={{ tabBarLabel: "자유게시판" }}
-      name="InProgressChallenge"
-      component={InProgressChallenge}
+      name="FreeBoard"
+      component={FreeBoard}
     />
     <Tab.Screen
       options={{ tabBarLabel: "판매게시판" }}
-      name="EndedChallenge"
-      component={EndedChallenge}
+      name="DealBoard"
+      component={DealBoard}
     />
   </Tab.Navigator>
 );
