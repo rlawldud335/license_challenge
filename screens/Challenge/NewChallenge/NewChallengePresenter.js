@@ -3,8 +3,12 @@ import * as ImagePicker from "expo-image-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import styled from "styled-components/native";
 import RedButton from "../../../components/RedButton";
-import { TextInput, Checkbox } from "react-native-paper";
-import { Platform, Image, TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity, Text, View } from "react-native";
+import Checkbox from "../../../components/CheckBox";
+import OneLineTextInput from "../../../components/OneLineTextInput";
+import MultiLineTextInput from "../../../components/MultiLineTextInput";
+import NumericTextInput from "../../../components/NumericTextInput";
+import Camera from "../../../assets/icon/Camera";
 
 export default ({ CD, SCD, postData, navigation }) => {
   useEffect(() => {
@@ -20,97 +24,49 @@ export default ({ CD, SCD, postData, navigation }) => {
     })();
   }, []);
 
-  const pickImage = async () => {
+  const pickImage = async (type) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(result);
     if (!result.cancelled) {
-      SCD.setChallengeTitleImage(result.uri);
+      if (type == "title") {
+        SCD.setChallengeTitleImage(result.uri);
+      } else if (type == "good") {
+        SCD.setGoodProofImage(result.uri);
+      } else if (type == "bad") {
+        SCD.setBadProofImage(result.uri);
+      }
     }
   };
 
   return (
     <Container>
-      <Contents>
+      <Body>
         <Scroll>
           <CT>
-            <Title>챌린지 타이틀 사진</Title>
-            <TouchableOpacity onPress={pickImage} style={{ width: "100%" }}>
-              {CD.challengeTitleImage ? (
-                <Image
-                  source={{ uri: CD.challengeTitleImage }}
-                  style={{ width: "100%", height: 150 }}
+            <Content>
+              <Title>챌린지 카테고리</Title>
+              <RowContent>
+                <Checkbox
+                  isSelected={CD.challengeCategory == "자격증" ? true : false}
+                  onPress={() => SCD.setChallengeCategory("자격증")}
+                  name={"자격증"}
                 />
-              ) : (
-                <Image
-                  source={require("../../../assets/img/food.jpg")}
-                  style={{ width: "100%", height: 150 }}
+                <Checkbox
+                  isSelected={CD.challengeCategory == "공인시험" ? true : false}
+                  onPress={() => SCD.setChallengeCategory("공인시험")}
+                  name={"공인시험"}
                 />
-              )}
-            </TouchableOpacity>
-
-            <TextInput
-              label="챌린지 제목"
-              mode="outlined"
-              style={{
-                width: "70%",
-                margin: 10,
-                marginTop: 20,
-                maxWidth: 320,
-                height: 40,
-              }}
-              onChangeText={(text) => {
-                SCD.setChallengeTitle(text);
-              }}
-            />
-            <TextInput
-              label="챌린지 소개글"
-              mode="outlined"
-              style={{
-                width: "70%",
-                margin: 10,
-                maxWidth: 320,
-              }}
-              multiline={true}
-              onChangeText={(text) => {
-                SCD.setChallengeIntroduction(text);
-              }}
-            />
-
-            <Title>챌린지 카테고리</Title>
-            <ChallengeCategory>
-              <Checkbox.Item
-                status={
-                  CD.challengeCategory == "자격증" ? "checked" : "unchecked"
-                }
-                onPress={() => {
-                  SCD.setChallengeCategory("자격증");
-                }}
-                label="자격증"
-              />
-              <Checkbox.Item
-                status={
-                  CD.challengeCategory == "공인시험" ? "checked" : "unchecked"
-                }
-                onPress={() => {
-                  SCD.setChallengeCategory("공인시험");
-                }}
-                label="공인시험"
-              />
-              <Checkbox.Item
-                status={
-                  CD.challengeCategory == "스터디" ? "checked" : "unchecked"
-                }
-                onPress={() => {
-                  SCD.setChallengeCategory("스터디");
-                }}
-                label="스터디"
-              />
-            </ChallengeCategory>
+                <Checkbox
+                  isSelected={CD.challengeCategory == "스터디" ? true : false}
+                  onPress={() => SCD.setChallengeCategory("스터디")}
+                  name={"스터디"}
+                />
+              </RowContent>
+            </Content>
 
             {CD.challengeCategory == "자격증" ? (
               <>
@@ -119,85 +75,185 @@ export default ({ CD, SCD, postData, navigation }) => {
               </>
             ) : null}
 
-            <TextInput
-              label="일주일 당 인증 횟수"
-              mode="outlined"
-              style={{
-                width: "70%",
-                margin: 10,
-                maxWidth: 320,
-              }}
-              onChangeText={(text) => {
-                SCD.setProofCount(text);
-              }}
-            />
-            <TextInput
-              label="하루 당 인증 횟수"
-              mode="outlined"
-              style={{
-                width: "70%",
-                margin: 10,
-                maxWidth: 320,
-              }}
-              onChangeText={(text) => {
-                SCD.setProofCountOneDay(text);
-              }}
-            />
+            <Content>
+              <Title>챌린지 타이틀 사진</Title>
+              <PickImage onPress={() => pickImage("title")}>
+                {CD.challengeTitleImage ? (
+                  <Image source={{ uri: CD.challengeTitleImage }} />
+                ) : null}
+                <Camera style={{ position: "absolute" }} />
+              </PickImage>
+            </Content>
 
-            <Title>인증 가능 요일</Title>
-            <Checkbox.Item
-              status={CD.challengeCategory == "월" ? "checked" : "unchecked"}
-              onPress={() => {
-                SCD.setProofAvailableDay("월");
-              }}
-              label="월"
-            />
+            <Content>
+              <Title>챌린지 제목</Title>
+              <OneLineTextInput
+                onChange={(text) => {
+                  SCD.setChallengeTitle(text);
+                }}
+                plh={"예) 정보처리기사 자격증 챌린지!!"}
+              />
+            </Content>
 
-            <Checkbox.Item
-              status={CD.challengeCategory == "월" ? "checked" : "unchecked"}
-              onPress={() => {
-                SCD.setProofAvailableDay("월");
-              }}
-              label="월"
-            />
-            <Checkbox.Item
-              status={CD.challengeCategory == "월" ? "checked" : "unchecked"}
-              onPress={() => {
-                SCD.setProofAvailableDay("월");
-              }}
-              label="월"
-            />
-            <Checkbox.Item
-              status={CD.challengeCategory == "월" ? "checked" : "unchecked"}
-              onPress={() => {
-                SCD.setProofAvailableDay("월");
-              }}
-              label="월"
-            />
-            <Checkbox.Item
-              status={CD.challengeCategory == "월" ? "checked" : "unchecked"}
-              onPress={() => {
-                SCD.setProofAvailableDay("월");
-              }}
-              label="월"
-            />
-            <Checkbox.Item
-              status={CD.challengeCategory == "월" ? "checked" : "unchecked"}
-              onPress={() => {
-                SCD.setProofAvailableDay("월");
-              }}
-              label="월"
-            />
-            <Checkbox.Item
-              status={CD.challengeCategory == "월" ? "checked" : "unchecked"}
-              onPress={() => {
-                SCD.setProofAvailableDay("월");
-              }}
-              label="월"
-            />
+            <Content>
+              <Title>챌린지 소개글</Title>
+              <MultiLineTextInput
+                onChange={(text) => {
+                  SCD.setChallengeIntroduction(text);
+                }}
+                plh={"예) 2021년 정처기 공부 같이 꾸준히 해봐요! "}
+              />
+            </Content>
+
+            <Content>
+              <Title>인증빈도</Title>
+              <RowContent>
+                <Checkbox
+                  isSelected={CD.proofCount == 1 ? true : false}
+                  onPress={() => SCD.setProofCount(1)}
+                  name={"주 1회"}
+                />
+                <Checkbox
+                  isSelected={CD.proofCount == 2 ? true : false}
+                  onPress={() => SCD.setProofCount(2)}
+                  name={"주 2회"}
+                />
+                <Checkbox
+                  isSelected={CD.proofCount == 3 ? true : false}
+                  onPress={() => SCD.setProofCount(3)}
+                  name={"주 3회"}
+                />
+                <Checkbox
+                  isSelected={CD.proofCount == 4 ? true : false}
+                  onPress={() => SCD.setProofCount(4)}
+                  name={"주 4회"}
+                />
+                <Checkbox
+                  isSelected={CD.proofCount == 5 ? true : false}
+                  onPress={() => SCD.setProofCount(5)}
+                  name={"주 5회"}
+                />
+                <Checkbox
+                  isSelected={CD.proofCount == 6 ? true : false}
+                  onPress={() => SCD.setProofCount(6)}
+                  name={"주 6회"}
+                />
+                <Checkbox
+                  isSelected={CD.proofCount == 7 ? true : false}
+                  onPress={() => SCD.setProofCount(7)}
+                  name={"주 7회"}
+                />
+              </RowContent>
+            </Content>
+
+            {CD.proofCount == 7 ? null : (
+              <Content>
+                <Title>인증가능 요일</Title>
+                <RowContent>
+                  <Checkbox isSelected={false} name={"월"} />
+                  <Checkbox isSelected={false} name={"화"} />
+                  <Checkbox isSelected={false} name={"수"} />
+                  <Checkbox isSelected={false} name={"목"} />
+                  <Checkbox isSelected={false} name={"금"} />
+                  <Checkbox isSelected={false} name={"토"} />
+                  <Checkbox isSelected={false} name={"일"} />
+                </RowContent>
+              </Content>
+            )}
+
+            <Content>
+              <Title>하루 인증 횟수</Title>
+              <RowContent>
+                <NumericTextInput
+                  onChange={(text) => SCD.setProofCountOneDay(text)}
+                  plh={"1"}
+                />
+                <Title>회</Title>
+              </RowContent>
+            </Content>
+
+            <Content>
+              <Title>인증방법</Title>
+              <MultiLineTextInput
+                onChange={(text) => {
+                  SCD.setChallengeIntroduction(text);
+                }}
+                plh={"예) 정처기 책 한페이지 찍어서 올리기! "}
+              />
+            </Content>
+
+            <Content>
+              <Title>인증샷 예시</Title>
+              <RowContent>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    margin: 10,
+                    alignItems: "center",
+                  }}
+                >
+                  <PickImage onPress={() => pickImage("good")}>
+                    {CD.goodProofImage ? (
+                      <Image source={{ uri: CD.goodProofImage }} />
+                    ) : null}
+                    <Camera style={{ position: "absolute" }} />
+                  </PickImage>
+                  <Text>좋은 예시</Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    margin: 10,
+                    alignItems: "center",
+                  }}
+                >
+                  <PickImage onPress={() => pickImage("bad")}>
+                    {CD.badProofImage ? (
+                      <Image source={{ uri: CD.badProofImage }} />
+                    ) : null}
+                    <Camera style={{ position: "absolute" }} />
+                  </PickImage>
+                  <Text>나쁜 예시</Text>
+                </View>
+              </RowContent>
+            </Content>
+
+            <Content>
+              <Title>챌린지 시작일</Title>
+            </Content>
+
+            <Content>
+              <Title>챌린지 종료일</Title>
+            </Content>
+
+            <Content>
+              <Title>참가 보증금</Title>
+              <RowContent>
+                <NumericTextInput
+                  onChange={(text) => {
+                    SCD.setDeposit(text);
+                  }}
+                  plh={"1000"}
+                />
+                <Title>포인트</Title>
+              </RowContent>
+            </Content>
+
+            <Content>
+              <Title>제한인원</Title>
+              <RowContent>
+                <NumericTextInput
+                  onChange={(text) => {
+                    SCD.setLimitPeople(text);
+                  }}
+                  plh={"10"}
+                />
+                <Title>명</Title>
+              </RowContent>
+            </Content>
           </CT>
         </Scroll>
-      </Contents>
+      </Body>
       <Footer>
         <RedButton name={"챌린지 생성하기"} />
       </Footer>
@@ -209,7 +265,7 @@ const Container = styled.View`
   flex: 1;
   background-color: white;
 `;
-const Contents = styled.View`
+const Body = styled.View`
   position: absolute;
   height: 93%;
   width: 100%;
@@ -231,16 +287,38 @@ const Footer = styled.View`
 const Scroll = styled.ScrollView``;
 
 const CT = styled.View`
+  flex: 1;
+  margin: 0px 20px;
+`;
+
+const Content = styled.View`
+  margin: 20px 0px;
+`;
+
+const RowContent = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
 `;
 
 const Title = styled.Text`
-  font-size: 15px;
+  font-size: 20px;
   color: #3b1464;
-  margin: 5px;
-  margin-top: 20px;
+  font-family: "nanumBold";
+  margin-bottom: 5px;
 `;
 
-const ChallengeCategory = styled.View`
-  flex-direction: row;
+const PickImage = styled.TouchableOpacity`
+  width: 150px;
+  height: 100px;
+  border-radius: 10px;
+  background-color: #bebebe;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Image = styled.Image`
+  width: 150px;
+  height: 100px;
+  border-radius: 10px;
 `;
