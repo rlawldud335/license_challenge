@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import styled from "styled-components/native";
 import RedButton from "../../../components/RedButton";
-import { Platform, TouchableOpacity, Text, View } from "react-native";
+import { Platform, Text, View } from "react-native";
 import Checkbox from "../../../components/CheckBox";
 import OneLineTextInput from "../../../components/OneLineTextInput";
 import MultiLineTextInput from "../../../components/MultiLineTextInput";
 import NumericTextInput from "../../../components/NumericTextInput";
 import Camera from "../../../assets/icon/Camera";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
-export default ({ CD, SCD, postData, navigation }) => {
+export default ({ CD, SCD, postData }) => {
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -42,6 +42,17 @@ export default ({ CD, SCD, postData, navigation }) => {
     }
   };
 
+  const setDays = (day) => {
+    let temp = CD.proofAvailableDay;
+    if (temp.indexOf(day) != -1) {
+      SCD.setProofAvailableDay(temp.replace(day, ""));
+    } else {
+      if (temp.length < CD.proofCount) {
+        temp += day;
+        SCD.setProofAvailableDay(temp);
+      }
+    }
+  };
   return (
     <Container>
       <Body>
@@ -110,37 +121,58 @@ export default ({ CD, SCD, postData, navigation }) => {
               <RowContent>
                 <Checkbox
                   isSelected={CD.proofCount == 1 ? true : false}
-                  onPress={() => SCD.setProofCount(1)}
+                  onPress={() => {
+                    SCD.setProofCount(1);
+                    SCD.setProofAvailableDay("월");
+                  }}
                   name={"주 1회"}
                 />
                 <Checkbox
                   isSelected={CD.proofCount == 2 ? true : false}
-                  onPress={() => SCD.setProofCount(2)}
+                  onPress={() => {
+                    SCD.setProofCount(2);
+                    SCD.setProofAvailableDay("월화");
+                  }}
                   name={"주 2회"}
                 />
                 <Checkbox
                   isSelected={CD.proofCount == 3 ? true : false}
-                  onPress={() => SCD.setProofCount(3)}
+                  onPress={() => {
+                    SCD.setProofCount(3);
+                    SCD.setProofAvailableDay("월화수");
+                  }}
                   name={"주 3회"}
                 />
                 <Checkbox
                   isSelected={CD.proofCount == 4 ? true : false}
-                  onPress={() => SCD.setProofCount(4)}
+                  onPress={() => {
+                    SCD.setProofCount(4);
+                    SCD.setProofAvailableDay("월화수목");
+                  }}
                   name={"주 4회"}
                 />
                 <Checkbox
                   isSelected={CD.proofCount == 5 ? true : false}
-                  onPress={() => SCD.setProofCount(5)}
+                  onPress={() => {
+                    SCD.setProofCount(5);
+                    SCD.setProofAvailableDay("월화수목금");
+                  }}
                   name={"주 5회"}
                 />
                 <Checkbox
                   isSelected={CD.proofCount == 6 ? true : false}
-                  onPress={() => SCD.setProofCount(6)}
+                  onPress={() => {
+                    SCD.setProofCount(6);
+                    SCD.setProofAvailableDay("월화수목금토");
+                  }}
                   name={"주 6회"}
                 />
                 <Checkbox
                   isSelected={CD.proofCount == 7 ? true : false}
-                  onPress={() => SCD.setProofCount(7)}
+                  onPress={() => {
+                    SCD.setProofCount(7);
+                    SCD.setProofAvailableDay("월화수목금토일");
+                  }}
                   name={"주 7회"}
                 />
               </RowContent>
@@ -150,13 +182,55 @@ export default ({ CD, SCD, postData, navigation }) => {
               <Content>
                 <Title>인증가능 요일</Title>
                 <RowContent>
-                  <Checkbox isSelected={false} name={"월"} />
-                  <Checkbox isSelected={false} name={"화"} />
-                  <Checkbox isSelected={false} name={"수"} />
-                  <Checkbox isSelected={false} name={"목"} />
-                  <Checkbox isSelected={false} name={"금"} />
-                  <Checkbox isSelected={false} name={"토"} />
-                  <Checkbox isSelected={false} name={"일"} />
+                  <Checkbox
+                    isSelected={
+                      CD.proofAvailableDay.indexOf("월") != -1 ? true : false
+                    }
+                    onPress={() => setDays("월")}
+                    name={"월"}
+                  />
+                  <Checkbox
+                    isSelected={
+                      CD.proofAvailableDay.indexOf("화") != -1 ? true : false
+                    }
+                    onPress={() => setDays("화")}
+                    name={"화"}
+                  />
+                  <Checkbox
+                    isSelected={
+                      CD.proofAvailableDay.indexOf("수") != -1 ? true : false
+                    }
+                    onPress={() => setDays("수")}
+                    name={"수"}
+                  />
+                  <Checkbox
+                    isSelected={
+                      CD.proofAvailableDay.indexOf("목") != -1 ? true : false
+                    }
+                    onPress={() => setDays("목")}
+                    name={"목"}
+                  />
+                  <Checkbox
+                    isSelected={
+                      CD.proofAvailableDay.indexOf("금") != -1 ? true : false
+                    }
+                    onPress={() => setDays("금")}
+                    name={"금"}
+                  />
+                  <Checkbox
+                    isSelected={
+                      CD.proofAvailableDay.indexOf("토") != -1 ? true : false
+                    }
+                    onPress={() => setDays("토")}
+                    name={"토"}
+                  />
+                  <Checkbox
+                    isSelected={
+                      CD.proofAvailableDay.indexOf("일") != -1 ? true : false
+                    }
+                    onPress={() => setDays("일")}
+                    name={"일"}
+                  />
                 </RowContent>
               </Content>
             )}
@@ -167,6 +241,7 @@ export default ({ CD, SCD, postData, navigation }) => {
                 <NumericTextInput
                   onChange={(text) => SCD.setProofCountOneDay(text)}
                   plh={"1"}
+                  value={CD.proofCountOneDay}
                 />
                 <Title>회</Title>
               </RowContent>
@@ -176,7 +251,7 @@ export default ({ CD, SCD, postData, navigation }) => {
               <Title>인증방법</Title>
               <MultiLineTextInput
                 onChange={(text) => {
-                  SCD.setChallengeIntroduction(text);
+                  SCD.setProofMethod(text);
                 }}
                 plh={"예) 정처기 책 한페이지 찍어서 올리기! "}
               />
@@ -220,10 +295,30 @@ export default ({ CD, SCD, postData, navigation }) => {
 
             <Content>
               <Title>챌린지 시작일</Title>
+              <DateTimePicker
+                value={CD.chgStartDt}
+                mode={"date"}
+                is24Hour={true}
+                display="default"
+                onChange={(event, selectedDate) => {
+                  const currentDate = selectedDate || CD.chgStartDt;
+                  SCD.setChgStartDt(currentDate);
+                }}
+              />
             </Content>
 
             <Content>
               <Title>챌린지 종료일</Title>
+              <DateTimePicker
+                value={CD.chgEndDt}
+                mode={"date"}
+                is24Hour={true}
+                display="default"
+                onChange={(event, selectedDate) => {
+                  const currentDate = selectedDate || CD.chgEndDt;
+                  SCD.setChgStartDt(currentDate);
+                }}
+              />
             </Content>
 
             <Content>
@@ -234,6 +329,7 @@ export default ({ CD, SCD, postData, navigation }) => {
                     SCD.setDeposit(text);
                   }}
                   plh={"1000"}
+                  value={CD.deposit}
                 />
                 <Title>포인트</Title>
               </RowContent>
@@ -247,6 +343,7 @@ export default ({ CD, SCD, postData, navigation }) => {
                     SCD.setLimitPeople(text);
                   }}
                   plh={"10"}
+                  value={CD.limitPeople}
                 />
                 <Title>명</Title>
               </RowContent>
@@ -255,7 +352,7 @@ export default ({ CD, SCD, postData, navigation }) => {
         </Scroll>
       </Body>
       <Footer>
-        <RedButton name={"챌린지 생성하기"} />
+        <RedButton fc={postData} name={"챌린지 생성하기"} />
       </Footer>
     </Container>
   );
