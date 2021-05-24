@@ -12,6 +12,7 @@ import LicenseWebview from "../../screens/Explore/License/LicenseWebview";
 import LoadingScreen from "../../screens/LoadingScreen";
 import SigninScreen from "../../screens/SigninScreen";
 import SignupScreen from "../../screens/SignupScreen";
+import NewCommunity from "../../screens/Community/NewCommunity/NewCommunityContainer";
 
 const Stack = createStackNavigator();
 
@@ -59,7 +60,7 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         headerStyle: {
-          borderBottomColor: "white",
+          borderColor: "white",
           height: 75,
         },
         headerTitleContainerStyle: {
@@ -127,6 +128,15 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
       })}
+    />
+    <Stack.Screen
+      name="NewCommunity"
+      component={NewCommunity}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "새로운 커뮤니티 글 생성",
+      }}
     />
   </Stack.Navigator>
 );

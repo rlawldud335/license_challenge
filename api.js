@@ -5,10 +5,10 @@ const getRequest = async (path, params = {}) => {
   try {
     const token = await AsyncStorage.getItem("token");
     const { data } = await axios.get(
-      `https://license-challenge.herokuapp.com/${path}`,
+      `https://license-challenge.herokuapp.com${path}`,
       {
         headers: {
-          authorization: `Basic ${token}`,
+          authorization: `Bearer ${token}`,
         },
         params,
       }
@@ -20,14 +20,63 @@ const getRequest = async (path, params = {}) => {
   }
 };
 
-const postReqest = async (path, params = {}) => {};
+const postFormReqest = async (path, body) => {
+  try {
+    const token = await AsyncStorage.getItem("token");
+    const { data } = await axios.post(
+      `https://license-challenge.herokuapp.com${path}`,
+      body,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const postJsonReqest = async (path, body) => {
+  try {
+    const { data } = await axios.post(
+      `https://license-challenge.herokuapp.com${path}`,
+      body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const Api = {
-  licenseAll: (pageNum, numOfRows) =>
-    getRequest("license", { pageNum, numOfRows }),
-  challengeCategory: (pageNum, numOfRows, category) =>
-    getRequest("challenge", { pageNum, numOfRows, category }),
-  postChallenge: (params) => postReqest("/challenge", params),
+  postAuthSignin: (email, password) =>
+    postJsonReqest("/auth/signin", {
+      email,
+      password,
+    }),
+  postAuthSignup: (email, password, nickname, phoneNumber) =>
+    postJsonReqest("/auth/signup", { email, password, nickname, phoneNumber }),
+
+  getLicense: (pageNum, numOfRows) =>
+    getRequest("/license", { pageNum, numOfRows }),
+
+  postChallenge: (body) => postFormReqest("/challenge", body),
+
+  getChallengeChallengeId: (cid) => getRequest(`/challenge/${cid}`),
+
+  getChallenge: (pageNum, numOfRows, category) =>
+    getRequest("/challenge", { pageNum, numOfRows, category }),
+
+  getLicenseSearch: (keyword) => getRequest("/license/search", { keyword }),
 };
 
 export default Api;

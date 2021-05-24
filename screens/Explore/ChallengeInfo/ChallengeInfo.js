@@ -1,55 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   Image,
   ScrollView,
   TouchableOpacity,
-  Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import Title from "../../../components/Title";
 import Tag from "../../../components/Tag";
 import { Entypo } from "@expo/vector-icons";
-
-const HEIGHT = Dimensions.get("window").height - 60;
-const data = {
-  challengeId: 1,
-  challengeTitle:
-    "CHALLENGE1부시작과 공부끝에 인증사진 찍어서 올리세부시작과 공부끝에 인증사진 찍어서 올리세부시작과 공부끝에 인증사진 찍어서 올리세",
-  challengeCategory: "공인시험",
-  scheduleId: 1,
-  leaderId: "2021001",
-  proofMethod:
-    "공부시작과 공부끝에 인증사진 찍어서 올리세요.부시작과 공부끝에 인증사진 찍어서 올리세부시작과 공부끝에 인증사진 찍어서 올리세부시작과 공부끝에 인증사진 찍어서 올리세",
-  proofCount: 2,
-  proofCountOneDay: 2,
-  chgStartDt: "2021-05-03T15:00:00.000Z",
-  chgEndDt: "2021-05-30T15:00:00.000Z",
-  challengeTerm: 4,
-  challengeTitleImage:
-    "https://licensechallenge.s3.ap-northeast-2.amazonaws.com/challenge/title/1620114161603",
-  challengeInroduction: "정처기 챌린지방입니다",
-  goodProofImage:
-    "https://licensechallenge.s3.ap-northeast-2.amazonaws.com/challenge/title/1620661285873",
-  badProofImage:
-    "https://licensechallenge.s3.ap-northeast-2.amazonaws.com/challenge/title/1620661285881",
-  deposit: 10000,
-  limitPeople: 20,
-  joinPeople: 10,
-};
+import Api from "../../../api";
 
 export default ({ route }) => {
-  console.log(route);
-  return (
+  const {
+    params: { challengeId },
+  } = route;
+  const [challenge, setChallenge] = useState({});
+
+  const getData = async () => {
+    const response = await Api.getChallengeChallengeId(challengeId);
+    console.log(response);
+    setChallenge(response[0]);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return challenge ? (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ position: "absolute", height: "93%", width: "100%" }}>
         <ScrollView>
           <Image
-            source={{ uri: data.challengeTitleImage }}
-            style={{ width: "100%", height: 300 }}
+            source={{ url: challenge.challengeTitleImage }}
+            style={{ width: "100%", height: 250 }}
           />
           <View style={{ padding: 20 }}>
-            <Title title={data.challengeTitle} />
+            <Title title={challenge.challengeTitle} />
             <View
               style={{
                 flexDirection: "row",
@@ -58,21 +46,20 @@ export default ({ route }) => {
                 paddingLeft: 5,
               }}
             >
-              <Tag tagName={`${data.deposit} P`} />
-              <Tag tagName={`하루 ${data.proofCountOneDay}번 인증`} />
-              <Tag tagName={`태그입니다`} />
-              <Tag tagName={`태그입니다`} />
-              <Tag
-                tagName={`${data.chgStartDt.slice(
-                  0,
-                  10
-                )} ~ ${data.chgEndDt.slice(0, 10)}`}
-              />
+              <Tag tagName={`${challenge.deposit} P`} />
+              <Tag tagName={`${challenge.challengeCategory}`} />
+              <Tag tagName={`${challenge.licenseName}`} />
+              <Tag tagName={`${challenge.proofAvailableDay}`} />
+              <Tag tagName={`하루 ${challenge.proofCountOneDay}번 인증`} />
+              <Tag tagName={`총 ${challenge.challengeTerm}번 인증`} />
             </View>
+            <Text>
+              {challenge.chgStartDt} ~{challenge.chgEndDt}
+            </Text>
             <View style={{ marginTop: 20 }}>
               <Title title={"챌린지 소개글"} />
-              <Text>{data.leaderId}</Text>
-              <Text>{data.challengeInroduction}</Text>
+              <Text>{challenge.leaderId}</Text>
+              <Text>{challenge.challengeInroduction}</Text>
             </View>
             <View
               style={{
@@ -83,21 +70,21 @@ export default ({ route }) => {
               }}
             >
               <Title title={"인증방법"} />
-              <Text>{data.proofMethod}</Text>
+              <Text>{challenge.proofMethod}</Text>
               <Title title={"인증예시"} />
               <View
                 style={{ flexDirection: "row", justifyContent: "space-around" }}
               >
                 <View style={{ flexDirection: "column" }}>
                   <Image
-                    source={{ uri: data.goodProofImage }}
+                    source={{ uri: challenge.goodProofImage }}
                     style={{ width: 140, height: 140, borderRadius: 10 }}
                   />
                   <Text>좋은예시</Text>
                 </View>
                 <View style={{ flexDirection: "column" }}>
                   <Image
-                    source={{ uri: data.badProofImage }}
+                    source={{ uri: challenge.badProofImage }}
                     style={{ width: 140, height: 140, borderRadius: 10 }}
                   />
                   <Text>나쁜예시</Text>
@@ -109,9 +96,9 @@ export default ({ route }) => {
               <Title title={"참가현황"} />
               <Text>
                 {" "}
-                현재 참가인원 {data.joinPeople}/{data.limitPeople}
+                현재 참가인원 {challenge.joinPeople}/{challenge.limitPeople}
               </Text>
-              <Text> 참가 포인트 {data.deposit}P</Text>
+              <Text> 참가 포인트 {challenge.deposit}P</Text>
             </View>
 
             <Text>정보처리기사 관련 추천 자격증</Text>
@@ -152,5 +139,7 @@ export default ({ route }) => {
         </TouchableOpacity>
       </View>
     </View>
+  ) : (
+    <ActivityIndicator size="small" color="purple" />
   );
 };

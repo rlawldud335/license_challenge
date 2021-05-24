@@ -11,7 +11,7 @@ export default ({ navigation }) => {
   });
 
   const getData = async () => {
-    const licenseData = await Api.licenseAll(
+    const licenseData = await Api.getLicense(
       license.pageNum,
       license.numOfRows
     );

@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 
-export default () => (
-  <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-    <Text>FreeBoard</Text>
-  </View>
-);
+const getData = ()=>{
+
+}
+
+export default () => {
+
+useEffect(
+  ()=>{
+    getData();
+  },[]);
+
+  return (  <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+  <Text>FreeBoard</Text>
+</View>);
+};

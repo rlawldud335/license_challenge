@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, View, SafeAreaView, Linking, Platform } from "react-native";
+import { Image, View, SafeAreaView } from "react-native";
 import { Asset } from "expo-asset";
 import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";

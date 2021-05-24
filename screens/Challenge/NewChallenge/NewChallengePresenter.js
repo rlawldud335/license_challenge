@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import * as ImagePicker from "expo-image-picker";
 import styled from "styled-components/native";
 import RedButton from "../../../components/RedButton";
-import { Platform, Text, View } from "react-native";
+import { Platform, Text, View, FlatList } from "react-native";
 import Checkbox from "../../../components/CheckBox";
 import OneLineTextInput from "../../../components/OneLineTextInput";
 import MultiLineTextInput from "../../../components/MultiLineTextInput";
@@ -10,7 +10,15 @@ import NumericTextInput from "../../../components/NumericTextInput";
 import Camera from "../../../assets/icon/Camera";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-export default ({ CD, SCD, postData }) => {
+export default ({
+  CD,
+  SCD,
+  postData,
+  keyword,
+  setKeyword,
+  searchResult,
+  searchLicense,
+}) => {
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -26,8 +34,7 @@ export default ({ CD, SCD, postData }) => {
 
   const pickImage = async (type) => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       aspect: [4, 3],
       quality: 1,
     });
@@ -53,6 +60,9 @@ export default ({ CD, SCD, postData }) => {
       }
     }
   };
+
+  const textInputLicenseName = useRef(null);
+
   return (
     <Container>
       <Body>
@@ -80,10 +90,41 @@ export default ({ CD, SCD, postData }) => {
             </Content>
 
             {CD.challengeCategory == "자격증" ? (
-              <>
+              <Content>
                 <Title>자격증 선택</Title>
-                <Title>자격증 회차 선택</Title>
-              </>
+                <OneLineTextInput
+                  ref={textInputLicenseName}
+                  value={keyword}
+                  onChange={(text) => {
+                    setKeyword(text);
+                  }}
+                  onSubmit={(e) => searchLicense(e.nativeEvent.text)}
+                  plh={"자격증 이름을 검색해보세요."}
+                />
+                {searchResult.length == 0 ? null : (
+                  <>
+                    <FlatList
+                      nestedScrollEnabled
+                      style={{ maxHeight: 100, width: "80%" }}
+                      data={searchResult}
+                      renderItem={({ item }) => {
+                        return (
+                          <LicenseName
+                            onPress={() => {
+                              SCD.setLicenseId(item.licenseId);
+                              searchLicense(item.licenseName);
+                            }}
+                          >
+                            {item.licenseName}
+                          </LicenseName>
+                        );
+                      }}
+                      numColumns={1}
+                      keyExtractor={(item) => item.licenseId.toString()}
+                    />
+                  </>
+                )}
+              </Content>
             ) : null}
 
             <Content>
@@ -316,7 +357,7 @@ export default ({ CD, SCD, postData }) => {
                 display="default"
                 onChange={(event, selectedDate) => {
                   const currentDate = selectedDate || CD.chgEndDt;
-                  SCD.setChgStartDt(currentDate);
+                  SCD.setChgEndDt(currentDate);
                 }}
               />
             </Content>
@@ -403,6 +444,13 @@ const Title = styled.Text`
   color: #3b1464;
   font-family: "nanumBold";
   margin-bottom: 5px;
+`;
+
+const LicenseName = styled.Text`
+  font-size: 17px;
+  color: #04009a;
+  font-family: "nanumBold";
+  margin: 5px 0px;
 `;
 
 const PickImage = styled.TouchableOpacity`

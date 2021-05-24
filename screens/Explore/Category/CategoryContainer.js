@@ -13,7 +13,7 @@ export default ({ route, navigation }) => {
     challengeData: [],
   });
   const getData = async () => {
-    const challengeData = await Api.challengeCategory(
+    const challengeData = await Api.getChallenge(
       challenge.pageNum,
       challenge.numOfRows,
       category

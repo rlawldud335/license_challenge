@@ -7,28 +7,6 @@ import CerExamIcon from "../../../assets/icon/CerExamIcon";
 import StudyIcon from "../../../assets/icon/StudyIcon";
 import AllIcon from "../../../assets/icon/AllIcon";
 
-const Container = styled.View`
-  height: 150px;
-  width: 100%;
-`;
-const IconContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-  padding-top: 20px;
-`;
-
-const IconBtn = styled.TouchableOpacity`
-  align-items: center;
-  justify-content: flex-end;
-`;
-
-const BtnName = styled.Text`
-  font-family: "nanumBold";
-  font-size: 15px;
-  color: #3b1464;
-  margin-top: 5px;
-`;
-
 export default ({ navigation }) => {
   return (
     <Container>
@@ -82,3 +60,25 @@ export default ({ navigation }) => {
     </Container>
   );
 };
+
+const Container = styled.View`
+  height: 150px;
+  width: 100%;
+`;
+const IconContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 20px;
+`;
+
+const IconBtn = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+const BtnName = styled.Text`
+  font-family: "nanumBold";
+  font-size: 15px;
+  color: #3b1464;
+  margin-top: 5px;
+`;

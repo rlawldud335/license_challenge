@@ -20,7 +20,6 @@ const formatData = (data, numColumns) => {
 
 const numColumns = 2;
 export default ({ challengeData, getData, navigation }) => {
-  console.log(challengeData);
   const renderItem = ({ item }) => {
     if (item.empty === true) {
       return <View style={{ flex: 1, margin: 10 }} />;
@@ -39,12 +38,8 @@ export default ({ challengeData, getData, navigation }) => {
           <Tag tagName={`${item.deposit} P`} />
           <Tag tagName={`일주일에 ${item.proofCount}번 인증`} />
           <Tag tagName={`하루 ${item.proofCountOneDay}번 인증`} />
-          <Tag
-            tagName={`${item.chgStartDt.slice(0, 10)}  ~  ${item.chgEndDt.slice(
-              0,
-              10
-            )}`}
-          />
+          <Tag tagName={`총 ${item.challengeTerm}번 인증`} />
+          {item.licenseName ? <Tag tagName={item.licenseName} /> : null}
         </Tags>
       </Challenge>
     );
