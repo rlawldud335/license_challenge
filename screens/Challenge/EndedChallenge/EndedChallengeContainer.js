@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList } from "react-native";
-import InProgressChallengePresenter from "./InProgressChallengePresenter";
+import EndedChallengePresenter from "./EndedChallengePresenter";
 
 export default ({ navigation }) => {
   const data = [
@@ -38,7 +38,7 @@ export default ({ navigation }) => {
   ];
 
   const renderItem = ({ item }) => {
-    return <InProgressChallengePresenter item={item} navigation={navigation} />;
+    return <EndedChallengePresenter item={item} navigation={navigation} />;
   };
 
   return (

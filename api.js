@@ -9,11 +9,12 @@ const getRequest = async (path, params = {}) => {
       {
         headers: {
           authorization: `Bearer ${token}`,
+          Accept: "*/*",
         },
         params,
       }
     );
-    return response.data;
+    return response;
   } catch (e) {
     console.log(e);
     return [];
@@ -66,15 +67,16 @@ const Api = {
   postAuthSignup: (email, password, nickname, phoneNumber) =>
     postJsonReqest("/auth/signup", { email, password, nickname, phoneNumber }),
 
+  postChallenge: (body) => postFormReqest("/challenge", body),
+
   getLicense: (pageNum, numOfRows) =>
     getRequest("/license", { pageNum, numOfRows }),
 
-  postChallenge: (body) => postFormReqest("/challenge", body),
-
-  getChallengeChallengeId: (cid) => getRequest(`/challenge/${cid}`),
-
   getChallenge: (pageNum, numOfRows, category) =>
     getRequest("/challenge", { pageNum, numOfRows, category }),
+
+  getChallengeChallengeId: (challengeId) =>
+    getRequest(`/challenge/${challengeId}`),
 
   getLicenseSearch: (keyword) => getRequest("/license/search", { keyword }),
 };

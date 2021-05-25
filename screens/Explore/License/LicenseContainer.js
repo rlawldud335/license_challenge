@@ -15,12 +15,16 @@ export default ({ navigation }) => {
   const getData = async () => {
     setIsLoading(true);
     const response = await Api.getLicense(pageNum, numOfRows);
-    if (response.length == 0) {
+    if (response.data.length == 0) {
       setIsEnd(true);
     }
-    setPageNum(pageNum + 1);
-    setLicenseData(licenseData.concat(response));
-    setIsLoading(false);
+    if (response.status == 200) {
+      setPageNum(pageNum + 1);
+      setLicenseData(licenseData.concat(response.data));
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
   };
 
   const handleLoadMore = () => {
@@ -50,6 +54,7 @@ export default ({ navigation }) => {
       ListFooterComponent={
         isLoading && <ActivityIndicator size="small" color="purple" />
       }
+      disableVirtualization={false}
     />
   );
 };

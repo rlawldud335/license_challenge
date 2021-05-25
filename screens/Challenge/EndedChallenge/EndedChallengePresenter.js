@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components/native";
 import Menu from "../../../assets/icon/Menu";
 import Tag from "../../../components/Tag";
-import Camera from "../../../assets/icon/Camera";
 import { View, StyleSheet } from "react-native";
 
 const renderItem = ({ item, navigation }) => {
@@ -40,7 +39,6 @@ const renderItem = ({ item, navigation }) => {
 
       <ImageBtn>
         <Image source={{ uri: item.challengeTitleImage }} style={{}} />
-        <Camera style={{ position: "absolute" }} />
       </ImageBtn>
     </Box>
   );
@@ -52,12 +50,8 @@ const Box = styled.TouchableOpacity`
   height: 160px;
   flex-direction: row;
   margin: 7px 10px;
-  shadow-color: #000;
-  shadow-offset: 0px 0px;
-  shadow-opacity: 0.15;
-  shadow-radius: 10px;
   border-radius: 10px;
-  background-color: white;
+  background-color: #e5e5e5;
   justify-content: center;
   align-items: center;
 `;
@@ -66,7 +60,7 @@ const Content = styled.View`
   width: 57%;
 `;
 
-const ImageBtn = styled.TouchableOpacity`
+const ImageBtn = styled.View`
   width: 120px;
   height: 100px;
   border-radius: 10px;
@@ -116,7 +110,7 @@ const ProgressBar = styled.View`
   flex-direction: row;
   height: 15px;
   width: 100%;
-  background-color: white;
+  background-color: #e5e5e5;
   border-color: #707070;
   border-width: 1px;
   border-radius: 10px;

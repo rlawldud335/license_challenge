@@ -1,91 +1,198 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import React from "react";
+import styled from "styled-components/native";
+import { View, Image } from "react-native";
 import Title from "../../../components/Title";
 import Tag from "../../../components/Tag";
 
 export default ({ challenge }) => {
   return (
-    <View style={{ position: "absolute", height: "93%", width: "100%" }}>
-      <ScrollView>
-        <Image
-          source={{ url: challenge.challengeTitleImage }}
-          style={{ width: "100%", height: 250 }}
-        />
-        <View style={{ padding: 20 }}>
-          <Title title={challenge.challengeTitle} />
+    <SView>
+      <Image
+        source={{ url: challenge.challengeTitleImage }}
+        style={{ width: "100%", height: 250 }}
+      />
+
+      <Contents>
+        <ChallengeTitle>{challenge.challengeTitle}</ChallengeTitle>
+        <DateWrap>
+          <DateText>
+            {challenge.chgStartDt.slice(0, 10)} ~{" "}
+            {challenge.chgEndDt.slice(0, 10)}
+          </DateText>
+        </DateWrap>
+        <TagWrap>
+          <Tag tagName={`${challenge.deposit} P`} />
+          <Tag tagName={`${challenge.proofAvailableDay}`} />
+          <Tag tagName={`하루 ${challenge.proofCount}번 인증`} />
+          <Tag tagName={`하루 ${challenge.proofCountOneDay}번 인증`} />
+          <Tag tagName={`${challenge.challengeCategory}`} />
+          {challenge.licenseName && (
+            <Tag tagName={`${challenge.licenseName}`} />
+          )}
+        </TagWrap>
+
+        <ProofWrap>
+          <Title title={"인증방법"} />
+          <View style={{ padding: 15, marginBottom: 10 }}>
+            <Text>{challenge.proofMethod}</Text>
+          </View>
+
+          <Title title={"인증예시"} />
           <View
             style={{
               flexDirection: "row",
-              flexWrap: "wrap",
-              marginVertical: 10,
-              paddingLeft: 5,
+              justifyContent: "space-around",
+              paddingVertical: 15,
             }}
           >
-            <Tag tagName={`${challenge.deposit} P`} />
-            <Tag tagName={`${challenge.challengeCategory}`} />
-            <Tag tagName={`${challenge.licenseName}`} />
-            <Tag tagName={`${challenge.proofAvailableDay}`} />
-            <Tag tagName={`하루 ${challenge.proofCountOneDay}번 인증`} />
-            <Tag tagName={`총 ${challenge.challengeTerm}번 인증`} />
+            <View style={{ flexDirection: "column", alignItems: "center" }}>
+              <Image
+                source={{ uri: challenge.goodProofImage }}
+                style={{ width: 140, height: 140, borderRadius: 10 }}
+              />
+              <Text>좋은예시</Text>
+            </View>
+            <View style={{ flexDirection: "column", alignItems: "center" }}>
+              <Image
+                source={{ uri: challenge.badProofImage }}
+                style={{ width: 140, height: 140, borderRadius: 10 }}
+              />
+              <Text>나쁜예시</Text>
+            </View>
           </View>
-          <Text>
-            {challenge.chgStartDt} ~{challenge.chgEndDt}
-          </Text>
-          <View style={{ marginTop: 20 }}>
-            <Title title={"챌린지 소개글"} />
-            <Text>{challenge.leaderId}</Text>
-            <Text>{challenge.challengeInroduction}</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: "#FFC0C0",
-              padding: 10,
-              borderRadius: 10,
-              marginTop: 20,
-            }}
-          >
-            <Title title={"인증방법"} />
-            <Text>{challenge.proofMethod}</Text>
-            <Title title={"인증예시"} />
+        </ProofWrap>
+
+        <IntroWrap>
+          <Title title={"챌린지 소개글"} />
+          <Leader>
+            {challenge.leaderProfileImage ? (
+              <Image source={challenge.leaderProfileImage} />
+            ) : (
+              <Image
+                source={require("../../../assets/img/pink-sky.jpg")}
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: "50%",
+                }}
+              />
+            )}
+            <Normal>{challenge.leaderName}</Normal>
+            <Inro>
+              <Text>{challenge.challengeIntroduction}</Text>
+            </Inro>
+          </Leader>
+        </IntroWrap>
+
+        <IntroWrap>
+          <Title title={"참가현황"} />
+          <View style={{ padding: 10 }}>
             <View
               style={{ flexDirection: "row", justifyContent: "space-around" }}
             >
-              <View style={{ flexDirection: "column" }}>
-                <Image
-                  source={{ uri: challenge.goodProofImage }}
-                  style={{ width: 140, height: 140, borderRadius: 10 }}
-                />
-                <Text>좋은예시</Text>
-              </View>
-              <View style={{ flexDirection: "column" }}>
-                <Image
-                  source={{ uri: challenge.badProofImage }}
-                  style={{ width: 140, height: 140, borderRadius: 10 }}
-                />
-                <Text>나쁜예시</Text>
-              </View>
+              <Middle>현재 참가인원</Middle>
+              <Middle>
+                {challenge.joinPeople}/{challenge.limitPeople}
+              </Middle>
+            </View>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-around" }}
+            >
+              <Middle>참가 포인트</Middle>
+              <Middle>{challenge.deposit}P</Middle>
             </View>
           </View>
-
-          <View style={{ marginTop: 20 }}>
-            <Title title={"참가현황"} />
-            <Text>
-              {" "}
-              현재 참가인원 {challenge.joinPeople}/{challenge.limitPeople}
-            </Text>
-            <Text> 참가 포인트 {challenge.deposit}P</Text>
-          </View>
-
-          <Text>정보처리기사 관련 추천 자격증</Text>
-        </View>
-      </ScrollView>
-    </View>
+          <View
+            style={{
+              borderBottomColor: "#9F9F9F",
+              borderBottomWidth: 1,
+            }}
+          />
+          <Info>
+            {`
+          참가포인트를 걸어 의지를 만드세요! 
+          합격 시 전액 환급! 달성률 85% 이상 시 전액 환급! 
+          합격 + 달성률 85% 이상 달성시 환급 + 보너스 포인트!`}
+          </Info>
+        </IntroWrap>
+      </Contents>
+    </SView>
   );
 };
+
+const SView = styled.ScrollView``;
+
+const Contents = styled.View`
+  padding: 20px;
+`;
+
+const ChallengeTitle = styled.Text`
+  font-family: "nanumBold";
+  font-size: 25px;
+  color: #3b1464;
+  margin-bottom: 5px;
+`;
+
+const DateWrap = styled.View`
+  align-items: center;
+  width: 200px;
+  background-color: #ff5e5e;
+  padding: 5px;
+  border-radius: 10px;
+`;
+const DateText = styled.Text`
+  font-family: "nanumBold";
+  font-size: 17px;
+  color: #ffffff;
+`;
+
+const TagWrap = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px 0px;
+`;
+
+const Normal = styled.Text`
+  font-family: "nanumBold";
+  font-size: 17px;
+  color: #3b1464;
+`;
+const Text = styled.Text`
+  font-family: "nanumBold";
+  font-size: 15px;
+  color: #3b1464;
+`;
+
+const IntroWrap = styled.View`
+  margin-top: 40px;
+  background-color: #eeeeee;
+  border-radius: 10px;
+  padding: 10px;
+`;
+const Leader = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+const Inro = styled.View`
+  margin-top: 15px;
+  padding: 10px;
+`;
+
+const ProofWrap = styled.View`
+  background-color: #ffc0c0;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 30px;
+`;
+
+const Middle = styled.Text`
+  font-family: "nanumBold";
+  font-size: 17px;
+  color: #3b1464;
+`;
+
+const Info = styled.Text`
+  font-family: "nanumBold";
+  color: #636363;
+  font-size: 15px;
+`;

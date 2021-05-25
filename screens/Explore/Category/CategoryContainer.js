@@ -35,12 +35,16 @@ export default ({ route, navigation }) => {
   const getData = async () => {
     setIsLoading(true);
     const response = await Api.getChallenge(pageNum, numOfRows, category);
-    if (response.length == 0) {
+    if (response.data.length == 0) {
       setIsEnd(true);
     }
-    setPageNum(pageNum + 1);
-    setChallengeData(challengeData.concat(response));
-    setIsLoading(false);
+    if (response.status == 200) {
+      setPageNum(pageNum + 1);
+      setChallengeData(challengeData.concat(response.data));
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
   };
 
   const handleLoadMore = () => {
@@ -58,20 +62,26 @@ export default ({ route, navigation }) => {
   const renderItem = ({ item }) => {
     return <CategoryPresenter item={item} navigation={navigation} />;
   };
-  const keyExtract = (item) => item.challengeId.toString();
+
+  const Extract = (item) => {
+    if (!item.empty) {
+      return item.challengeId.toString();
+    }
+  };
 
   return (
     <ChallengeList
       data={formatData(challengeData, numColumns)}
       renderItem={renderItem}
       numColumns={numColumns}
-      keyExtractor={keyExtract}
+      keyExtractor={Extract}
       showsVerticalScrollIndicator={false}
       onEndReached={handleLoadMore}
       onEndReachedThreshold={0.3}
       ListFooterComponent={
         isLoading && <ActivityIndicator size="small" color="purple" />
       }
+      disableVirtualization={false}
     />
   );
 };

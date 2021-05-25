@@ -16,12 +16,11 @@ const renderItem = ({ item, navigation }) => {
       }}
     >
       <TitleImage source={{ uri: item.challengeTitleImage }} />
-      <TitleName>{item.challengeTitle.slice(0, 21)}</TitleName>
+      <TitleName>{item.challengeTitle.slice(0, 20)}</TitleName>
       <Tags>
         <Tag tagName={`${item.deposit} P`} />
         <Tag tagName={`일주일에 ${item.proofCount}번 인증`} />
         <Tag tagName={`하루 ${item.proofCountOneDay}번 인증`} />
-        <Tag tagName={`총 ${item.challengeTerm}번 인증`} />
         {item.licenseName ? <Tag tagName={item.licenseName} /> : null}
       </Tags>
     </Challenge>
@@ -48,7 +47,7 @@ const TitleImage = styled.Image`
 const TitleName = styled.Text`
   font-family: "nanumBold";
   color: #3b1464;
-  font-size: 18px;
+  font-size: 17px;
   margin: 5px 10px;
 `;
 const Tags = styled.View`

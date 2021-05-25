@@ -1,3 +1,3 @@
-import EndedChallenge from "./EndedChallenge";
+import EndedChallengeContainer from "./EndedChallengeContainer";
 
-export default EndedChallenge;
+export default EndedChallengeContainer;

@@ -10,21 +10,17 @@ import {
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
-export default ({ route }) => {
+export default ({ route, navigation }) => {
   const {
     params: { challengeId },
   } = route;
-  console.log(challengeId);
-  const [isLoading, setIsLoading] = useState(false);
-  const [challenge, setChallenge] = useState();
+
+  const [challengeData, setChallengeData] = useState();
 
   const getData = async () => {
-    setIsLoading(true);
     const response = await Api.getChallengeChallengeId(challengeId);
-    await console.log(response);
-    await setChallenge(response[0]);
-    if (response[0]) {
-      setIsLoading(false);
+    if (response.status == 200) {
+      setChallengeData(response.data);
     } else {
       Alert.alert("response none");
     }
@@ -34,20 +30,20 @@ export default ({ route }) => {
     getData();
   }, []);
 
-  return isLoading ? (
-    <View
-      style={{
-        flex: 1,
-        justifyContents: "center",
-        aligenItem: "center",
-        backgroundColor: "white",
-      }}
-    >
-      <ActivityIndicator />
-    </View>
-  ) : (
+  return challengeData ? (
     <View style={{ flex: 1, backgroundColor: "white" }}>
-      <ChallengeInfoPresenter challenge={challenge} />
+      <View
+        style={{
+          height: "93%",
+          width: "100%",
+        }}
+      >
+        <ChallengeInfoPresenter
+          challenge={challengeData}
+          navigation={navigation}
+        />
+      </View>
+
       <View
         style={{
           height: "7%",
@@ -73,6 +69,7 @@ export default ({ route }) => {
             justifyContent: "center",
             alignItems: "center",
           }}
+          onPress={() => {}}
         >
           <Text
             style={{ color: "white", fontFamily: "nanumBold", fontSize: 17 }}
@@ -81,6 +78,17 @@ export default ({ route }) => {
           </Text>
         </TouchableOpacity>
       </View>
+    </View>
+  ) : (
+    <View
+      style={{
+        flex: 1,
+        justifyContents: "center",
+        aligenItem: "center",
+        backgroundColor: "white",
+      }}
+    >
+      <ActivityIndicator />
     </View>
   );
 };

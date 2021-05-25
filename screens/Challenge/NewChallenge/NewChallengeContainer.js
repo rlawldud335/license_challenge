@@ -114,7 +114,7 @@ export default ({ navigation }) => {
   const searchLicense = async (text) => {
     await setKeyword(text);
     const result = await Api.getLicenseSearch(text);
-    setSearchResult(result);
+    setSearchResult(result.data);
   };
 
   return (
