@@ -1,39 +1,83 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components/native";
 
 import Api from "../../../api";
 import CategoryPresenter from "./CategoryPresenter";
+import { ActivityIndicator } from "react-native";
+
+const numColumns = 2;
+const numOfRows = 20;
+const formatData = (data, numColumns) => {
+  const numberOfFullRows = Math.floor(data.length / numColumns);
+
+  let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns;
+  while (
+    numberOfElementsLastRow !== numColumns &&
+    numberOfElementsLastRow !== 0
+  ) {
+    data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
+    numberOfElementsLastRow++;
+  }
+
+  return data;
+};
 
 export default ({ route, navigation }) => {
   const {
     params: { category },
   } = route;
-  const [challenge, setChallenge] = useState({
-    pageNum: 0,
-    numOfRows: 20,
-    challengeData: [],
-  });
+
+  const [isEnd, setIsEnd] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [pageNum, setPageNum] = useState(0);
+  const [challengeData, setChallengeData] = useState([]);
+
   const getData = async () => {
-    const challengeData = await Api.getChallenge(
-      challenge.pageNum,
-      challenge.numOfRows,
-      category
-    );
-    setChallenge({
-      pageNum: challenge.pageNum + 1,
-      numOfRows: challenge.numOfRows,
-      challengeData: challenge.challengeData.concat(challengeData),
-    });
+    setIsLoading(true);
+    const response = await Api.getChallenge(pageNum, numOfRows, category);
+    if (response.length == 0) {
+      setIsEnd(true);
+    }
+    setPageNum(pageNum + 1);
+    setChallengeData(challengeData.concat(response));
+    setIsLoading(false);
+  };
+
+  const handleLoadMore = () => {
+    if (isLoading || isEnd) {
+      return;
+    } else {
+      getData();
+    }
   };
 
   useEffect(() => {
     getData();
   }, []);
 
+  const renderItem = ({ item }) => {
+    return <CategoryPresenter item={item} navigation={navigation} />;
+  };
+  const keyExtract = (item) => item.challengeId.toString();
+
   return (
-    <CategoryPresenter
-      challengeData={challenge.challengeData}
-      getData={getData}
-      navigation={navigation}
+    <ChallengeList
+      data={formatData(challengeData, numColumns)}
+      renderItem={renderItem}
+      numColumns={numColumns}
+      keyExtractor={keyExtract}
+      showsVerticalScrollIndicator={false}
+      onEndReached={handleLoadMore}
+      onEndReachedThreshold={0.3}
+      ListFooterComponent={
+        isLoading && <ActivityIndicator size="small" color="purple" />
+      }
     />
   );
 };
+
+const ChallengeList = styled.FlatList`
+  flex: 1;
+  padding: 10px 10px;
+  background-color: white;
+`;

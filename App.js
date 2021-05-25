@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, View, SafeAreaView } from "react-native";
+import { Image, View, SafeAreaView, Platform } from "react-native";
 import { Asset } from "expo-asset";
 import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
@@ -43,7 +43,13 @@ export default function App() {
   return isReady ? (
     <>
       <StatusBar />
-      <SafeAreaView style={{ flex: 1, alignItems: "center" }}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          alignItems: "center",
+          paddingTop: Platform.OS === "android" ? 25 : 0,
+        }}
+      >
         <View
           style={{
             width: "100%",

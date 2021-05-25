@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const getRequest = async (path, params = {}) => {
   try {
     const token = await AsyncStorage.getItem("token");
-    const { data } = await axios.get(
+    const response = await axios.get(
       `https://license-challenge.herokuapp.com${path}`,
       {
         headers: {
@@ -13,7 +13,7 @@ const getRequest = async (path, params = {}) => {
         params,
       }
     );
-    return data;
+    return response.data;
   } catch (e) {
     console.log(e);
     return [];

@@ -4,7 +4,7 @@ import { TextInput } from "react-native";
 
 import NoticeTab from "../Tab/NoticeTab";
 import Category from "../../screens/Explore/Category/index";
-import ChallengeInfo from "../../screens/Explore/ChallengeInfo/ChallengeInfo";
+import ChallengeInfo from "../../screens/Explore/ChallengeInfo";
 import MainTab from "../Tab/MainTab";
 import SearchTab from "../Tab/SearchTab";
 import NewChallenge from "../../screens/Challenge/NewChallenge/NewChallengeContainer";

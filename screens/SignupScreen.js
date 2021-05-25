@@ -20,11 +20,12 @@ export default (props) => {
       nickname,
       phoneNumber
     );
-    if (response.data.token) {
-      await AsyncStorage.setItem("token", data.token);
+    if (response.token) {
+      await AsyncStorage.setItem("token", response.token);
       props.navigation.navigate("MainTab");
     } else {
       Alert.alert("잘못된 Email혹은 Password입니다.");
+      setIsLoading(false);
     }
   };
 
@@ -76,21 +77,23 @@ export default (props) => {
   );
 };
 
-const Email = styled.TextInput`
+const Password = styled.TextInput`
   width: 70%;
   padding: 10px 20px;
   border-radius: 10px;
   border-color: #652da1;
   border-width: 2px;
   margin: 10px;
+  margin-top: 10px;
+`;
+
+const Email = styled(Password)`
   margin-top: 50px;
 `;
 
-const Password = styled(Email)``;
+const Nickname = styled(Password)``;
 
-const Nickname = styled(Email)``;
-
-const PhoneNumber = styled(Email)``;
+const PhoneNumber = styled(Password)``;
 
 const Container = styled.View`
   flex: 1;

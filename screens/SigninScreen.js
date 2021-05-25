@@ -13,11 +13,12 @@ export default (props) => {
   const sendCred = async (props) => {
     setIsLoading(true);
     const response = await Api.postAuthSignin(email, password);
-    if (response.data.token) {
-      await AsyncStorage.setItem("token", data.token);
+    if (response.token) {
+      await AsyncStorage.setItem("token", response.token);
       props.navigation.navigate("MainTab");
     } else {
       Alert.alert("잘못된 Email혹은 Password입니다.");
+      setIsLoading(false);
     }
   };
 
@@ -62,17 +63,19 @@ const Container = styled.View`
   align-items: center;
 `;
 
-const Email = styled.TextInput`
+const Password = styled.TextInput`
   width: 70%;
   padding: 10px 20px;
   border-radius: 10px;
   border-color: #652da1;
   border-width: 2px;
   margin: 10px;
-  margin-top: 50px;
+  margin-top: 10px;
 `;
 
-const Password = styled(Email)``;
+const Email = styled(Password)`
+  margin-top: 50px;
+`;
 
 const Signin = styled.TouchableOpacity`
   width: 70%;
