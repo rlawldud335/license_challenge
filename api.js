@@ -79,6 +79,8 @@ const Api = {
     getRequest(`/challenge/${challengeId}`),
 
   getLicenseSearch: (keyword) => getRequest("/license/search", { keyword }),
+
+  getOngoingChallenge: () => getRequest("/challenge/ongoingChallenge"),
 };
 
 export default Api;

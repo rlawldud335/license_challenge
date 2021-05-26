@@ -22,7 +22,7 @@ export default ({ route, navigation }) => {
     if (response.status == 200) {
       setChallengeData(response.data);
     } else {
-      Alert.alert("response none");
+      Alert.alert("500 error");
     }
   };
 
@@ -69,7 +69,9 @@ export default ({ route, navigation }) => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("Payment");
+          }}
         >
           <Text
             style={{ color: "white", fontFamily: "nanumBold", fontSize: 17 }}

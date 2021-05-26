@@ -7,7 +7,13 @@ import { View, StyleSheet } from "react-native";
 
 const renderItem = ({ item, navigation }) => {
   return (
-    <Box>
+    <Box
+      onPress={() => {
+        navigation.navigate("DoChallengeTab", {
+          item,
+        });
+      }}
+    >
       <Content>
         <TitleView>
           <Title>{item.challengeTitle.slice(0, 15)}</Title>
@@ -17,7 +23,6 @@ const renderItem = ({ item, navigation }) => {
         <TagWrap>
           <Tag tagName={`일주일에 ${item.proofCount}번 인증`} />
           <Tag tagName={`하루 ${item.proofCountOneDay}번 인증`} />
-          <Tag tagName={`총 ${item.challengeTerm}번 인증`} />
           <Tag tagName={`${item.deposit} P`} />
         </TagWrap>
 

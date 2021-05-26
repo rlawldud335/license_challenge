@@ -1,20 +1,33 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { TextInput } from "react-native";
+import {
+  TextInput,
+  View,
+  Image,
+  StyleSheet,
+  ImageBackground,
+  Dimensions,
+  Text,
+} from "react-native";
 
 import NoticeTab from "../Tab/NoticeTab";
-import Category from "../../screens/Explore/Category/index";
-import ChallengeInfo from "../../screens/Explore/ChallengeInfo";
 import MainTab from "../Tab/MainTab";
 import SearchTab from "../Tab/SearchTab";
+import DoChallengeTab from "../Tab/DoChallengeTab";
+
+import Category from "../../screens/Explore/Category/index";
+import ChallengeInfo from "../../screens/Explore/ChallengeInfo";
 import NewChallenge from "../../screens/Challenge/NewChallenge/NewChallengeContainer";
 import LicenseWebview from "../../screens/Explore/License/LicenseWebview";
 import LoadingScreen from "../../screens/LoadingScreen";
 import SigninScreen from "../../screens/SigninScreen";
 import SignupScreen from "../../screens/SignupScreen";
 import NewCommunity from "../../screens/Community/NewCommunity/NewCommunityContainer";
+import Payment from "../../screens/Explore/Payment";
 
 const Stack = createStackNavigator();
+
+const WIDTH = Dimensions.get("window").width;
 
 export default () => (
   <Stack.Navigator
@@ -137,6 +150,49 @@ export default () => (
         headerBackTitleVisible: false,
         title: "새로운 커뮤니티 글 생성",
       }}
+    />
+    <Stack.Screen
+      name="Payment"
+      component={Payment}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "결제하기",
+      }}
+    />
+    <Stack.Screen
+      name="DoChallengeTab"
+      component={DoChallengeTab}
+      title="Hello"
+      options={({ route }) => ({
+        headerShown: true,
+        headerBackTitleVisible: false,
+        headerStyle: {
+          height: 80,
+        },
+        headerTitleStyle: { flex: 1, textAlign: "center" },
+        headerLeftContainerStyle: { zIndex: 10 },
+        headerTitle: () => {
+          return (
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Image
+                style={{ width: WIDTH, height: 80, opacity: 0.35 }}
+                source={{ uri: route.params.item.challengeTitleImage }}
+              />
+              <Text
+                style={{
+                  fontFamily: "nanumBold",
+                  fontSize: 20,
+                  color: "#3b1464",
+                  position: "absolute",
+                }}
+              >
+                {route.params.item.challengeTitle}
+              </Text>
+            </View>
+          );
+        },
+      })}
     />
   </Stack.Navigator>
 );
