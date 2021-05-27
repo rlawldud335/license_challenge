@@ -30,6 +30,7 @@ export default ({ route, navigation }) => {
     data.append("dailyReview", dailyReview);
     data.append("proofImage", uploadFotmat(route.params.proofImage.uri));
     const response = await Api.postProofPicture(route.params.cid, data);
+    console.log(response);
     if (response.code == 200) {
       navigation.reset({
         routes: [

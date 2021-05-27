@@ -91,6 +91,9 @@ const Api = {
     postFormReqest(`/challenge/${cid}/proof-picture`, body),
 
   getUserInfo: () => getRequest("/user/my-info"),
+
+  postFreeBoard: (body) => postFormReqest("/board/freeboard", body),
+  postSaleBoard: (body) => postFormReqest("/board/saleboard", body),
 };
 
 export default Api;
