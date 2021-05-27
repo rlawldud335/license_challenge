@@ -26,6 +26,7 @@ import NewCommunity from "../../screens/Community/NewCommunity";
 import Payment from "../../screens/Explore/Payment";
 import ProofPicture from "../../screens/Challenge/ProofPicture";
 import UploadProofPicture from "../../screens/Challenge/UploadProofPicture";
+import JoinChallenge from "../../screens/Challenge/JoinChallenge";
 
 const Stack = createStackNavigator();
 
@@ -160,6 +161,15 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         title: "결제하기",
+      }}
+    />
+    <Stack.Screen
+      name="JoinChallenge"
+      component={JoinChallenge}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "참가하기",
       }}
     />
     <Stack.Screen
