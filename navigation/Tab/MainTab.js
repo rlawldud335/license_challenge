@@ -50,7 +50,9 @@ export default (props) => {
       <Tab.Screen
         options={{ tabBarLabel: "마이페이지" }}
         name="Mypage"
-        component={Mypage}
+        children={({ navigation }) => (
+          <Mypage loading={true} navigation={navigation} />
+        )}
       />
     </Tab.Navigator>
   );

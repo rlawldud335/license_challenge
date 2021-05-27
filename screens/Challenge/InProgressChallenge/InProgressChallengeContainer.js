@@ -14,6 +14,7 @@ export default ({ navigation }) => {
       Alert.alert("500 error");
     }
   };
+
   useEffect(() => {
     getData();
   }, []);
@@ -39,7 +40,7 @@ export default ({ navigation }) => {
         backgroundColor: "white",
       }}
     >
-      <ActivityIndicator />
+      <ActivityIndicator size="small" color="purple" />
     </View>
   );
 };

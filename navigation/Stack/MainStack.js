@@ -22,8 +22,10 @@ import LicenseWebview from "../../screens/Explore/License/LicenseWebview";
 import LoadingScreen from "../../screens/LoadingScreen";
 import SigninScreen from "../../screens/SigninScreen";
 import SignupScreen from "../../screens/SignupScreen";
-import NewCommunity from "../../screens/Community/NewCommunity/NewCommunityContainer";
+import NewCommunity from "../../screens/Community/NewCommunity";
 import Payment from "../../screens/Explore/Payment";
+import ProofPicture from "../../screens/Challenge/ProofPicture";
+import UploadProofPicture from "../../screens/Challenge/UploadProofPicture";
 
 const Stack = createStackNavigator();
 
@@ -161,6 +163,24 @@ export default () => (
       }}
     />
     <Stack.Screen
+      name="ProofPicture"
+      component={ProofPicture}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "사진인증",
+      }}
+    />
+    <Stack.Screen
+      name="UploadProofPicture"
+      component={UploadProofPicture}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "사진 업로드",
+      }}
+    />
+    <Stack.Screen
       name="DoChallengeTab"
       component={DoChallengeTab}
       title="Hello"
@@ -177,7 +197,7 @@ export default () => (
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <Image
                 style={{ width: WIDTH, height: 80, opacity: 0.35 }}
-                source={{ uri: route.params.item.challengeTitleImage }}
+                source={{ uri: route.params.challengeTitleImage }}
               />
               <Text
                 style={{
@@ -187,7 +207,7 @@ export default () => (
                   position: "absolute",
                 }}
               >
-                {route.params.item.challengeTitle}
+                {route.params.challengeTitle}
               </Text>
             </View>
           );

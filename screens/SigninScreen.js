@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled from "styled-components/native";
 import Logo from "../assets/icon/Logo";
-import { Alert, ActivityIndicator } from "react-native";
+import {
+  Alert,
+  ActivityIndicator,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import Api from "../api";
 
 export default (props) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(props.route.params.loading);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,46 +22,52 @@ export default (props) => {
       await AsyncStorage.setItem("token", response.token);
       props.navigation.navigate("MainTab");
     } else {
-      Alert.alert("잘못된 Email혹은 Password입니다.");
       setIsLoading(false);
+      Alert.alert("잘못된 Email혹은 Password입니다.");
     }
   };
 
   return (
-    <Container>
-      {isLoading ? (
-        <ActivityIndicator size="small" color="purple" />
-      ) : (
-        <>
-          <Logo />
-          <Email
-            placeholder="Email"
-            autoCapitalize="none"
-            onChangeText={(text) => {
-              setEmail(text);
-            }}
-          />
-          <Password
-            secureTextEntry={true}
-            placeholder="Password"
-            autoCapitalize="none"
-            onChangeText={(text) => {
-              setPassword(text);
-            }}
-          />
-          <Signin onPress={() => sendCred(props)}>
-            <Text>Sign in</Text>
-          </Signin>
-          <SignupBtn onPress={() => props.navigation.navigate("Signup")}>
-            don't have a account ?
-          </SignupBtn>
-        </>
-      )}
-    </Container>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container behavior="padding">
+        {isLoading ? (
+          <ActivityIndicator size="small" color="purple" />
+        ) : (
+          <>
+            <Logo />
+            <Email
+              placeholder="Email"
+              autoCapitalize="none"
+              onChangeText={(text) => {
+                setEmail(text);
+              }}
+            />
+            <Password
+              secureTextEntry={true}
+              placeholder="Password"
+              autoCapitalize="none"
+              onChangeText={(text) => {
+                setPassword(text);
+              }}
+            />
+            <Signin onPress={() => sendCred(props)}>
+              <Text>Sign in</Text>
+            </Signin>
+            <SignupBtn
+              onPress={() =>
+                props.navigation.navigate("Signup", { loading: false })
+              }
+            >
+              don't have a account ?
+            </SignupBtn>
+          </>
+        )}
+      </Container>
+    </TouchableWithoutFeedback>
   );
 };
 
-const Container = styled.View`
+const Container = styled.KeyboardAvoidingView`
   flex: 1;
   background-color: white;
   justify-content: center;

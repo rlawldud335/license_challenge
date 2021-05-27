@@ -102,9 +102,16 @@ export default ({ navigation }) => {
 
     const response = await Api.postChallenge(makeFormData());
     if (response.code == "200") {
-      navigation.navigate("Category", {
-        title: "챌린지 전체보기",
-        category: "전체보기",
+      navigation.reset({
+        routes: [
+          {
+            name: "MainTab",
+          },
+          {
+            name: "Category",
+            params: { title: "챌린지 전체보기", category: "전체보기" },
+          },
+        ],
       });
     } else {
       Alert.alert("챌린지 생성 실패");

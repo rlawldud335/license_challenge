@@ -4,9 +4,10 @@ import styled from "styled-components/native";
 import Api from "../../../api";
 import CategoryPresenter from "./CategoryPresenter";
 import { ActivityIndicator } from "react-native";
-
+let cnt = -1;
 const numColumns = 2;
 const numOfRows = 20;
+
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns);
 
@@ -15,8 +16,13 @@ const formatData = (data, numColumns) => {
     numberOfElementsLastRow !== numColumns &&
     numberOfElementsLastRow !== 0
   ) {
-    data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
+    data.push({
+      key: `blank-${numberOfElementsLastRow}`,
+      empty: true,
+      challengeId: cnt,
+    });
     numberOfElementsLastRow++;
+    cnt--;
   }
 
   return data;
@@ -31,6 +37,7 @@ export default ({ route, navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [pageNum, setPageNum] = useState(0);
   const [challengeData, setChallengeData] = useState([]);
+  let isComponentMounted = true;
 
   const getData = async () => {
     setIsLoading(true);
@@ -38,7 +45,7 @@ export default ({ route, navigation }) => {
     if (response.data.length == 0) {
       setIsEnd(true);
     }
-    if (response.status == 200) {
+    if (response.status == 200 && isComponentMounted) {
       setPageNum(pageNum + 1);
       setChallengeData(challengeData.concat(response.data));
       setIsLoading(false);
@@ -57,6 +64,9 @@ export default ({ route, navigation }) => {
 
   useEffect(() => {
     getData();
+    return () => {
+      isComponentMounted = false;
+    };
   }, []);
 
   const renderItem = ({ item }) => {
@@ -64,9 +74,7 @@ export default ({ route, navigation }) => {
   };
 
   const Extract = (item) => {
-    if (!item.empty) {
-      return item.challengeId.toString();
-    }
+    return item.challengeId.toString();
   };
 
   return (

@@ -20,7 +20,7 @@ export default ({ navigation }) => (
     <EventSwiper />
     <Category navigation={navigation} />
     <PopularChallenge />
-    <PopularLicense />
+    <PopularLicense navigation={navigation} />
     <PopularCommunity />
   </ScrollView>
 );

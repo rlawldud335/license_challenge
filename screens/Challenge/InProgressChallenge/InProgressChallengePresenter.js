@@ -10,7 +10,9 @@ const renderItem = ({ item, navigation }) => {
     <Box
       onPress={() => {
         navigation.navigate("DoChallengeTab", {
-          item,
+          challengeId: item.challengeId,
+          challengeTitleImage: item.challengeTitleImage,
+          challengeTitle: item.challengeTitle,
         });
       }}
     >
@@ -43,8 +45,14 @@ const renderItem = ({ item, navigation }) => {
         </ProgressContainer>
       </Content>
 
-      <ImageBtn>
-        <Image source={{ uri: item.challengeTitleImage }} style={{}} />
+      <ImageBtn
+        onPress={() => {
+          navigation.navigate("ProofPicture", {
+            item,
+          });
+        }}
+      >
+        <Image source={{ uri: item.challengeTitleImage }} />
         <Camera style={{ position: "absolute" }} />
       </ImageBtn>
     </Box>

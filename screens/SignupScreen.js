@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Logo from "../assets/icon/Logo";
-import { Alert, ActivityIndicator } from "react-native";
+import {
+  Alert,
+  ActivityIndicator,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import Api from "../api";
 
 export default (props) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(props.route.params.loading);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
@@ -24,56 +29,58 @@ export default (props) => {
       await AsyncStorage.setItem("token", response.token);
       props.navigation.navigate("MainTab");
     } else {
-      Alert.alert("잘못된 Email혹은 Password입니다.");
       setIsLoading(false);
+      Alert.alert("잘못된 Email혹은 Password입니다.");
     }
   };
 
   return (
-    <Container>
-      {isLoading ? (
-        <ActivityIndicator size="small" color="purple" />
-      ) : (
-        <>
-          <Logo />
-          <Email
-            placeholder="Email"
-            autoCapitalize="none"
-            onChangeText={(text) => {
-              setEmail(text);
-            }}
-          />
-          <Password
-            secureTextEntry={true}
-            placeholder="Password"
-            autoCapitalize="none"
-            onChangeText={(text) => {
-              setPassword(text);
-            }}
-          />
-          <Nickname
-            placeholder="Nickname"
-            autoCapitalize="none"
-            onChangeText={(text) => {
-              setNickname(text);
-            }}
-          />
-          <PhoneNumber
-            placeholder="PhoneNumber"
-            autoCapitalize="none"
-            onChangeText={(text) => {
-              setPhoneNumber(text);
-            }}
-          />
-          <Signup onPress={() => sendCred(props)}>
-            <Text>Sign Up</Text>
-          </Signup>
-          <SignupBtn onPress={() => props.navigation.navigate("Signin")}>
-            already have a account ?
-          </SignupBtn>
-        </>
-      )}
-    </Container>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container behavior="padding">
+        {isLoading ? (
+          <ActivityIndicator size="small" color="purple" />
+        ) : (
+          <>
+            <Logo />
+            <Email
+              placeholder="Email"
+              autoCapitalize="none"
+              onChangeText={(text) => {
+                setEmail(text);
+              }}
+            />
+            <Password
+              secureTextEntry={true}
+              placeholder="Password"
+              autoCapitalize="none"
+              onChangeText={(text) => {
+                setPassword(text);
+              }}
+            />
+            <Nickname
+              placeholder="Nickname"
+              autoCapitalize="none"
+              onChangeText={(text) => {
+                setNickname(text);
+              }}
+            />
+            <PhoneNumber
+              placeholder="PhoneNumber"
+              autoCapitalize="none"
+              onChangeText={(text) => {
+                setPhoneNumber(text);
+              }}
+            />
+            <Signup onPress={() => sendCred(props)}>
+              <Text>Sign Up</Text>
+            </Signup>
+            <SignupBtn onPress={() => props.navigation.navigate("Signin")}>
+              already have a account ?
+            </SignupBtn>
+          </>
+        )}
+      </Container>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -95,7 +102,7 @@ const Nickname = styled(Password)``;
 
 const PhoneNumber = styled(Password)``;
 
-const Container = styled.View`
+const Container = styled.KeyboardAvoidingView`
   flex: 1;
   background-color: white;
   justify-content: center;

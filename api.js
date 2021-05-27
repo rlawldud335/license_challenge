@@ -81,6 +81,16 @@ const Api = {
   getLicenseSearch: (keyword) => getRequest("/license/search", { keyword }),
 
   getOngoingChallenge: () => getRequest("/challenge/ongoingChallenge"),
+
+  getChallengeAchievementRate: (challengeId) =>
+    getRequest(`/challenge/${challengeId}/achievement-rate`),
+
+  getEndedChallenge: () => getRequest("/challenge/endedChallenge"),
+
+  postProofPicture: (cid, body) =>
+    postFormReqest(`/challenge/${cid}/proof-picture`, body),
+
+  getUserInfo: () => getRequest("/user/my-info"),
 };
 
 export default Api;

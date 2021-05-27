@@ -66,14 +66,21 @@ export default ({ challenge }) => {
           <Title title={"챌린지 소개글"} />
           <Leader>
             {challenge.leaderProfileImage ? (
-              <Image source={challenge.leaderProfileImage} />
+              <Image
+                source={{ uri: challenge.leaderProfileImage }}
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: 30,
+                }}
+              />
             ) : (
               <Image
                 source={require("../../../assets/img/pink-sky.jpg")}
                 style={{
                   width: 60,
                   height: 60,
-                  borderRadius: "50%",
+                  borderRadius: 30,
                 }}
               />
             )}
@@ -99,7 +106,7 @@ export default ({ challenge }) => {
               style={{ flexDirection: "row", justifyContent: "space-around" }}
             >
               <Middle>참가 포인트</Middle>
-              <Middle>{challenge.deposit}P</Middle>
+              <Middle>{challenge.deposit} P</Middle>
             </View>
           </View>
           <View
@@ -111,8 +118,12 @@ export default ({ challenge }) => {
           <Info>
             {`
           참가포인트를 걸어 의지를 만드세요! 
-          합격 시 전액 환급! 달성률 85% 이상 시 전액 환급! 
-          합격 + 달성률 85% 이상 달성시 환급 + 보너스 포인트!`}
+          달성률 50 ~ 79% : 달성률 퍼센트만큼 환급!
+          달성률 80% ~ 94% : 전액환급!
+          달성률 95% ~ 99% + 합격인증 : 전액환급! + 보너스포인트!
+          달성률 100% : 전액환급! + 보너스포인트!
+          합격인증은 합격자발표날 이후 2주 이내에 해야합니다! 
+          `}
           </Info>
         </IntroWrap>
       </Contents>

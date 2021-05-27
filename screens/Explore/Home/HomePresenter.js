@@ -205,7 +205,7 @@ export const PopularLicense = ({ navigation }) => {
     margin-top: 20px;
   `;
 
-  const Vertical = styled.View`
+  const Vertical = styled.TouchableOpacity`
     width: 140px;
     height: 80px;
     justify-content: center;
@@ -215,7 +215,7 @@ export const PopularLicense = ({ navigation }) => {
   const BG = styled.Image`
     height: 100%;
     width: 100%;
-    opacity: 0.6;
+    opacity: 0.4;
     border-radius: 10px;
     position: absolute;
   `;
@@ -230,25 +230,49 @@ export const PopularLicense = ({ navigation }) => {
     <Container>
       <Title title={"인기 자격증"} />
       <VerticalContainer horizontal showsHorizontalScrollIndicator={false}>
-        <Vertical>
+        <Vertical
+          onPress={() => {
+            navigation.navigate("LicenseWebview", {
+              title: "정보처리기사",
+              licenseId: 1320,
+            });
+          }}
+        >
           <BG source={require("../../../assets/img/study.jpg")} />
-          <Name>정보처리기사 자격증</Name>
+          <Name>정보처리기사</Name>
         </Vertical>
-        <Vertical>
-          <BG source={require("../../../assets/img/study.jpg")} />
-          <Name>정보처리기사 자격증</Name>
+        <Vertical
+          onPress={() => {
+            navigation.navigate("LicenseWebview", {
+              title: "메이크업미용사",
+              licenseId: 7967,
+            });
+          }}
+        >
+          <BG source={require("../../../assets/img/make-up.jpg")} />
+          <Name>메이크업미용사</Name>
         </Vertical>
-        <Vertical>
-          <BG source={require("../../../assets/img/study.jpg")} />
-          <Name>정보처리기사 자격증</Name>
+        <Vertical
+          onPress={() => {
+            navigation.navigate("LicenseWebview", {
+              title: "에너지관리기능사",
+              licenseId: 7761,
+            });
+          }}
+        >
+          <BG source={require("../../../assets/img/energy.jpg")} />
+          <Name>에너지관리기능사</Name>
         </Vertical>
-        <Vertical>
-          <BG source={require("../../../assets/img/study.jpg")} />
-          <Name>정보처리기사 자격증</Name>
-        </Vertical>
-        <Vertical>
-          <BG source={require("../../../assets/img/study.jpg")} />
-          <Name>정보처리기사 자격증</Name>
+        <Vertical
+          onPress={() => {
+            navigation.navigate("LicenseWebview", {
+              title: "에너지관리기능사",
+              licenseId: 7918,
+            });
+          }}
+        >
+          <BG source={require("../../../assets/img/green.jpg")} />
+          <Name>환경기능사</Name>
         </Vertical>
       </VerticalContainer>
     </Container>
