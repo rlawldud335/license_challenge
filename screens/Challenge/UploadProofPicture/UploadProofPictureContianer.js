@@ -18,23 +18,41 @@ export default ({ route, navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [dailyReview, setDailyReview] = useState();
 
-  const uploadFotmat = (uri) => {
-    let uriParts = uri.split(".");
-    let fileType = uriParts[uriParts.length - 1];
-    return { uri, name: `titleImage.${fileType}`, type: `image/${fileType}` };
+  const uploadFormat = (uri) => {
+    let uriParts = uri.split("/");
+    let nameType = uriParts[uriParts.length - 1].split(".");
+    let fileName = nameType[0];
+    let fileType = nameType[1];
+    return {
+      uri,
+      name: `${fileName}.${fileType}`,
+      type: `application/${fileType}`,
+    };
   };
 
   const upload = async () => {
     setIsLoading(true);
     let data = new FormData();
     data.append("dailyReview", dailyReview);
-    data.append("proofImage", uploadFotmat(route.params.proofImage.uri));
+    data.append("proofImage", uploadFormat(route.params.proofImage.uri));
     const response = await Api.postProofPicture(route.params.cid, data);
     if (response.success == true) {
       navigation.reset({
         routes: [
           {
             name: "MainTab",
+            params: {
+              screen: "Challenge",
+            },
+          },
+          {
+            name: "DoChallengeTab",
+            params: {
+              screen: "Peed",
+              challengeId: route.params.cid,
+              challengeTitle: route.params.challengeTitle,
+              challengeTitleImage: route.params.challengeTitleImage,
+            },
           },
         ],
       });

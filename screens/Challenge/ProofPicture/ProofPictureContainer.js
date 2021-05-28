@@ -130,6 +130,8 @@ export default ({ route, navigation }) => {
               navigation.navigate("UploadProofPicture", {
                 cid: route.params.item.challengeId,
                 proofImage: capturedImage,
+                challengeTitle: route.params.item.challengeTitle,
+                challengeTitleImage: route.params.item.challengeTitleImage,
               });
             }
           }}

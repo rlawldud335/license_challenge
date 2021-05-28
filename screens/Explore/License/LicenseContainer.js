@@ -21,10 +21,8 @@ export default ({ navigation }) => {
     if (response.status == 200) {
       setPageNum(pageNum + 1);
       setLicenseData(licenseData.concat(response.data));
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   const handleLoadMore = () => {
