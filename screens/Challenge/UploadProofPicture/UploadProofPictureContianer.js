@@ -30,7 +30,7 @@ export default ({ route, navigation }) => {
     data.append("dailyReview", dailyReview);
     data.append("proofImage", uploadFotmat(route.params.proofImage.uri));
     const response = await Api.postProofPicture(route.params.cid, data);
-    if (response.code == 200) {
+    if (response.success == true) {
       navigation.reset({
         routes: [
           {
@@ -39,7 +39,8 @@ export default ({ route, navigation }) => {
         ],
       });
     } else {
-      Alert.alert("upload fail");
+      Alert.alert(response.message);
+      setIsLoading(false);
     }
   };
   return isLoading ? (

@@ -71,6 +71,7 @@ export default ({ route, navigation }) => {
           }}
           onPress={() => {
             navigation.navigate("JoinChallenge", {challengeData});
+            navigation.navigate("Payment", { challengeData });
           }}
         >
           <Text

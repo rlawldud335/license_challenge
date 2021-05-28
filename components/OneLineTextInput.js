@@ -9,6 +9,7 @@ const OneLineTextInput = forwardRef((props, ref) => {
       onSubmitEditing={props.onSubmit}
       value={props.value}
       ref={ref}
+      style={props.style}
     ></TextInput>
   );
 });

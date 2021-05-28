@@ -8,9 +8,10 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 
-const WIDTH = Dimensions.get("window").width;
+const WIDTH = Platform.OS === "web" ? 720 : Dimensions.get("window").width;
 
 let cnt = -1;
 const numColumns = 3;
@@ -36,27 +37,37 @@ const formatData = (data, numColumns) => {
   return data;
 };
 
-const data = [
-  {
-    pictureId: 18,
-    proofImage:
-      "https://licensechallenge.s3.ap-northeast-2.amazonaws.com/challenge/proofPicture/64_54_2021-05-26T19%3A19%3A42.681Z",
-  },
-  {
-    pictureId: 17,
-    proofImage:
-      "https://licensechallenge.s3.ap-northeast-2.amazonaws.com/challenge/proofPicture/64_54_2021-05-26T19%3A19%3A39.530Z",
-  },
-];
-
 export default ({ navigation, route, cid }) => {
+  console.log(cid);
+  const [images, setImages] = useState([]);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [pageNum, setPageNum] = useState(0);
 
+  const getData = async () => {
+    setIsLoading(true);
+    const response = await Api.getPeedImages(cid, pageNum, numOfRows);
+    setIsLoading(false);
+    console.log(response.data);
+    if (response.data.length == 0) {
+      setIsEnd(true);
+    }
+    if (response.status == 200) {
+      setPageNum(pageNum + 1);
+      setImages(images.concat(response.data));
+    }
+  };
+
   const renderItem = ({ item }) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("PeedInfo", {
+            pictureId: item.pictureId,
+            challengeId: cid,
+          });
+        }}
+      >
         <Image
           source={{ uri: item.proofImage }}
           style={{ width: WIDTH / numColumns, height: WIDTH / numColumns }}
@@ -64,23 +75,38 @@ export default ({ navigation, route, cid }) => {
       </TouchableOpacity>
     );
   };
+  const handleLoadMore = () => {
+    if (isLoading || isEnd) {
+      return;
+    } else {
+      getData();
+    }
+  };
 
   const Extract = (item) => {
     return item.pictureId.toString();
   };
 
-  return (
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return isLoading ? (
+    <Container>
+      <ActivityIndicator size="small" color="purple" />
+    </Container>
+  ) : (
     <ChallengeList
-      data={formatData(data, numColumns)}
+      data={formatData(images, numColumns)}
       renderItem={renderItem}
       numColumns={numColumns}
       keyExtractor={Extract}
       showsVerticalScrollIndicator={false}
-      // onEndReached={handleLoadMore}
-      // onEndReachedThreshold={0.3}
-      // ListFooterComponent={
-      //   isLoading && <ActivityIndicator size="small" color="purple" />
-      // }
+      onEndReached={handleLoadMore}
+      onEndReachedThreshold={0.3}
+      ListFooterComponent={
+        isLoading && <ActivityIndicator size="small" color="purple" />
+      }
       disableVirtualization={false}
     />
   );
@@ -89,4 +115,11 @@ export default ({ navigation, route, cid }) => {
 const ChallengeList = styled.FlatList`
   flex: 1;
   background-color: white;
+`;
+
+const Container = styled.View`
+  flex: 1;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
 `;
