@@ -109,6 +109,11 @@ const Api = {
 
   getPeedInfo: (challengeId, pictureId) =>
     getRequest(`/challenge/${challengeId}/proof-picture/${pictureId}`),
+
+  getMyPoint: () => getRequest("/point"),
+
+  getMyPointHistory: (pageNum, numOfRows) =>
+    getRequest("/point/history", { pageNum, numOfRows }),
 };
 
 export default Api;

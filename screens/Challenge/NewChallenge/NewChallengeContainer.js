@@ -26,10 +26,16 @@ import {
   CreateLimitPeople,
 } from "./NewChallengePresenter";
 
-const uploadFotmat = (uri) => {
-  let uriParts = uri.split(".");
-  let fileType = uriParts[uriParts.length - 1];
-  return { uri, name: `titleImage.${fileType}`, type: `image/${fileType}` };
+const uploadFormat = (uri) => {
+  let uriParts = uri.split("/");
+  let nameType = uriParts[uriParts.length - 1].split(".");
+  let fileName = nameType[0];
+  let fileType = nameType[1];
+  return {
+    uri,
+    name: `${fileName}.${fileType}`,
+    type: `application/${fileType}`,
+  };
 };
 
 export default ({ navigation }) => {
@@ -63,10 +69,10 @@ export default ({ navigation }) => {
     formData.append("proofCountOneDay", proofCountOneDay);
     formData.append("chgStartDt", chgStartDt.toISOString());
     formData.append("chgEndDt", chgEndDt.toISOString());
-    formData.append("challengeTitleImage", uploadFotmat(challengeTitleImage));
+    formData.append("challengeTitleImage", uploadFormat(challengeTitleImage));
     formData.append("challengeIntroduction", challengeIntroduction);
-    formData.append("goodProofImage", uploadFotmat(goodProofImage));
-    formData.append("badProofImage", uploadFotmat(badProofImage));
+    formData.append("goodProofImage", uploadFormat(goodProofImage));
+    formData.append("badProofImage", uploadFormat(badProofImage));
     formData.append("deposit", deposit);
     formData.append("limitPeople", limitPeople);
     return formData;

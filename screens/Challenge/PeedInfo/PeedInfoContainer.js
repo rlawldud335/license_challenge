@@ -19,7 +19,6 @@ export default ({ route, navigation }) => {
     } else {
       navigation.goback();
     }
-    console.log(response.data);
   };
 
   useEffect(() => {

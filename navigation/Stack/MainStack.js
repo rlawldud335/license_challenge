@@ -28,6 +28,9 @@ import ProofPicture from "../../screens/Challenge/ProofPicture";
 import UploadProofPicture from "../../screens/Challenge/UploadProofPicture";
 import JoinChallenge from "../../screens/Challenge/JoinChallenge";
 import PeedInfo from "../../screens/Challenge/PeedInfo";
+import PointManagement from "../../screens/Mypage/PointManagement";
+import PointCharge from "../../screens/Mypage/PointCharge";
+import PointWithdraw from "../../screens/Mypage/PointWithdraw";
 
 const Stack = createStackNavigator();
 
@@ -201,6 +204,33 @@ export default () => (
         headerStyle: {
           shadowColor: "transparent",
         },
+      }}
+    />
+    <Stack.Screen
+      name="PointManagement"
+      component={PointManagement}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 관리",
+      }}
+    />
+    <Stack.Screen
+      name="PointCharge"
+      component={PointCharge}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 충전",
+      }}
+    />
+    <Stack.Screen
+      name="PointWithdraw"
+      component={PointWithdraw}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 출금",
       }}
     />
     <Stack.Screen

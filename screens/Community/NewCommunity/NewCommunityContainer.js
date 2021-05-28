@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Platform,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import {
   CreateCategory,
@@ -19,6 +20,7 @@ import * as ImagePicker from "expo-image-picker";
 import Api from "../../../api";
 
 export default ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
   const [commuCategory, setCommuCategory] = useState("자유게시판");
   const [commuTitle, setCommuTitle] = useState();
   const [content, setContent] = useState();
@@ -49,21 +51,33 @@ export default ({ navigation }) => {
       return;
     }
     if (commuCategory == "자유게시판") {
+      setLoading(true);
       let formData = new FormData();
       formData.append("title", commuTitle);
       formData.append("content", content);
       formData.append("image", images);
       const response = await Api.postFreeBoard(formData);
       if (response.code == 200) {
-        navigation.goBack();
+        navigation.reset({
+          routes: [
+            {
+              name: "MainTab",
+              params: {
+                screen: "Community",
+              },
+            },
+          ],
+        });
       } else {
         Alert.alert("생성 실패!");
+        setLoading(false);
       }
     } else {
       if (!price || !previewFile || !allFile) {
         Alert.alert("모두 입력해주세요");
         return;
       }
+      setLoading(true);
       let formData = new FormData();
       formData.append("title", commuTitle);
       formData.append("content", content);
@@ -73,14 +87,31 @@ export default ({ navigation }) => {
       formData.append("allFile", allFile);
       const response = await Api.postSaleBoard(formData);
       if (response.code == 200) {
-        navigation.goBack();
+        navigation.reset({
+          routes: [
+            {
+              name: "MainTab",
+              params: {
+                screen: "Community",
+                params: {
+                  screen: "DealBoard",
+                },
+              },
+            },
+          ],
+        });
       } else {
         Alert.alert("생성 실패!");
+        setLoading(false);
       }
     }
   };
 
-  return (
+  return loading ? (
+    <Container style={{ justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="small" color="purple" />
+    </Container>
+  ) : (
     <Container behavior="padding">
       <Body>
         <Scroll>

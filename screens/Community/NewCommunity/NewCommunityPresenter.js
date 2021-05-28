@@ -61,10 +61,16 @@ export const CreateContent = ({ setContent }) => (
   </Content>
 );
 
-const uploadFotmat = (uri) => {
-  let uriParts = uri.split(".");
-  let fileType = uriParts[uriParts.length - 1];
-  return { uri, name: `titleImage.${fileType}`, type: `image/${fileType}` };
+const uploadFormat = (uri) => {
+  let uriParts = uri.split("/");
+  let nameType = uriParts[uriParts.length - 1].split(".");
+  let fileName = nameType[0];
+  let fileType = nameType[1];
+  return {
+    uri,
+    name: `${fileName}.${fileType}`,
+    type: `application/${fileType}`,
+  };
 };
 
 export const CreateImages = ({ images, setImages }) => (
@@ -79,7 +85,7 @@ export const CreateImages = ({ images, setImages }) => (
             quality: 1,
           });
           if (!result.cancelled) {
-            setImages([...images, uploadFotmat(result.uri)]);
+            setImages([...images, uploadFormat(result.uri)]);
           }
         }}
       >
@@ -133,7 +139,7 @@ export const UploadFile = ({
       onPress={async () => {
         let result = await DocumentPicker.getDocumentAsync({});
         if (result.type != "cancel") {
-          setPreviewFile(uploadFotmat(result.uri));
+          setPreviewFile(uploadFormat(result.uri));
         }
       }}
     >
@@ -153,7 +159,7 @@ export const UploadFile = ({
       onPress={async () => {
         let result = await DocumentPicker.getDocumentAsync({});
         if (result.type != "cancel") {
-          setAllFile(uploadFotmat(result.uri));
+          setAllFile(uploadFormat(result.uri));
         }
       }}
     >
