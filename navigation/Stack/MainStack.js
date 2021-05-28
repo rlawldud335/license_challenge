@@ -26,6 +26,7 @@ import NewCommunity from "../../screens/Community/NewCommunity";
 import Payment from "../../screens/Explore/Payment";
 import ProofPicture from "../../screens/Challenge/ProofPicture";
 import UploadProofPicture from "../../screens/Challenge/UploadProofPicture";
+import PeedInfo from "../../screens/Challenge/PeedInfo";
 
 const Stack = createStackNavigator();
 
@@ -75,7 +76,7 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         headerStyle: {
-          borderColor: "white",
+          shadowColor: "transparent",
           height: 75,
         },
         headerTitleContainerStyle: {
@@ -103,7 +104,7 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         headerStyle: {
-          borderBottomColor: "white",
+          shadowColor: "transparent",
         },
         title: "알림 & 일정",
       }}
@@ -178,6 +179,18 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         title: "사진 업로드",
+      }}
+    />
+    <Stack.Screen
+      name="PeedInfo"
+      component={PeedInfo}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "",
+        headerStyle: {
+          shadowColor: "transparent",
+        },
       }}
     />
     <Stack.Screen

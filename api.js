@@ -94,6 +94,15 @@ const Api = {
 
   postFreeBoard: (body) => postFormReqest("/board/freeboard", body),
   postSaleBoard: (body) => postFormReqest("/board/saleboard", body),
+
+  getPeedImages: (challengeId, pageNum, numOfRows) =>
+    getRequest(`/challenge/${challengeId}/proof-picture`, {
+      pageNum,
+      numOfRows,
+    }),
+
+  getPeedInfo: (challengeId, pictureId) =>
+    getRequest(`/challenge/${challengeId}/proof-picture/${pictureId}`),
 };
 
 export default Api;

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  Platform,
 } from "react-native";
 import { Camera } from "expo-camera";
 import Gallery from "../../../assets/icon/Gallery";
@@ -13,7 +14,7 @@ import * as ImagePicker from "expo-image-picker";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const HEIGHT = Dimensions.get("window").height;
-const WIDTH = Dimensions.get("window").width;
+const WIDTH = Platform.OS === "web" ? 720 : Dimensions.get("window").width;
 
 export default ({ route, navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);

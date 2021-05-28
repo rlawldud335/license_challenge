@@ -3,7 +3,12 @@ import Api from "../../../api";
 import styled from "styled-components/native";
 import RedButton from "../../../components/RedButton";
 import * as ImagePicker from "expo-image-picker";
-import { Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
+import {
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ActivityIndicator,
+} from "react-native";
 import {
   CreateCategory,
   CreateLicenseSelect,
@@ -45,6 +50,7 @@ export default ({ navigation }) => {
   const [limitPeople, setLimitPeople] = useState(); //제한인원 ok
 
   const [searchResult, setSearchResult] = useState([]);
+  const [Loading, setLoading] = useState(false);
 
   const makeFormData = () => {
     let formData = new FormData();
@@ -85,27 +91,27 @@ export default ({ navigation }) => {
       Alert.alert("나쁜예시 사진을 입력하세요!");
     else if (deposit == "" || !deposit)
       Alert.alert("챌린지 보증금을 입력하세요!");
-    else if (parseInt(deposit) < 1000)
-      Alert.alert("챌린지 보증금은 최소 1000원 입니다!");
     else if (limitPeople == "" || !limitPeople)
       Alert.alert("챌린지 제한인원을 입력하세요!");
     else {
-      // const response = await Api.postChallenge(makeFormData());
-      // if (response.code == "200") {
-      //   navigation.reset({
-      //     routes: [
-      //       {
-      //         name: "MainTab",
-      //       },
-      //       {
-      //         name: "Category",
-      //         params: { title: "챌린지 전체보기", category: "전체보기" },
-      //       },
-      //     ],
-      //   });
-      // } else {
-      //   Alert.alert("챌린지 생성 실패");
-      // }
+      setLoading(true);
+      const response = await Api.postChallenge(makeFormData());
+      if (response.success == true) {
+        navigation.reset({
+          routes: [
+            {
+              name: "MainTab",
+            },
+            {
+              name: "Category",
+              params: { title: "챌린지 전체보기", category: "전체보기" },
+            },
+          ],
+        });
+      } else {
+        Alert.alert(response.message);
+        setLoading(false);
+      }
     }
   };
 
@@ -127,7 +133,11 @@ export default ({ navigation }) => {
     })();
   }, []);
 
-  return (
+  return Loading ? (
+    <Container style={{ justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="small" color="purple" />
+    </Container>
+  ) : (
     <Container behavior="padding">
       <Body>
         <Scroll>
