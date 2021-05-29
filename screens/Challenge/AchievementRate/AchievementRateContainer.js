@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text } from "react-native";
+import AchievementRatePresenter from "./AchievementRatePresenter";
 import Api from "../../../api";
 
 export default ({ cid, navigation }) => {
@@ -23,7 +24,6 @@ export default ({ cid, navigation }) => {
         backgroundColor: "white",
       }}
     >
-      <Text>AchievementRate</Text>
     </View>
   );
 };

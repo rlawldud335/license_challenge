@@ -23,7 +23,7 @@ export default ({ route }) => {
       swipeEnabled={false}
     >
       <Tab.Screen
-        options={{ tabBarLabel: "인증률" }}
+        options={{ tabBarLabel: "달성률" }}
         name="AchievementRate"
         children={() => <AchievementRate cid={route.params.challengeId} />}
       />
