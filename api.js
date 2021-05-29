@@ -85,9 +85,6 @@ const Api = {
   getChallengeAchievementRate: (challengeId) =>
     getRequest(`/challenge/${challengeId}/achievement-rate`),
 
-  getChallengeAchievementRateInfo: (challengeId) =>
-    getRequest(`/challenge/${challengeId}/achievement-rate-info`),  
-
   getEndedChallenge: () => getRequest("/challenge/endedChallenge"),
 
   postProofPicture: (cid, body) =>
@@ -95,12 +92,22 @@ const Api = {
 
   getUserInfo: () => getRequest("/user/my-info"),
 
-  getFreeBoard: (pageNum, numOfRows) =>
-    getRequest("/board/freeboard", { pageNum, numOfRows }),
+  postFreeBoard: (body) => postFormReqest("/board/freeboard", body),
+  postSaleBoard: (body) => postFormReqest("/board/saleboard", body),
 
-  getDealBoard: (pageNum, numOfRows) =>
-    getRequest("/board/saleboard", { pageNum, numOfRows }),
+  getPeedImages: (challengeId, pageNum, numOfRows) =>
+    getRequest(`/challenge/${challengeId}/proof-picture`, {
+      pageNum,
+      numOfRows,
+    }),
 
+  getPeedInfo: (challengeId, pictureId) =>
+    getRequest(`/challenge/${challengeId}/proof-picture/${pictureId}`),
+
+  getMyPoint: () => getRequest("/point"),
+
+  getMyPointHistory: (pageNum, numOfRows) =>
+    getRequest("/point/history", { pageNum, numOfRows }),
 };
 
 export default Api;

@@ -3,7 +3,12 @@ import Api from "../../../api";
 import styled from "styled-components/native";
 import RedButton from "../../../components/RedButton";
 import * as ImagePicker from "expo-image-picker";
-import { Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
+import {
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ActivityIndicator,
+} from "react-native";
 import {
   CreateCategory,
   CreateLicenseSelect,
@@ -21,10 +26,16 @@ import {
   CreateLimitPeople,
 } from "./NewChallengePresenter";
 
-const uploadFotmat = (uri) => {
-  let uriParts = uri.split(".");
-  let fileType = uriParts[uriParts.length - 1];
-  return { uri, name: `titleImage.${fileType}`, type: `image/${fileType}` };
+const uploadFormat = (uri) => {
+  let uriParts = uri.split("/");
+  let nameType = uriParts[uriParts.length - 1].split(".");
+  let fileName = nameType[0];
+  let fileType = nameType[1];
+  return {
+    uri,
+    name: `${fileName}.${fileType}`,
+    type: `application/${fileType}`,
+  };
 };
 
 export default ({ navigation }) => {
@@ -45,6 +56,7 @@ export default ({ navigation }) => {
   const [limitPeople, setLimitPeople] = useState(); //제한인원 ok
 
   const [searchResult, setSearchResult] = useState([]);
+  const [Loading, setLoading] = useState(false);
 
   const makeFormData = () => {
     let formData = new FormData();
@@ -57,10 +69,10 @@ export default ({ navigation }) => {
     formData.append("proofCountOneDay", proofCountOneDay);
     formData.append("chgStartDt", chgStartDt.toISOString());
     formData.append("chgEndDt", chgEndDt.toISOString());
-    formData.append("challengeTitleImage", uploadFotmat(challengeTitleImage));
+    formData.append("challengeTitleImage", uploadFormat(challengeTitleImage));
     formData.append("challengeIntroduction", challengeIntroduction);
-    formData.append("goodProofImage", uploadFotmat(goodProofImage));
-    formData.append("badProofImage", uploadFotmat(badProofImage));
+    formData.append("goodProofImage", uploadFormat(goodProofImage));
+    formData.append("badProofImage", uploadFormat(badProofImage));
     formData.append("deposit", deposit);
     formData.append("limitPeople", limitPeople);
     return formData;
@@ -85,27 +97,27 @@ export default ({ navigation }) => {
       Alert.alert("나쁜예시 사진을 입력하세요!");
     else if (deposit == "" || !deposit)
       Alert.alert("챌린지 보증금을 입력하세요!");
-    else if (parseInt(deposit) < 1000)
-      Alert.alert("챌린지 보증금은 최소 1000원 입니다!");
     else if (limitPeople == "" || !limitPeople)
       Alert.alert("챌린지 제한인원을 입력하세요!");
     else {
-      // const response = await Api.postChallenge(makeFormData());
-      // if (response.code == "200") {
-      //   navigation.reset({
-      //     routes: [
-      //       {
-      //         name: "MainTab",
-      //       },
-      //       {
-      //         name: "Category",
-      //         params: { title: "챌린지 전체보기", category: "전체보기" },
-      //       },
-      //     ],
-      //   });
-      // } else {
-      //   Alert.alert("챌린지 생성 실패");
-      // }
+      setLoading(true);
+      const response = await Api.postChallenge(makeFormData());
+      if (response.success == true) {
+        navigation.reset({
+          routes: [
+            {
+              name: "MainTab",
+            },
+            {
+              name: "Category",
+              params: { title: "챌린지 전체보기", category: "전체보기" },
+            },
+          ],
+        });
+      } else {
+        Alert.alert(response.message);
+        setLoading(false);
+      }
     }
   };
 
@@ -127,7 +139,11 @@ export default ({ navigation }) => {
     })();
   }, []);
 
-  return (
+  return Loading ? (
+    <Container style={{ justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="small" color="purple" />
+    </Container>
+  ) : (
     <Container behavior="padding">
       <Body>
         <Scroll>

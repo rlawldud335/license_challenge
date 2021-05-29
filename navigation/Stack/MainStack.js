@@ -26,7 +26,10 @@ import NewCommunity from "../../screens/Community/NewCommunity";
 import Payment from "../../screens/Explore/Payment";
 import ProofPicture from "../../screens/Challenge/ProofPicture";
 import UploadProofPicture from "../../screens/Challenge/UploadProofPicture";
-import JoinChallenge from "../../screens/Challenge/JoinChallenge";
+import PeedInfo from "../../screens/Challenge/PeedInfo";
+import PointManagement from "../../screens/Mypage/PointManagement";
+import PointCharge from "../../screens/Mypage/PointCharge";
+import PointWithdraw from "../../screens/Mypage/PointWithdraw";
 
 const Stack = createStackNavigator();
 
@@ -76,7 +79,7 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         headerStyle: {
-          borderColor: "white",
+          shadowColor: "transparent",
           height: 75,
         },
         headerTitleContainerStyle: {
@@ -104,7 +107,7 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         headerStyle: {
-          borderBottomColor: "white",
+          shadowColor: "transparent",
         },
         title: "알림 & 일정",
       }}
@@ -164,15 +167,6 @@ export default () => (
       }}
     />
     <Stack.Screen
-      name="JoinChallenge"
-      component={JoinChallenge}
-      options={{
-        headerShown: true,
-        headerBackTitleVisible: false,
-        title: "참가하기",
-      }}
-    />
-    <Stack.Screen
       name="ProofPicture"
       component={ProofPicture}
       options={{
@@ -188,6 +182,45 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         title: "사진 업로드",
+      }}
+    />
+    <Stack.Screen
+      name="PeedInfo"
+      component={PeedInfo}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "",
+        headerStyle: {
+          shadowColor: "transparent",
+        },
+      }}
+    />
+    <Stack.Screen
+      name="PointManagement"
+      component={PointManagement}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 관리",
+      }}
+    />
+    <Stack.Screen
+      name="PointCharge"
+      component={PointCharge}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 충전",
+      }}
+    />
+    <Stack.Screen
+      name="PointWithdraw"
+      component={PointWithdraw}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 출금",
       }}
     />
     <Stack.Screen

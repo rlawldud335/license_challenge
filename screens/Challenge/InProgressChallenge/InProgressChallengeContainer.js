@@ -13,6 +13,7 @@ export default ({ navigation }) => {
     } else {
       Alert.alert("500 error");
     }
+    console.log(response.data);
   };
 
   useEffect(() => {

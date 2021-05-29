@@ -61,7 +61,11 @@ export default ({ navigation, loading }) => {
         </UserInfo>
       </Profile>
 
-      <Logout>
+      <Logout
+        onPress={() => {
+          navigation.navigate("PointManagement");
+        }}
+      >
         <Left>
           <IconWrap style={{ backgroundColor: "#FFF39B" }}>
             <MaterialIcons name="attach-money" size={28} color="#463F04" />

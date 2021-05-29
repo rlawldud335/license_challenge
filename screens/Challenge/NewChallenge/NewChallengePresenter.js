@@ -201,7 +201,7 @@ export const CreateProofCountOneDay = ({
     <RowContent>
       <NumericTextInput
         onChange={(text) => {
-          if (text == "" || parseInt(text) <= 10) {
+          if (text == "" || (0 < parseInt(text) && parseInt(text) <= 10)) {
             setProofCountOneDay(text);
           }
         }}
@@ -331,7 +331,7 @@ export const CreateLimitPeople = ({ limitPeople, setLimitPeople }) => (
     <RowContent>
       <NumericTextInput
         onChange={(text) => {
-          if (text == "" || 0 < parseInt(text) <= 100) {
+          if (text == "" || (0 < parseInt(text) && parseInt(text) <= 100)) {
             setLimitPeople(text);
           }
         }}

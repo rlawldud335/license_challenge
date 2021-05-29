@@ -70,7 +70,7 @@ export default ({ route, navigation }) => {
             alignItems: "center",
           }}
           onPress={() => {
-            navigation.navigate("JoinChallenge", {challengeData});
+            navigation.navigate("Payment", { challengeData });
           }}
         >
           <Text
