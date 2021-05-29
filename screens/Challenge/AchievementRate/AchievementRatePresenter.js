@@ -66,7 +66,7 @@ export default ({ challenge }) => {
 						style={{ flexDirection: "row", justifyContent: "space-around" }}
 					>
 						<Title title={"현재 달성률"} />
-						<Title title={`${item.achievement_rate}%`} />
+						<Title title={`${challenge.achievement_rate}%`} />
 						<TouchableOpacity
 							style={{
 								width: "40%",
@@ -102,30 +102,30 @@ export default ({ challenge }) => {
 										([StyleSheet.absoluteFill],
 										{
 											backgroundColor: "#B36DFF",
-											width: `${item.achievement_rate}%`, //// 여기 item 채워야됨
+											width: `${challenge.achievement_rate}%`, //// 여기 item 채워야됨
 											borderRadius: 10,
 										})
 									}
 								/>
 							</ProgressBar>
-							<ProgressText>{`달성률 ${item.achievement_rate}%`}</ProgressText>
+							<ProgressText>{`달성률 ${challenge.achievement_rate}%`}</ProgressText>
 						</ProgressContainer>
 					</View>
 
 					<View style={{ flexDirection: "row", justifyContent: "space-around" }}>
 						<View style={{ flexDirection: "column", justifyContent: "space-around" }}>
                             <Title title={"인증 성공"} />
-                            // joinChallenge.successCnt
+                            <Title title={`${challenge.successCnt}`} />
                         </View>
 
                         <View style={{ flexDirection: "column", justifyContent: "space-around" }}>
                             <Title title={"인증 실패"} />
-                            // joinChallenge.failCnt
+                            <Title title={`${challenge.failCnt}`} />
                         </View>
 
                         <View style={{ flexDirection: "column", justifyContent: "space-around" }}>
                             <Title title={"남은 인증"} />
-                            // 성공+실패 횟수
+                            
                         </View>
 					</View>
 
@@ -149,6 +149,7 @@ export default ({ challenge }) => {
 						style={{ flexDirection: "row", justifyContent: "space-between" }}
 					>
 						<Title title={"합격 인증 여부"} />
+						<PinkText>${challenge.pass}</PinkText>
 					</View>
 
                     //// 합격 인증한 사진들 보여주기
@@ -194,7 +195,7 @@ export default ({ challenge }) => {
 						}}
 					>
 						<Middle>전체 참가자 인원</Middle>
-						<PinkText>{challenge.joinPeople}명</PinkText>
+						<PinkText>{challenge.countAllchallengers}명</PinkText>
 					</View>
 
 					<View
@@ -205,7 +206,7 @@ export default ({ challenge }) => {
 						}}
 					>
 						<Middle>오늘 인증 성공한 참가자</Middle>
-						<PinkText>1명</PinkText>
+						<PinkText>{challenge.countDailyProofSuccess}명</PinkText>
 					</View>
 
 					<View
@@ -216,7 +217,7 @@ export default ({ challenge }) => {
 						}}
 					>
 						<Middle>합격 인증 성공한 참가자</Middle>
-						<PinkText>1명</PinkText>
+						<PinkText>{challenge.countPasschallengers}명</PinkText>
 					</View>
 
 					<View>
@@ -230,7 +231,7 @@ export default ({ challenge }) => {
                             }}
                         >
                             <Middle>~ 20%</Middle>
-                            <PinkText> 명</PinkText>
+                            <PinkText>{challenge.to20}명</PinkText>
 					    </View>
 
 					    <View
@@ -241,7 +242,7 @@ export default ({ challenge }) => {
                             }}
                         >
                             <Middle>~ 40%</Middle>
-                            <PinkText> 명</PinkText>
+                            <PinkText>{challenge.to40}명</PinkText>
                         </View>
 
                         <View
@@ -252,7 +253,7 @@ export default ({ challenge }) => {
                             }}
                         >
                             <Middle>~ 60%</Middle>
-                            <PinkText> 명</PinkText>
+                            <PinkText>{challenge.to60}명</PinkText>
                         </View>
 
                         <View
@@ -263,7 +264,7 @@ export default ({ challenge }) => {
                             }}
                         >
                             <Middle>~ 80%</Middle>
-                            <PinkText> 명</PinkText>
+                            <PinkText>{challenge.to80}명</PinkText>
                         </View>
 
                         <View
@@ -274,7 +275,7 @@ export default ({ challenge }) => {
                             }}
                         >
                             <Middle>~ 100%</Middle>
-                            <PinkText> 명</PinkText>
+                            <PinkText>{challenge.to100}명</PinkText>
                         </View>
 					</View>
 				</IntroWrap>

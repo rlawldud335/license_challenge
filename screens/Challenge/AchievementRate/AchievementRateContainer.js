@@ -8,6 +8,10 @@ export default ({ cid, navigation }) => {
 
   const getData = async () => {
     const response = await Api.getChallengeAchievementRate(cid);
+    const response2 = await Api.getChallengeAchievementRateInfo(cid);
+    console.log(response.data);
+    console.log("-------------------------");
+    console.log(response2.data);
   };
 
   useEffect(() => {

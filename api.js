@@ -85,6 +85,9 @@ const Api = {
   getChallengeAchievementRate: (challengeId) =>
     getRequest(`/challenge/${challengeId}/achievement-rate`),
 
+  getChallengeAchievementRateInfo: (challengeId) =>
+    getRequest(`/challenge/${challengeId}/achievement-rate-info`),
+
   getEndedChallenge: () => getRequest("/challenge/endedChallenge"),
 
   postProofPicture: (cid, body) =>
