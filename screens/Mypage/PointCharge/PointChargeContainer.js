@@ -3,11 +3,18 @@ import { ActivityIndicator, TouchableOpacity } from "react-native";
 import Api from "../../../api";
 import styled from "styled-components/native";
 import NumericTextInput from "../../../components/NumericTextInput";
+import RedButton from "../../../components/RedButton";
 
 export default ({ navigation }) => {
+  const [myPoint, setMyPoint] = useState();
   const [pointData, setPointData] = useState();
 
-  const getData = async () => {
+  const getMyPoint = async () => {
+    const response = await Api.getMyPoint();
+    setMyPoint(response.data.point);
+  };
+
+  const chargePoint = async () => {
     const response = await Api.getMyPoint();
     if (response.status == 200) {
       setPointData(response.data);
@@ -17,10 +24,10 @@ export default ({ navigation }) => {
   };
 
   useEffect(() => {
-    getData();
+    getMyPoint();
   }, []);
 
-  return pointData ? (
+  return (
     <Container>
       <Content>
         <Title>충전할 금액을 입력해주세요.</Title>
@@ -28,7 +35,7 @@ export default ({ navigation }) => {
           <NumericTextInput
             onChange={(text) => {
               if (text == "" || (0 < parseInt(text))) {
-                setMyPoint(text);
+                setPointData(text);
               }
             }}
           />
@@ -40,42 +47,20 @@ export default ({ navigation }) => {
       <PointWrap>
         <RowContent>
           <Text>현재 포인트</Text>
-          <Text>{pointData.point} P</Text>
+          <Text>{myPoint} P</Text>
         </RowContent>
         <RowContent>
 
           <Text>충전 후 포인트</Text>
-          <Text>{pointData.point} P</Text>
+          <Text>{myPoint} P</Text>
         </RowContent>
 
       </PointWrap>
-      <TouchableOpacity
-        style={{
-          width: "100%",
-          minWidth: 300,
-          backgroundColor: "#FF5E5E",
-          height: 40,
-          borderRadius: 10,
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "85%",
-        }}
-      // onPress={() => {
-      //   navigation.navigate("Payment", { pointData });
-      // }}
-      >
-        <Text
-          style={{ color: "white", fontFamily: "nanumBold", fontSize: 17 }}
-        >
-          충전하기
-          </Text>
-      </TouchableOpacity>
+      <Footer>
+        <RedButton fc={chargePoint} name={"충전하기"} />
+      </Footer>
     </Container>
-  ) : (
-    <Container>
-      <ActivityIndicator size="small" color="purple" />
-    </Container>
-  );
+  )
 };
 
 const Container = styled.View`
