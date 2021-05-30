@@ -12,6 +12,20 @@ import LicenseWebview from "../../screens/Explore/License/LicenseWebview";
 import LoadingScreen from "../../screens/LoadingScreen";
 import SigninScreen from "../../screens/SigninScreen";
 import SignupScreen from "../../screens/SignupScreen";
+<<<<<<< Updated upstream
+=======
+import NewCommunity from "../../screens/Community/NewCommunity";
+import Payment from "../../screens/Explore/Payment";
+import ProofPicture from "../../screens/Challenge/ProofPicture";
+import UploadProofPicture from "../../screens/Challenge/UploadProofPicture";
+import PeedInfo from "../../screens/Challenge/PeedInfo";
+import PointManagement from "../../screens/Mypage/PointManagement";
+import PointCharge from "../../screens/Mypage/PointCharge";
+import PointWithdraw from "../../screens/Mypage/PointWithdraw";
+import BoardInfo from "../../screens/Community/BoardInfo";
+import Iamport from "../../screens/Mypage/Iamport";
+import PaymentResult from "../../screens/Mypage/PaymentResult";
+>>>>>>> Stashed changes
 
 const Stack = createStackNavigator();
 
@@ -128,5 +142,144 @@ export default () => (
         headerBackTitleVisible: false,
       })}
     />
+<<<<<<< Updated upstream
+=======
+    <Stack.Screen
+      name="NewCommunity"
+      component={NewCommunity}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "새로운 커뮤니티 글 생성",
+      }}
+    />
+    <Stack.Screen
+      name="Payment"
+      component={Payment}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "결제하기",
+      }}
+    />
+    <Stack.Screen
+      name="ProofPicture"
+      component={ProofPicture}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "사진인증",
+      }}
+    />
+    <Stack.Screen
+      name="UploadProofPicture"
+      component={UploadProofPicture}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "사진 업로드",
+      }}
+    />
+    <Stack.Screen
+      name="PeedInfo"
+      component={PeedInfo}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "",
+        headerStyle: {
+          shadowColor: "transparent",
+        },
+      }}
+    />
+    <Stack.Screen
+      name="PointManagement"
+      component={PointManagement}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 관리",
+      }}
+    />
+    <Stack.Screen
+      name="PointCharge"
+      component={PointCharge}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 충전",
+      }}
+    />
+    <Stack.Screen
+      name="Iamport"
+      component={Iamport}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 카드결제",
+      }}
+    />
+    <Stack.Screen
+      name="PaymentResult"
+      component={Iamport}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 결제 결과",
+      }}
+    />
+    <Stack.Screen
+      name="PointWithdraw"
+      component={PointWithdraw}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 출금",
+      }}
+    />
+    <Stack.Screen
+      name="BoardInfo"
+      component={BoardInfo}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "",
+      }}
+    />
+    <Stack.Screen
+      name="DoChallengeTab"
+      component={DoChallengeTab}
+      title="Hello"
+      options={({ route }) => ({
+        headerShown: true,
+        headerBackTitleVisible: false,
+        headerStyle: {
+          height: 80,
+        },
+        headerTitleStyle: { flex: 1, textAlign: "center" },
+        headerLeftContainerStyle: { zIndex: 10 },
+        headerTitle: () => {
+          return (
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Image
+                style={{ width: WIDTH, height: 80, opacity: 0.35 }}
+                source={{ uri: route.params.challengeTitleImage }}
+              />
+              <Text
+                style={{
+                  fontFamily: "nanumBold",
+                  fontSize: 20,
+                  color: "#3b1464",
+                  position: "absolute",
+                }}
+              >
+                {route.params.challengeTitle}
+              </Text>
+            </View>
+          );
+        },
+      })}
+    />
+>>>>>>> Stashed changes
   </Stack.Navigator>
 );
