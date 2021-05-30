@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   ActivityIndicator,
+  StyleSheet,
 } from "react-native";
 import Api from "../../../api";
 import styled from "styled-components/native";
@@ -134,9 +135,8 @@ export default ({ navigation }) => {
               }}
               value={account}
             />
-            <Notice>* 1000원 단위로 환급 가능합니다.</Notice>
           </Content>
-
+          <Notice>* 1000원 단위로 환급 가능합니다.</Notice>
           <PointWrap>
             <RowContent>
               <Text>현재 포인트</Text>
@@ -181,7 +181,7 @@ export default ({ navigation }) => {
         backgroundColor: "white",
       }}
     >
-    <ActivityIndicator size="small" color="purple" />
+      <ActivityIndicator size="small" color="purple" />
     </View>
   );
 };

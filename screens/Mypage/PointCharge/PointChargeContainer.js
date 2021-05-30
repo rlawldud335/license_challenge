@@ -12,6 +12,7 @@ import styled from "styled-components/native";
 import NumericTextInput from "../../../components/NumericTextInput";
 
 export default ({ navigation }) => {
+  const [userInfo, setUserInfo] = useState();
   const [myPoint, setMyPoint] = useState();
   const [point, setPoint] = useState();
   const [totalPoint, setTotalPoint] = useState();
@@ -22,13 +23,22 @@ export default ({ navigation }) => {
       setMyPoint(response.data.point);
       setTotalPoint(response.data.point);
     }
+    const response2 = await Api.getUserInfo();
+    if (response2.status == 200) {
+      setUserInfo(response2.data[0]);
+    }
+  };
+
+  const chargePoint = () => {
+    console.log(userInfo);
+    console.log(myPoint);
   };
 
   useEffect(() => {
     getMyPoint();
   }, []);
 
-  return myPoint ? (
+  return myPoint != undefined ? (
     <Container>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView
@@ -38,58 +48,61 @@ export default ({ navigation }) => {
           }}
           behavior="padding"
         >
-        <Content>
-          <Title>충전할 금액을 입력해주세요.</Title>
-          <RowContentTop>
-            <NumericTextInput
-              onChange={(text)=>{
-                if (text == "" || parseInt(text) == 0) {
-                  text = 0;
-                  setPoint(text);
-                  setTotalPoint(parseInt(myPoint) + parseInt(text));
-                } else if(0 < parseInt(text) && parseInt(text)%1000==0) {
-                  setPoint(text);
-                  setTotalPoint(parseInt(myPoint) + parseInt(text));
-                }
-              }}
-              value={point}
-            />
-            <Title>P</Title>
-          </RowContentTop>
-          <Notice>* 1000원 단위로 충전 가능합니다.</Notice>
-        </Content>
-        
-        <PointWrap>
-          <RowContent>
-            <Text>현재 포인트</Text>
-            <Text>{myPoint} P</Text>
-          </RowContent>
-          
-          <RowContent>
-            <Text>충전 후 포인트</Text>
-            <Text>{totalPoint} P</Text>
-          </RowContent>
-        </PointWrap>
-      
-        <TouchableOpacity
-          style={{
-            width: "100%",
-            backgroundColor: "#FF5E5E",
-            bottom: 0,
-            height: 40,
-            borderRadius: 10,
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "85%",
-          }}
-          onPress={()=>{ //결제모듈로 이동,
-            navigation.navigate("", { amount : point });
-          }}
-        >
-          <Text style={{ color: "white", fontFamily: "nanumBold", fontSize: 17 }}>
-            충전하기
-          </Text>
-        </TouchableOpacity>
+          <Content>
+            <Title>충전할 금액을 입력해주세요.</Title>
+            <RowContentTop>
+              <NumericTextInput
+                onChange={(text) => {
+                  if (text == "" || parseInt(text) == 0) {
+                    text = 0;
+                    setPoint(text);
+                    setTotalPoint(parseInt(myPoint) + parseInt(text));
+                  } else if (0 < parseInt(text) && parseInt(text) % 1000 == 0) {
+                    setPoint(text);
+                    setTotalPoint(parseInt(myPoint) + parseInt(text));
+                  }
+                }}
+                value={point}
+              />
+              <Title>P</Title>
+            </RowContentTop>
+            <Notice>* 1000원 단위로 충전 가능합니다.</Notice>
+          </Content>
+
+          <PointWrap>
+            <RowContent>
+              <Text>현재 포인트</Text>
+              <Text>{myPoint} P</Text>
+            </RowContent>
+
+            <RowContent>
+              <Text>충전 후 포인트</Text>
+              <Text>{totalPoint} P</Text>
+            </RowContent>
+          </PointWrap>
+
+          <TouchableOpacity
+            style={{
+              width: "100%",
+              backgroundColor: "#FF5E5E",
+              bottom: 0,
+              height: 40,
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "85%",
+            }}
+            onPress={() => {
+              //결제모듈로 이동
+              chargePoint();
+            }}
+          >
+            <Text
+              style={{ color: "white", fontFamily: "nanumBold", fontSize: 17 }}
+            >
+              충전하기
+            </Text>
+          </TouchableOpacity>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </Container>
@@ -102,7 +115,7 @@ export default ({ navigation }) => {
         backgroundColor: "white",
       }}
     >
-    <ActivityIndicator size="small" color="purple" />
+      <ActivityIndicator size="small" color="purple" />
     </View>
   );
 };

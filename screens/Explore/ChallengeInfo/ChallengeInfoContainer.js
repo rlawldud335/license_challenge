@@ -91,7 +91,7 @@ export default ({ route, navigation }) => {
         backgroundColor: "white",
       }}
     >
-      <ActivityIndicator />
+      <ActivityIndicator size="small" color="purple" />
     </View>
   );
 };

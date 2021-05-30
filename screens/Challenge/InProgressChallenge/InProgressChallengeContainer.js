@@ -10,10 +10,7 @@ export default ({ navigation }) => {
     const response = await Api.getOngoingChallenge();
     if (response.status == 200) {
       setChallengeData(response.data);
-    } else {
-      Alert.alert("500 error");
     }
-    console.log(response.data);
   };
 
   useEffect(() => {
