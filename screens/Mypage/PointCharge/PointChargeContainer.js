@@ -29,10 +29,7 @@ export default ({ navigation }) => {
     }
   };
 
-  const chargePoint = () => {
-    console.log(userInfo);
-    console.log(myPoint);
-  };
+  const chargePoint = () => {};
 
   useEffect(() => {
     getMyPoint();

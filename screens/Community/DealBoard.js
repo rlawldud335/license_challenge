@@ -13,7 +13,7 @@ export default ({ navigation }) => {
   const getData = async () => {
     setIsLoading(true);
     const response = await Api.getSaleBoard(pageNum, numOfRows);
-    console.log(response.data);
+
     if (response.data.length == 0) {
       setIsEnd(true);
     }
@@ -38,23 +38,24 @@ export default ({ navigation }) => {
 
   const renderItem = ({ item }) => {
     return (
-      <Post onPress={() => navigation.navigate("BoardInfo")}>
-        {item.image ? (
-          <Image source={{ uri: item.image }} />
-        ) : (
-          <Image
-            source={{
-              uri: `https://licensechallenge.s3.ap-northeast-2.amazonaws.com/front/pink-sky.jpg`,
-            }}
-          />
-        )}
+      <Post
+        onPress={() =>
+          navigation.navigate("BoardInfo", {
+            boardId: item.boardId,
+          })
+        }
+      >
+        {item.image ? <Image source={{ uri: item.image }} /> : <Image />}
         <Vertical>
           <Title>{item.title.slice(0, 20)}</Title>
           <Content>{item.content.slice(0, 30)}</Content>
         </Vertical>
-        <TimeName>
-          {item.createDt.slice(0, 10)} | {item.nickname}
-        </TimeName>
+        <Center>
+          <TimeName>
+            {item.createDt.slice(0, 10)} | {item.nickname}
+          </TimeName>
+          <Title style={{ color: "#FF5E5E" }}>{item.price} P</Title>
+        </Center>
       </Post>
     );
   };
@@ -99,10 +100,16 @@ const Vertical = styled.View`
   margin: 0px 15px;
 `;
 
+const Center = styled.View`
+  justify-content: space-around;
+  align-items: center;
+`;
+
 const Image = styled.Image`
   width: 80px;
   height: 60px;
   border-radius: 10px;
+  background-color: #eeeeee;
 `;
 
 const Post = styled.TouchableOpacity`
@@ -111,6 +118,7 @@ const Post = styled.TouchableOpacity`
   border-bottom-color: #d6d6d6;
   padding: 15px;
   flex-direction: row;
+  /* flex-wrap: wrap; */
 `;
 
 const LicenseList = styled.FlatList`
