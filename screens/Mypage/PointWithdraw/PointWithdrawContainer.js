@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   View,
-  ActivityIndicator,
   TouchableOpacity,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Keyboard,
+  ActivityIndicator,
   StyleSheet,
 } from "react-native";
 import Api from "../../../api";
 import styled from "styled-components/native";
+import RedButton from "../../../components/RedButton";
 import NumericTextInput from "../../../components/NumericTextInput";
 import RNPickerSelect from "react-native-picker-select";
 
@@ -25,6 +27,26 @@ export default ({ navigation }) => {
     if (response.status == 200) {
       setMyPoint(response.data.point);
       setTotalPoint(response.data.point);
+    }
+  };
+
+  const postWithdrawPoint = async () => {
+    console.log(point);
+    const response = await Api.postWithdrawPoint({ point });
+    if (response.success == true) {
+      navigation.reset({
+        routes: [
+          {
+            name: "MainTab",
+            params: {
+              screen: "Mypage",
+            },
+          },
+        ],
+      });
+    } else {
+      Alert.alert(response.message);
+      setLoading(false);
     }
   };
 
@@ -63,12 +85,8 @@ export default ({ navigation }) => {
 
             <Title>환급 받을 은행을 선택해주세요.</Title>
             <RNPickerSelect
-              onOpen={() => {
-                Keyboard.dismiss();
-              }}
-              onValueChange={(selectedValue) => {
-                setBank(selectedValue);
-              }}
+              onValueChange={(value) => setBank(value)}
+              value={bank}
               items={[
                 { label: "NH농협", value: "NH농협" },
                 { label: "KB국민", value: "KB국민" },
@@ -100,12 +118,12 @@ export default ({ navigation }) => {
                 { label: "BNP파리바", value: "BNP파리바" },
                 { label: "BOA", value: "BOA" },
               ]}
-              value={bank}
               placeholder={{
                 label: "은행을 선택해주세요.",
-                value: "은행을 선택해주세요.",
+                value: null,
               }}
               style={PickerStyle}
+              useNativeAndroidPickerStyle={false}
             />
 
             <Title>환급 받을 계좌를 입력해주세요.</Title>
@@ -129,28 +147,9 @@ export default ({ navigation }) => {
             </RowContent>
           </PointWrap>
 
-          <TouchableOpacity
-            style={{
-              width: "100%",
-              backgroundColor: "#FF5E5E",
-              bottom: 0,
-              height: 40,
-              borderRadius: 10,
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: "40%",
-            }}
-            onPress={() => {
-              //환급
-              navigation.navigate("", { amount: point });
-            }}
-          >
-            <Text
-              style={{ color: "white", fontFamily: "nanumBold", fontSize: 17 }}
-            >
-              환급하기
-            </Text>
-          </TouchableOpacity>
+          <Footer>
+            <RedButton fc={postWithdrawPoint} name={"환급하기"} />
+          </Footer>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </Container>
@@ -224,17 +223,30 @@ const Text = styled.Text`
   margin: 2px;
 `;
 
+const Footer = styled.View`
+  position: absolute;
+  bottom: 0;
+  height: 7%;
+  width: 100%;
+  background-color: white;
+  border-top-color: #cacaca;
+  border-top-width: 0.2px;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+`;
+
 const PickerStyle = {
   inputIOS: {
-    color: "white",
+    color: "black",
     paddingTop: 13,
     paddingHorizontal: 10,
     paddingBottom: 12,
   },
   inputAndroid: {
-    color: "white",
+    color: "black",
   },
-  placeholderColor: "white",
+  placeholderColor: "black",
   underline: { borderTopWidth: 0 },
   icon: {
     position: "absolute",
