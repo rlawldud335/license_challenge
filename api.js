@@ -128,7 +128,7 @@ const Api = {
     getRequest("/board/freeboard", { pageNum, numOfRows }),
 
   getSaleBoard: (pageNum, numOfRows) =>
-    getRequest("/board/salebord", { pageNum, numOfRows }),
+    getRequest("/board/saleboard", { pageNum, numOfRows }),
 
   getFreeBoardInfo: (boardId) => getRequest(`/board/freeboard/${boardId}`),
   getBoardComment: (boardId) => getRequest(`/board/${boardId}/comment`),

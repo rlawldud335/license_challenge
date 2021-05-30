@@ -13,6 +13,7 @@ export default ({ navigation }) => {
   const getData = async () => {
     setIsLoading(true);
     const response = await Api.getSaleBoard(pageNum, numOfRows);
+    console.log(response.data);
     if (response.data.length == 0) {
       setIsEnd(true);
     }
