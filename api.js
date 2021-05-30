@@ -114,6 +114,8 @@ const Api = {
 
   getMyPointHistory: (pageNum, numOfRows) =>
     getRequest("/point/history", { pageNum, numOfRows }),
+
+  postPointPayment: (body) => postFormReqest("/point/payment", body),
 };
 
 export default Api;

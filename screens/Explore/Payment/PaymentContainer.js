@@ -20,6 +20,7 @@ export default ({ route }) => {
       }}
     >
       <Text>Payment</Text>
+      <Text>{route.params.amount}</Text>
     </View>
   );
 };

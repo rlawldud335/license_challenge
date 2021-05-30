@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, TouchableOpacity } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Keyboard,
+} from "react-native";
 import Api from "../../../api";
 import styled from "styled-components/native";
 import NumericTextInput from "../../../components/NumericTextInput";
-import RedButton from "../../../components/RedButton";
 
 export default ({ navigation }) => {
   const [myPoint, setMyPoint] = useState();
-  const [pointData, setPointData] = useState();
+  const [point, setPoint] = useState();
+  const [totalPoint, setTotalPoint] = useState();
 
   const getMyPoint = async () => {
     const response = await Api.getMyPoint();
-    setMyPoint(response.data.point);
-  };
-
-  const chargePoint = async () => {
-    const response = await Api.getMyPoint();
     if (response.status == 200) {
-      setPointData(response.data);
-    } else {
-      navigation.goback();
+      setMyPoint(response.data.point);
+      setTotalPoint(response.data.point);
     }
   };
 
@@ -27,40 +28,83 @@ export default ({ navigation }) => {
     getMyPoint();
   }, []);
 
-  return (
+  return myPoint ? (
     <Container>
-      <Content>
-        <Title>충전할 금액을 입력해주세요.</Title>
-        <RowContent>
-          <NumericTextInput
-            onChange={(text) => {
-              if (text == "" || (0 < parseInt(text))) {
-                setPointData(text);
-              }
-            }}
-          />
-          <Title>P</Title>
-        </RowContent>
-        <Notice>* 1000원 단위로 충전 가능합니다.</Notice>
-      </Content>
-
-      <PointWrap>
-        <RowContent>
-          <Text>현재 포인트</Text>
-          <Text>{myPoint} P</Text>
-        </RowContent>
-        <RowContent>
-
-          <Text>충전 후 포인트</Text>
-          <Text>{myPoint} P</Text>
-        </RowContent>
-
-      </PointWrap>
-      <Footer>
-        <RedButton fc={chargePoint} name={"충전하기"} />
-      </Footer>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          style={{
+            flex: 1,
+            backgroundColor: "white",
+          }}
+          behavior="padding"
+        >
+        <Content>
+          <Title>충전할 금액을 입력해주세요.</Title>
+          <RowContentTop>
+            <NumericTextInput
+              onChange={(text)=>{
+                if (text == "" || parseInt(text) == 0) {
+                  text = 0;
+                  setPoint(text);
+                  setTotalPoint(parseInt(myPoint) + parseInt(text));
+                } else if(0 < parseInt(text) && parseInt(text)%1000==0) {
+                  setPoint(text);
+                  setTotalPoint(parseInt(myPoint) + parseInt(text));
+                }
+              }}
+              value={point}
+            />
+            <Title>P</Title>
+          </RowContentTop>
+          <Notice>* 1000원 단위로 충전 가능합니다.</Notice>
+        </Content>
+        
+        <PointWrap>
+          <RowContent>
+            <Text>현재 포인트</Text>
+            <Text>{myPoint} P</Text>
+          </RowContent>
+          
+          <RowContent>
+            <Text>충전 후 포인트</Text>
+            <Text>{totalPoint} P</Text>
+          </RowContent>
+        </PointWrap>
+      
+        <TouchableOpacity
+          style={{
+            width: "100%",
+            backgroundColor: "#FF5E5E",
+            bottom: 0,
+            height: 40,
+            borderRadius: 10,
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "85%",
+          }}
+          onPress={()=>{ //결제모듈로 이동,
+            navigation.navigate("", { amount : point });
+          }}
+        >
+          <Text style={{ color: "white", fontFamily: "nanumBold", fontSize: 17 }}>
+            충전하기
+          </Text>
+        </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </Container>
-  )
+  ) : (
+    <View
+      style={{
+        flex: 1,
+        justifyContents: "center",
+        aligenItem: "center",
+        backgroundColor: "white",
+      }}
+    >
+    <ActivityIndicator size="small" color="purple" />
+    </View>
+  );
 };
 
 const Container = styled.View`
@@ -71,6 +115,13 @@ const Container = styled.View`
 
 const Content = styled.View`
   margin: 20px 0px;
+`;
+
+const RowContentTop = styled.View`
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 `;
 
 const RowContent = styled.View`
