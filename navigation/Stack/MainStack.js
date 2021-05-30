@@ -12,8 +12,6 @@ import LicenseWebview from "../../screens/Explore/License/LicenseWebview";
 import LoadingScreen from "../../screens/LoadingScreen";
 import SigninScreen from "../../screens/SigninScreen";
 import SignupScreen from "../../screens/SignupScreen";
-<<<<<<< Updated upstream
-=======
 import NewCommunity from "../../screens/Community/NewCommunity";
 import Payment from "../../screens/Explore/Payment";
 import ProofPicture from "../../screens/Challenge/ProofPicture";
@@ -25,7 +23,6 @@ import PointWithdraw from "../../screens/Mypage/PointWithdraw";
 import BoardInfo from "../../screens/Community/BoardInfo";
 import Iamport from "../../screens/Mypage/Iamport";
 import PaymentResult from "../../screens/Mypage/PaymentResult";
->>>>>>> Stashed changes
 
 const Stack = createStackNavigator();
 
@@ -142,8 +139,6 @@ export default () => (
         headerBackTitleVisible: false,
       })}
     />
-<<<<<<< Updated upstream
-=======
     <Stack.Screen
       name="NewCommunity"
       component={NewCommunity}
@@ -280,6 +275,5 @@ export default () => (
         },
       })}
     />
->>>>>>> Stashed changes
   </Stack.Navigator>
 );

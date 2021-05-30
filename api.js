@@ -23,13 +23,11 @@ const getRequest = async (path, params = {}) => {
 const postReqest = async (path, params = {}) => {};
 
 const Api = {
-<<<<<<< Updated upstream
   licenseAll: (pageNum, numOfRows) =>
     getRequest("license", { pageNum, numOfRows }),
   challengeCategory: (pageNum, numOfRows, category) =>
     getRequest("challenge", { pageNum, numOfRows, category }),
   postChallenge: (params) => postReqest("/challenge", params),
-=======
   postAuthSignin: (email, password) =>
     postJsonReqest("/auth/signin", {
       email,
@@ -102,7 +100,6 @@ const Api = {
   postPayment: (body) => postJsonReqest("/point/payment", body),  
   postChargePoint: (body) => postJsonReqest("/point/charge", body),
   
->>>>>>> Stashed changes
 };
 
 export default Api;
