@@ -11,22 +11,15 @@ import {
 
 export default ({ route, navigation }) => {
   const {
-    params: { challengeData: cData },
+    params: { challengeData },
   } = route;
+  const [myPonit, setMyPoint] = useState();
 
-  const [challengeData, setChallengeData] = useState();
-
-  const getData = async () => {
-    const response = await Api.getChallengeChallengeId(cData.challengeId);
+  useState(async () => {
+    const response = await Api.getMyPoint();
     if (response.status == 200) {
-      setChallengeData(response.data);
-    } else {
-      Alert.alert("500 error");
+      setMyPoint(parseInt(response.data.point));
     }
-  };
-
-  useEffect(() => {
-    getData();
   }, []);
 
   return challengeData ? (
@@ -37,7 +30,11 @@ export default ({ route, navigation }) => {
           width: "100%",
         }}
       >
-        <PaymentPresenter challenge={challengeData} navigation={navigation} />
+        <PaymentPresenter
+          challenge={challengeData}
+          navigation={navigation}
+          myPonit={myPonit}
+        />
       </View>
 
       <View
@@ -63,6 +60,26 @@ export default ({ route, navigation }) => {
             borderRadius: 10,
             justifyContent: "center",
             alignItems: "center",
+          }}
+          onPress={async () => {
+            const response = await Api.getChallengeEnter(
+              challengeData.deposit,
+              challengeData.challengeId
+            );
+            if (response.success == true) {
+              navigation.reset({
+                routes: [
+                  {
+                    name: "MainTab",
+                    params: {
+                      screen: "Challenge",
+                    },
+                  },
+                ],
+              });
+            } else {
+              Alert.alert(response.message);
+            }
           }}
         >
           <Text

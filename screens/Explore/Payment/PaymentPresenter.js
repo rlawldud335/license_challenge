@@ -1,12 +1,10 @@
 import React from "react";
-import Api from "../../../api";
 import styled from "styled-components/native";
 import Title from "../../../components/Title";
 import Tag from "../../../components/Tag";
-import RedButton from "../../../components/RedButton";
 import { View, Image, Platform, TouchableOpacity } from "react-native";
 
-export default ({ challenge, navigation }) => {
+export default ({ challenge, navigation, myPonit }) => {
   return (
     <SView>
       <Contents>
@@ -105,7 +103,7 @@ export default ({ challenge, navigation }) => {
             >
               <Middle>현재 포인트</Middle>
               <PinkLine>
-                <PinkText>200</PinkText>
+                <PinkText>{myPonit}</PinkText>
                 <Middle>포인트</Middle>
               </PinkLine>
             </View>
@@ -133,7 +131,7 @@ export default ({ challenge, navigation }) => {
             >
               <Middle>결제 후 포인트</Middle>
               <PinkLine>
-                <PinkText>{200 - challenge.deposit}</PinkText>
+                <PinkText>{myPonit - challenge.deposit}</PinkText>
                 <Middle>포인트</Middle>
               </PinkLine>
             </View>

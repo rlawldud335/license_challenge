@@ -139,6 +139,9 @@ const Api = {
     }),
   getChallengeAchievementRateInfo: (challengeId) =>
     getRequest(`/challenge/${challengeId}/achievement-rate-info`),
+
+  getChallengeEnter: (deposit, challengeId) =>
+    postJsonReqest("/challenge/enter", { deposit, challengeId }),
 };
 
 export default Api;
