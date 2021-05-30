@@ -30,6 +30,7 @@ import PeedInfo from "../../screens/Challenge/PeedInfo";
 import PointManagement from "../../screens/Mypage/PointManagement";
 import PointCharge from "../../screens/Mypage/PointCharge";
 import PointWithdraw from "../../screens/Mypage/PointWithdraw";
+import BoardInfo from "../../screens/Community/BoardInfo";
 
 const Stack = createStackNavigator();
 
@@ -221,6 +222,15 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         title: "포인트 출금",
+      }}
+    />
+    <Stack.Screen
+      name="BoardInfo"
+      component={BoardInfo}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "",
       }}
     />
     <Stack.Screen

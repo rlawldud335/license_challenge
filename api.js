@@ -43,16 +43,31 @@ const postFormReqest = async (path, body) => {
 
 const postJsonReqest = async (path, body) => {
   try {
-    const { data } = await axios.post(
-      `https://license-challenge.herokuapp.com${path}`,
-      body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return data;
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      const { data } = await axios.post(
+        `https://license-challenge.herokuapp.com${path}`,
+        body,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return data;
+    } else {
+      const { data } = await axios.post(
+        `https://license-challenge.herokuapp.com${path}`,
+        body,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return data;
+    }
   } catch (e) {
     console.log(e);
   }
@@ -108,6 +123,20 @@ const Api = {
 
   getMyPointHistory: (pageNum, numOfRows) =>
     getRequest("/point/history", { pageNum, numOfRows }),
+
+  getFreeBoard: (pageNum, numOfRows) =>
+    getRequest("/board/freeboard", { pageNum, numOfRows }),
+
+  getSaleBoard: (pageNum, numOfRows) =>
+    getRequest("/board/salebord", { pageNum, numOfRows }),
+
+  getFreeBoardInfo: (boardId) => getRequest(`/board/freeboard/${boardId}`),
+  getBoardComment: (boardId) => getRequest(`/board/${boardId}/comment`),
+  postComment: (boardId, content, level) =>
+    postJsonReqest(`/board/${boardId}/comment`, {
+      content,
+      level,
+    }),
 };
 
 export default Api;

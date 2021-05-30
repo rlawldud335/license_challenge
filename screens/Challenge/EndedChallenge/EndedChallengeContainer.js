@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, ActivityIndicator, View } from "react-native";
+import { FlatList, ActivityIndicator, View, Alert } from "react-native";
 import EndedChallengePresenter from "./EndedChallengePresenter";
 import Api from "../../../api";
 

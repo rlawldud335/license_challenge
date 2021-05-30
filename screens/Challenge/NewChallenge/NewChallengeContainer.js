@@ -107,10 +107,9 @@ export default ({ navigation }) => {
           routes: [
             {
               name: "MainTab",
-            },
-            {
-              name: "Category",
-              params: { title: "챌린지 전체보기", category: "전체보기" },
+              params: {
+                screen: "Challenge",
+              },
             },
           ],
         });

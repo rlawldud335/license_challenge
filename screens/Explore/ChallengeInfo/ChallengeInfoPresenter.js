@@ -21,10 +21,10 @@ export default ({ challenge }) => {
           </DateText>
         </DateWrap>
         <TagWrap>
+          <Tag tagName={`주 ${challenge.proofCount}회`} />
+          <Tag tagName={`하루 ${challenge.proofCountOneDay}회`} />
           <Tag tagName={`${challenge.deposit} P`} />
           <Tag tagName={`${challenge.proofAvailableDay}`} />
-          <Tag tagName={`하루 ${challenge.proofCount}번 인증`} />
-          <Tag tagName={`하루 ${challenge.proofCountOneDay}번 인증`} />
           <Tag tagName={`${challenge.challengeCategory}`} />
           {challenge.licenseName && (
             <Tag tagName={`${challenge.licenseName}`} />
