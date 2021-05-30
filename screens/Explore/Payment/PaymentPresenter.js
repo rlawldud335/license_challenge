@@ -6,7 +6,7 @@ import Tag from "../../../components/Tag";
 import RedButton from "../../../components/RedButton";
 import { View, Image, Platform, TouchableOpacity } from "react-native";
 
-export default ({ challenge }) => {
+export default ({ challenge, navigation }) => {
   return (
     <SView>
       <Contents>
@@ -151,7 +151,7 @@ export default ({ challenge }) => {
               alignContent: "center",
             }}
             onPress={() => {
-              navigation.navigate(""); // 포인트 충전하는 화면으로 이동
+              navigation.navigate("PointCharge"); // 포인트 충전하는 화면으로 이동
             }}
           >
             <Text

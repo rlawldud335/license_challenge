@@ -48,7 +48,7 @@ export default ({ navigation, route, cid }) => {
     setIsLoading(true);
     const response = await Api.getPeedImages(cid, pageNum, numOfRows);
     setIsLoading(false);
-    console.log(response.data);
+
     if (response.data.length == 0) {
       setIsEnd(true);
     }

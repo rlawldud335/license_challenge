@@ -64,9 +64,6 @@ export default ({ route, navigation }) => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          onPress={() => {
-            navigation.navigate("payment");
-          }}
         >
           <Text
             style={{ color: "white", fontFamily: "nanumBold", fontSize: 17 }}

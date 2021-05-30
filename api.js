@@ -137,6 +137,8 @@ const Api = {
       content,
       level,
     }),
+  getChallengeAchievementRateInfo: (challengeId) =>
+    getRequest(`/challenge/${challengeId}/achievement-rate-info`),
 };
 
 export default Api;

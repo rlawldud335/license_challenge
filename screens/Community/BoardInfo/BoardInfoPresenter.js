@@ -7,7 +7,6 @@ export const CreateComment = ({ commentInfo }) => {
   return (
     <View style={{ marginTop: 20 }}>
       {commentInfo.map((item) => {
-        // console.log(item);
         return (
           <View
             style={{
