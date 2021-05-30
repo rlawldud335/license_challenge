@@ -149,7 +149,7 @@ const Api = {
   getChallengeEnter: (deposit, challengeId) =>
     postJsonReqest("/challenge/enter", { deposit, challengeId }),
 
-  postWithdrawPoint: (body) => postFormReqest(`/point/withdraw`, body),
+  postWithdrawPoint: (body) => postJsonReqest(`/point/withdraw`, body),
 };
 
 export default Api;

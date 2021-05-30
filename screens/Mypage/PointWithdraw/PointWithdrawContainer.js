@@ -32,7 +32,7 @@ export default ({ navigation }) => {
 
   const postWithdrawPoint = async() => {
     console.log(point);
-    const response = await Api.postWithdrawPoint(point);
+    const response = await Api.postWithdrawPoint({point});
     if (response.success == true) {
       navigation.reset({
         routes: [
@@ -148,24 +148,7 @@ export default ({ navigation }) => {
               <Text>{totalPoint} P</Text>
             </RowContent>
           </PointWrap>
-
-          {/* <TouchableOpacity
-            style={{
-              width: "100%",
-              backgroundColor: "#FF5E5E",
-              bottom: 0,
-              height: 40,
-              borderRadius: 10,
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: "40%",
-            }}
-            onPress={() => navigation.goback()}
-          >
-            <Text style={{ color: "white", fontFamily: "nanumBold", fontSize: 17 }}>
-              환급하기
-            </Text>
-          </TouchableOpacity> */}
+          
           <Footer>
             <RedButton fc={postWithdrawPoint} name={"환급하기"} />
           </Footer>
