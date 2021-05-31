@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import {
   CreateCategory,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import styled from "styled-components/native";
-import { Text, View, FlatList } from "react-native";
+import { Text, View, FlatList, Platform } from "react-native";
 import Checkbox from "../../../components/CheckBox";
 import OneLineTextInput from "../../../components/OneLineTextInput";
 import MultiLineTextInput from "../../../components/MultiLineTextInput";

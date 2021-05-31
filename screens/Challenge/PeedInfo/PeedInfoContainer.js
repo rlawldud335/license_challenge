@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Dimensions } from "react-native";
+import { ActivityIndicator, Dimensions, Platform } from "react-native";
 import Api from "../../../api";
 import styled from "styled-components/native";
 import Menu from "../../../assets/icon/Menu";
