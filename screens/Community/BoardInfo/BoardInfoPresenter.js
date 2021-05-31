@@ -41,7 +41,12 @@ export const CreateComment = ({ commentInfo }) => {
   );
 };
 
-export const CreateBoardInfo = ({ boardInfo, previewFile, allFile }) => {
+export const CreateBoardInfo = ({
+  boardInfo,
+  previewFile,
+  allFile,
+  payment,
+}) => {
   return (
     <View style={{ margin: 20 }}>
       <Header>
@@ -74,16 +79,22 @@ export const CreateBoardInfo = ({ boardInfo, previewFile, allFile }) => {
           >
             <Text style={{ color: "white" }}>미리보기 파일 다운로드</Text>
           </PreviewFile>
-          <PreviewFile onPress={() => Linking.openURL(previewFile)}>
+          <PreviewFile onPress={payment}>
             <Text style={{ color: "white" }}>
-              결제하고 전체파일 다운로드받기{" "}
+              결제하고 전체파일 다운로드받기
             </Text>
           </PreviewFile>
         </>
       ) : null}
 
       {allFile ? (
-        <PreviewFile>
+        <PreviewFile
+          onPress={async () => {
+            const fileUri = FileSystem.documentDirectory + "tqtqtqt.jpg";
+            const file = await FileSystem.downloadAsync(previewFile, fileUri);
+            // console.log("Finished downloading to ", file.uri);
+          }}
+        >
           <Text>전체 파일 다운로드</Text>
         </PreviewFile>
       ) : null}
