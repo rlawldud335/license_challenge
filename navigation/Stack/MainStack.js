@@ -31,6 +31,7 @@ import PointManagement from "../../screens/Mypage/PointManagement";
 import PointCharge from "../../screens/Mypage/PointCharge";
 import PointWithdraw from "../../screens/Mypage/PointWithdraw";
 import BoardInfo from "../../screens/Community/BoardInfo";
+import JoinPeopleList from "../../screens/Challenge/JoinPeopleList";
 
 const Stack = createStackNavigator();
 
@@ -237,6 +238,16 @@ export default () => {
           headerShown: true,
           headerBackTitleVisible: false,
           title: "",
+        }}
+      />
+
+      <Stack.Screen
+        name="JoinPeopleList"
+        component={JoinPeopleList}
+        options={{
+          headerShown: true,
+          headerBackTitleVisible: false,
+          title: "참가자 리스트 조회",
         }}
       />
       <Stack.Screen

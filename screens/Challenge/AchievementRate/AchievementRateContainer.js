@@ -120,6 +120,9 @@ export default ({ cid, challengeTitleImage, navigation }) => {
               paddingHorizontal: 15,
               borderRadius: 10,
             }}
+            onPress={() => {
+              navigation.navigate("JoinPeopleList", { cid });
+            }}
           >
             <Title style={{ fontSize: 15 }}>참가자 리스트 조회</Title>
           </TouchableOpacity>
@@ -138,13 +141,11 @@ export default ({ cid, challengeTitleImage, navigation }) => {
           }}
         />
         <Title style={{ marginVertical: 10 }}>참가자 인증 현황</Title>
-        <Title>0~20% : {achieveRateInfo.achievementStatistics.to20} 명</Title>
-        <Title>21~40% : {achieveRateInfo.achievementStatistics.to40} 명</Title>
-        <Title>41~60% : {achieveRateInfo.achievementStatistics.to60} 명</Title>
-        <Title>61~80% : {achieveRateInfo.achievementStatistics.to80} 명</Title>
-        <Title>
-          81~100% : {achieveRateInfo.achievementStatistics.to100} 명
-        </Title>
+        <Title>~20% : {achieveRateInfo.achievementStatistics.to20} 명</Title>
+        <Title>~40% : {achieveRateInfo.achievementStatistics.to40} 명</Title>
+        <Title>~60% : {achieveRateInfo.achievementStatistics.to60} 명</Title>
+        <Title>~80% : {achieveRateInfo.achievementStatistics.to80} 명</Title>
+        <Title>~100% : {achieveRateInfo.achievementStatistics.to100} 명</Title>
       </AchieveRateView>
     </Container>
   ) : (
