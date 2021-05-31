@@ -31,6 +31,8 @@ import PointManagement from "../../screens/Mypage/PointManagement";
 import PointCharge from "../../screens/Mypage/PointCharge";
 import PointWithdraw from "../../screens/Mypage/PointWithdraw";
 import BoardInfo from "../../screens/Community/BoardInfo";
+import JoinPeopleList from "../../screens/Challenge/JoinPeopleList";
+import UpdateMyInfo from "../../screens/Mypage/UpdateMyInfo"
 
 const Stack = createStackNavigator();
 
@@ -186,6 +188,15 @@ export default () => (
       }}
     />
     <Stack.Screen
+      name="UpdateMyInfo"
+      component={UpdateMyInfo}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "내 정보 수정",
+      }}
+    />
+    <Stack.Screen
       name="PeedInfo"
       component={PeedInfo}
       options={{
@@ -231,6 +242,15 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         title: "",
+      }}
+    />
+    <Stack.Screen
+      name="JoinPeopleList"
+      component={JoinPeopleList}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "참가자 리스트 조회",
       }}
     />
     <Stack.Screen

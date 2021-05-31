@@ -103,12 +103,17 @@ const Api = {
   getChallengeAchievementRateInfo: (challengeId) =>
     getRequest(`/challenge/${challengeId}/achievement-rate-info`),
 
+  getJoinPeopleList: (challengeId) =>
+    getRequest(`/challenge/${challengeId}/join-people`),
+
   getEndedChallenge: () => getRequest("/challenge/endedChallenge"),
 
   postProofPicture: (cid, body) =>
     postFormReqest(`/challenge/${cid}/proof-picture`, body),
 
   getUserInfo: () => getRequest("/user/my-info"),
+
+  updateMyInfo: () => postFormReqest("/user/my-info", body),
 
   postFreeBoard: (body) => postFormReqest("/board/freeboard", body),
   postSaleBoard: (body) => postFormReqest("/board/saleboard", body),

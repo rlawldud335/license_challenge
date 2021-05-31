@@ -39,7 +39,10 @@ export default ({ navigation, loading }) => {
         <Title title={"마이페이지"} />
       </TitleView>
 
-      <Profile>
+      <Profile
+              onPress={() => {
+                navigation.navigate("UpdateMyInfo");
+              }}>
         <UserImage source={{ uri: userData.profileImage }} />
         <UserInfo>
           <TextWrap>
