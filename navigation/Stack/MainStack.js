@@ -32,7 +32,7 @@ import PointCharge from "../../screens/Mypage/PointCharge";
 import PointWithdraw from "../../screens/Mypage/PointWithdraw";
 import BoardInfo from "../../screens/Community/BoardInfo";
 import JoinPeopleList from "../../screens/Challenge/JoinPeopleList";
-import UpdateMyInfo from "../../screens/Mypage/UpdateMyInfo"
+//import UpdateMyInfo from "../../screens/Mypage/UpdateMyInfo"
 
 const Stack = createStackNavigator();
 
@@ -187,7 +187,7 @@ export default () => (
         title: "사진 업로드",
       }}
     />
-    <Stack.Screen
+    {/* <Stack.Screen
       name="UpdateMyInfo"
       component={UpdateMyInfo}
       options={{
@@ -195,7 +195,7 @@ export default () => (
         headerBackTitleVisible: false,
         title: "내 정보 수정",
       }}
-    />
+    /> */}
     <Stack.Screen
       name="PeedInfo"
       component={PeedInfo}

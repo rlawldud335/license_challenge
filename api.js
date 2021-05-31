@@ -113,7 +113,7 @@ const Api = {
 
   getUserInfo: () => getRequest("/user/my-info"),
 
-  updateMyInfo: () => postFormReqest("/user/my-info", body),
+  //updateMyInfo: () => postFormReqest("/user/my-info", body),
 
   postFreeBoard: (body) => postFormReqest("/board/freeboard", body),
   postSaleBoard: (body) => postFormReqest("/board/saleboard", body),
