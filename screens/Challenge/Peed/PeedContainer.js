@@ -38,7 +38,6 @@ const formatData = (data, numColumns) => {
 };
 
 export default ({ navigation, route, cid }) => {
-  console.log(cid);
   const [images, setImages] = useState([]);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +47,7 @@ export default ({ navigation, route, cid }) => {
     setIsLoading(true);
     const response = await Api.getPeedImages(cid, pageNum, numOfRows);
     setIsLoading(false);
-    console.log(response.data);
+
     if (response.data.length == 0) {
       setIsEnd(true);
     }

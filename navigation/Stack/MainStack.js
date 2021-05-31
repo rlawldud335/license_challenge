@@ -30,8 +30,7 @@ import PeedInfo from "../../screens/Challenge/PeedInfo";
 import PointManagement from "../../screens/Mypage/PointManagement";
 import PointCharge from "../../screens/Mypage/PointCharge";
 import PointWithdraw from "../../screens/Mypage/PointWithdraw";
-import JoinChallenge from "../../screens/Challenge/JoinChallenge"
-import AchievementRate from "../../screens/Challenge/AchievementRate";
+import BoardInfo from "../../screens/Community/BoardInfo";
 
 const Stack = createStackNavigator();
 
@@ -133,30 +132,12 @@ export default () => (
       }}
     />
     <Stack.Screen
-      name="AchievementRate"
-      component={AchievementRate}
-      options={{
-        headerShown: true,
-        headerBackTitleVisible: false,
-        title: "",
-      }}
-    />
-    <Stack.Screen
       name="NewChallenge"
       component={NewChallenge}
       options={{
         headerShown: true,
         headerBackTitleVisible: false,
         title: "새로운 챌린지 생성",
-      }}
-    />
-    <Stack.Screen
-      name="JoinChallenge"
-      component={JoinChallenge}
-      options={{
-        headerShown: true,
-        headerBackTitleVisible: false,
-        title: "챌린지 참가하기",
       }}
     />
     <Stack.Screen
@@ -241,6 +222,15 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         title: "포인트 출금",
+      }}
+    />
+    <Stack.Screen
+      name="BoardInfo"
+      component={BoardInfo}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "",
       }}
     />
     <Stack.Screen

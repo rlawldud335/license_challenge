@@ -25,7 +25,13 @@ export default ({ route }) => {
       <Tab.Screen
         options={{ tabBarLabel: "달성률" }}
         name="AchievementRate"
-        children={() => <AchievementRate cid={route.params.challengeId} />}
+        children={(props) => (
+          <AchievementRate
+            cid={route.params.challengeId}
+            challengeTitleImage={route.params.challengeTitleImage}
+            navigation={props.navigation}
+          />
+        )}
       />
       <Tab.Screen
         options={{ tabBarLabel: "피드" }}

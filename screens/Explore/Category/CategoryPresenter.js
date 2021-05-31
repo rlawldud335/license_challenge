@@ -18,10 +18,12 @@ const renderItem = ({ item, navigation }) => {
       <TitleImage source={{ uri: item.challengeTitleImage }} />
       <TitleName>{item.challengeTitle.slice(0, 20)}</TitleName>
       <Tags>
+        <Tag tagName={`주 ${item.proofCount}회`} />
+        <Tag tagName={`하루 ${item.proofCountOneDay}회`} />
         <Tag tagName={`${item.deposit} P`} />
-        <Tag tagName={`일주일에 ${item.proofCount}번 인증`} />
-        <Tag tagName={`하루 ${item.proofCountOneDay}번 인증`} />
         {item.licenseName ? <Tag tagName={item.licenseName} /> : null}
+        <Tag tagName={`${item.proofAvailableDay}`} />
+        <Tag tagName={`${item.challengeCategory}`} />
       </Tags>
     </Challenge>
   );
