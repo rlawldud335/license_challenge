@@ -121,7 +121,7 @@ export default ({ cid, challengeTitleImage, navigation }) => {
               borderRadius: 10,
             }}
             onPress={() => {
-              navigation.navigate("JoinPeopleList");
+              navigation.navigate("JoinPeopleList", { cid });
             }}
           >
             <Title style={{ fontSize: 15 }}>참가자 리스트 조회</Title>
@@ -145,9 +145,7 @@ export default ({ cid, challengeTitleImage, navigation }) => {
         <Title>~40% : {achieveRateInfo.achievementStatistics.to40} 명</Title>
         <Title>~60% : {achieveRateInfo.achievementStatistics.to60} 명</Title>
         <Title>~80% : {achieveRateInfo.achievementStatistics.to80} 명</Title>
-        <Title>
-          ~100% : {achieveRateInfo.achievementStatistics.to100} 명
-        </Title>
+        <Title>~100% : {achieveRateInfo.achievementStatistics.to100} 명</Title>
       </AchieveRateView>
     </Container>
   ) : (

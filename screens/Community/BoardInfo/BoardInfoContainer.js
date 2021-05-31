@@ -27,8 +27,9 @@ export default ({ route }) => {
     }
     const saleBoard = await Api.getSaleBoardInfo(route.params.boardId);
     if (saleBoard.status == 200) {
-      setPreviewFile(saleBoard.data[0].previewFile);
-      setAllFile(saleBoard.data[0].allFile);
+      if (saleBoard.data[0]?.previewFile)
+        setPreviewFile(saleBoard.data[0].previewFile);
+      if (saleBoard.data[0]?.allFile) setAllFile(saleBoard.data[0].allFile);
     }
   };
 
@@ -53,6 +54,10 @@ export default ({ route }) => {
     }
   };
 
+  const payment = () => {
+    console.log("payment");
+  };
+
   useEffect(() => {
     getData();
     getComment();
@@ -71,6 +76,7 @@ export default ({ route }) => {
             boardInfo={boardInfo}
             previewFile={previewFile}
             allFile={allFile}
+            payment={payment}
           />
           <CreateComment commentInfo={commentInfo} />
         </ScrollView>
