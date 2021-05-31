@@ -31,6 +31,8 @@ import PointManagement from "../../screens/Mypage/PointManagement";
 import PointCharge from "../../screens/Mypage/PointCharge";
 import PointWithdraw from "../../screens/Mypage/PointWithdraw";
 import BoardInfo from "../../screens/Community/BoardInfo";
+import Iamport from "../../screens/Mypage/Iamport";
+import PaymentResult from "../../screens/Mypage/PaymentResult";
 
 const Stack = createStackNavigator();
 
@@ -213,6 +215,24 @@ export default () => (
         headerShown: true,
         headerBackTitleVisible: false,
         title: "포인트 충전",
+      }}
+    />
+    <Stack.Screen
+      name="Iamport"
+      component={Iamport}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 카드결제",
+      }}
+    />
+    <Stack.Screen
+      name="PaymentResult"
+      component={Iamport}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 결제 결과",
       }}
     />
     <Stack.Screen

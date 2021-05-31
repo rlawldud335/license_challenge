@@ -12,10 +12,10 @@ import styled from "styled-components/native";
 import NumericTextInput from "../../../components/NumericTextInput";
 
 export default ({ navigation }) => {
-  const [userInfo, setUserInfo] = useState();
   const [myPoint, setMyPoint] = useState();
   const [point, setPoint] = useState();
   const [totalPoint, setTotalPoint] = useState();
+  const [paymentInfo, setPaymentInfo] = useState();
 
   const getMyPoint = async () => {
     const response = await Api.getMyPoint();
@@ -23,15 +23,37 @@ export default ({ navigation }) => {
       setMyPoint(response.data.point);
       setTotalPoint(response.data.point);
     }
-    const response2 = await Api.getUserInfo();
-    if (response2.status == 200) {
-      setUserInfo(response2.data[0]);
-    }
   };
 
-  const chargePoint = () => {
-    console.log(userInfo);
-    console.log(myPoint);
+  const getChargeParams = async() => {
+
+    let jsonData = JSON.stringify({
+      pay_method: "card",
+      amount: point
+    });
+    console.log(jsonData);
+
+    const response3 = await Api.postPayment(jsonData);
+    if (response3.code == 200) {
+      setPaymentInfo(response3);
+      console.log("paymentInfo:",paymentInfo);
+    
+
+    const params = {
+      //        pg: 'html5_inicis.INIBillTst',
+      pg: 'kakao',
+      pay_method: response3.pay_method,
+      merchant_uid: response3.merchant_uid,
+      amount: response3.amount,
+      buyer_name: response3.buyer_name,
+      buyer_tel: response3.buyer_tel,
+      buyer_email: response3.buyer_email,
+      escrow: false,
+    };
+    console.log(params);
+    
+    navigation.navigate("Iamport", { params });
+  }
   };
 
   useEffect(() => {
@@ -94,7 +116,9 @@ export default ({ navigation }) => {
             }}
             onPress={() => {
               //결제모듈로 이동
-              chargePoint();
+              
+              getChargeParams();
+              
             }}
           >
             <Text

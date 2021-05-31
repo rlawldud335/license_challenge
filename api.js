@@ -142,6 +142,9 @@ const Api = {
 
   getChallengeEnter: (deposit, challengeId) =>
     postJsonReqest("/challenge/enter", { deposit, challengeId }),
+
+  postPayment: (body) => postJsonReqest("/point/payment", body),  
+  postChargePoint: (body) => postJsonReqest("/point/charge", body),
 };
 
 export default Api;
