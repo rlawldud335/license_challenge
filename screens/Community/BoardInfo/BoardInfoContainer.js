@@ -53,6 +53,10 @@ export default ({ route }) => {
     }
   };
 
+  const payment = () => {
+    console.log("payment");
+  };
+
   useEffect(() => {
     getData();
     getComment();
@@ -71,6 +75,7 @@ export default ({ route }) => {
             boardInfo={boardInfo}
             previewFile={previewFile}
             allFile={allFile}
+            payment={payment}
           />
           <CreateComment commentInfo={commentInfo} />
         </ScrollView>

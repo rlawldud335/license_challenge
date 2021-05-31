@@ -153,6 +153,9 @@ const Api = {
 
   getSaleBoardInfo: (boardId) => getRequest(`/board/saleboard/${boardId}`),
   postWithdrawPoint: (body) => postJsonReqest(`/point/withdraw`, body),
+
+  getSearchChallenge: (keyword, pageNum, numOfRows) =>
+    getRequest("/challenge/search", { keyword, pageNum, numOfRows }),
 };
 
 export default Api;
