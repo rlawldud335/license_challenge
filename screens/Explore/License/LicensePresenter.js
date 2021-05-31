@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { Platform, Linking } from "react-native";
 
 let preSC = "",
   preBC = "";
@@ -27,10 +28,14 @@ const renderItem = ({ license, index, navigation }) => {
       ) : null}
       <License
         onPress={() => {
-          navigation.navigate("LicenseWebview", {
-            title: license.licenseName,
-            licenseId: license.licenseId,
-          });
+          Platform.OS != "web"
+            ? navigation.navigate("LicenseWebview", {
+                title: license.licenseName,
+                licenseId: license.licenseId,
+              })
+            : Linking.openURL(
+                `http://www.q-net.or.kr//crf005.do?id=crf00505&gSite=Q&gId=&jmCd=${license.licenseId}&examInstiCd=`
+              );
         }}
       >
         <LicenseText>{license.licenseName}</LicenseText>

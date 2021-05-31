@@ -23,7 +23,6 @@ export default ({ route, navigation }) => {
   const [type, setType] = useState(Camera.Constants.Type.back);
 
   useEffect(() => {
-    console.log(route.params.item.challengeId);
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");

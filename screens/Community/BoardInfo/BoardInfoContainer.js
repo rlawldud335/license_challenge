@@ -17,14 +17,23 @@ export default ({ route }) => {
   const [myComment, setMyComment] = useState();
   const [level, setLevel] = useState(0);
   const [precedingComment, setPrecedingComment] = useState();
+  const [previewFile, setPreviewFile] = useState();
+  const [allFile, setAllFile] = useState();
 
   const getData = async () => {
     const response = await Api.getFreeBoardInfo(route.params.boardId);
     if (response.status == 200) {
       setBoardInfo(response.data[0]);
-    } else {
-      Alert.alert("500 error");
     }
+    const saleBoard = await Api.getSaleBoardInfo(route.params.boardId);
+    if (saleBoard.status == 200) {
+      if (saleBoard.data[0]?.previewFile)
+        setPreviewFile(saleBoard.data[0].previewFile);
+      if (saleBoard.data[0]?.allFile) setAllFile(saleBoard.data[0].allFile);
+    }
+  };
+
+  const getComment = async () => {
     const comment = await Api.getBoardComment(route.params.boardId);
     if (comment.status == 200) {
       setCommentInfo(comment.data);
@@ -32,17 +41,26 @@ export default ({ route }) => {
   };
 
   const postData = async () => {
-    console.log(route.params.boardId, myComment, level);
     const response = await Api.postComment(
       route.params.boardId,
       myComment,
-      level
+      level,
+      precedingComment
     );
-    console.log(response.status);
+    if (response.success == true) {
+      getComment();
+    } else {
+      Alert.alert(response.message);
+    }
+  };
+
+  const payment = () => {
+    console.log("payment");
   };
 
   useEffect(() => {
     getData();
+    getComment();
   }, []);
 
   return boardInfo ? (
@@ -53,12 +71,16 @@ export default ({ route }) => {
           width: "100%",
         }}
       >
-        <ScrollView style={{ padding: 20 }}>
-          <CreateBoardInfo boardInfo={boardInfo} />
+        <ScrollView>
+          <CreateBoardInfo
+            boardInfo={boardInfo}
+            previewFile={previewFile}
+            allFile={allFile}
+            payment={payment}
+          />
           <CreateComment commentInfo={commentInfo} />
         </ScrollView>
       </View>
-
       <View
         style={{
           height: "7%",
@@ -84,7 +106,10 @@ export default ({ route }) => {
           }}
           onChangeText={(text) => setMyComment(text)}
           value={myComment}
-          onSubmitEditing={() => postData()}
+          onSubmitEditing={() => {
+            setMyComment("");
+            postData();
+          }}
         ></TextInput>
         <Send style={{ position: "absolute", left: "83%", zIndex: 5 }} />
       </View>
