@@ -100,6 +100,12 @@ const Api = {
   getChallengeAchievementRate: (challengeId) =>
     getRequest(`/challenge/${challengeId}/achievement-rate`),
 
+  getChallengeAchievementRateInfo: (challengeId) =>
+    getRequest(`/challenge/${challengeId}/achievement-rate-info`),
+
+  getJoinPeopleList: (challengeId) =>
+    getRequest(`/challenge/${challengeId}/join-people`),
+
   getEndedChallenge: () => getRequest("/challenge/endedChallenge"),
 
   postProofPicture: (cid, body) =>
@@ -107,12 +113,8 @@ const Api = {
 
   getUserInfo: () => getRequest("/user/my-info"),
 
-  getFreeBoard: (pageNum, numOfRows) =>
-    getRequest("/board/freeboard", { pageNum, numOfRows }),
+  updateMyInfo: () => postFormReqest("/user/my-info", body),
 
-  getDealBoard: (pageNum, numOfRows) =>
-    getRequest("/board/saleboard", { pageNum, numOfRows }),
-    
   postFreeBoard: (body) => postFormReqest("/board/freeboard", body),
   postSaleBoard: (body) => postFormReqest("/board/saleboard", body),
 

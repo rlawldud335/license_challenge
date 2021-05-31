@@ -1,9 +1,7 @@
 import React from "react";
-import Api from "../../../api";
 import styled from "styled-components/native";
 import Title from "../../../components/Title";
 import Tag from "../../../components/Tag";
-import RedButton from "../../../components/RedButton";
 import { View, Image, Platform, TouchableOpacity } from "react-native";
 
 export default ({ challenge }) => {
