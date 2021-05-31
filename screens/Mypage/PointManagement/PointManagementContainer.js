@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Platform } from "react-native";
 import styled from "styled-components/native";
 import Api from "../../../api";
 
@@ -144,13 +144,15 @@ const HistoryList = styled.FlatList`
 const BtnView = styled.View`
   flex-direction: row;
 `;
+
 const BtnWrap = styled.TouchableOpacity`
   background-color: #ce9fff;
-  padding: 10px;
+  padding: 5px;
   margin: 20px;
   border-radius: 10px;
   flex: 1;
   align-items: center;
+  min-width: 150px;
   shadow-color: #000;
   shadow-offset: 0px 5px;
   shadow-opacity: 0.1;

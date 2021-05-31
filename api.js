@@ -156,6 +156,9 @@ const Api = {
 
   getSearchChallenge: (keyword, pageNum, numOfRows) =>
     getRequest("/challenge/search", { keyword, pageNum, numOfRows }),
+
+  getJoinPeopleList: (challengeId) =>
+    getRequest(`/challenge/${challengeId}/join-people`),
 };
 
 export default Api;
