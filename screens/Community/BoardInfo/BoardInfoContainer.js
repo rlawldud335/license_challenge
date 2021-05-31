@@ -19,6 +19,8 @@ export default ({ route }) => {
   const [precedingComment, setPrecedingComment] = useState();
   const [previewFile, setPreviewFile] = useState();
   const [allFile, setAllFile] = useState();
+  const [price, setPrice] = useState();
+  const [fileId, setFileId] = useState();
 
   const getData = async () => {
     const response = await Api.getFreeBoardInfo(route.params.boardId);
@@ -27,6 +29,8 @@ export default ({ route }) => {
     }
     const saleBoard = await Api.getSaleBoardInfo(route.params.boardId);
     if (saleBoard.status == 200) {
+      setPrice(saleBoard.data[0]?.price);
+      setFileId(saleBoard.data[0]?.fileId);
       if (saleBoard.data[0]?.previewFile)
         setPreviewFile(saleBoard.data[0].previewFile);
       if (saleBoard.data[0]?.allFile) setAllFile(saleBoard.data[0].allFile);
@@ -54,8 +58,22 @@ export default ({ route }) => {
     }
   };
 
-  const payment = () => {
-    console.log("payment");
+  const payment = async () => {    
+    console.log(price);
+    console.log(fileId);
+
+    let data = new FormData();
+    data.append("point",price);
+    data.append("fileId",fileId);
+
+    const response = await Api.buyAttachedFile(route.params.boardId, data);
+
+    if(response.status == 200) {
+      const saleBoard = await Api.getSaleBoardInfo(route.params.boardId);
+      setAllFile(saleBoard.data[0].allFile);
+    } else {
+      Alert.alert(response.message);
+    }
   };
 
   useEffect(() => {

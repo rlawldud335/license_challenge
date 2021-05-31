@@ -70,11 +70,7 @@ export const CreateBoardInfo = ({
       {previewFile ? (
         <>
           <PreviewFile
-            onPress={async () => {
-              const fileUri = FileSystem.documentDirectory + "tqtqtqt.jpg";
-              const file = await FileSystem.downloadAsync(previewFile, fileUri);
-              // console.log("Finished downloading to ", file.uri);
-            }}
+            onPress={() => Linking.openURL(previewFile)}
             style={{ marginTop: 20 }}
           >
             <Text style={{ color: "white" }}>미리보기 파일 다운로드</Text>
@@ -89,11 +85,7 @@ export const CreateBoardInfo = ({
 
       {allFile ? (
         <PreviewFile
-          onPress={async () => {
-            const fileUri = FileSystem.documentDirectory + "tqtqtqt.jpg";
-            const file = await FileSystem.downloadAsync(previewFile, fileUri);
-            // console.log("Finished downloading to ", file.uri);
-          }}
+          onPress={() => Linking.openURL(allFile)}
         >
           <Text>전체 파일 다운로드</Text>
         </PreviewFile>

@@ -118,6 +118,8 @@ const Api = {
   postFreeBoard: (body) => postFormReqest("/board/freeboard", body),
   postSaleBoard: (body) => postFormReqest("/board/saleboard", body),
 
+  buyAttachedFile: (boardId, body) => postFormReqest(`/board/saleboard/${boardId}`, body),
+
   getPeedImages: (challengeId, pageNum, numOfRows) =>
     getRequest(`/challenge/${challengeId}/proof-picture`, {
       pageNum,
