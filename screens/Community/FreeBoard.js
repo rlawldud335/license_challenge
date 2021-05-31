@@ -44,15 +44,7 @@ export default ({ navigation }) => {
           })
         }
       >
-        {item.image ? (
-          <Image source={{ uri: item.image }} />
-        ) : (
-          <Image
-            source={{
-              uri: `https://licensechallenge.s3.ap-northeast-2.amazonaws.com/front/pink-sky.jpg`,
-            }}
-          />
-        )}
+        {item.image ? <Image source={{ uri: item.image }} /> : <Image />}
         <Vertical>
           <Title>{item.title.slice(0, 20)}</Title>
           <Content>{item.content.slice(0, 30)}</Content>
@@ -108,6 +100,7 @@ const Image = styled.Image`
   width: 80px;
   height: 60px;
   border-radius: 10px;
+  background-color: #eeeeee;
 `;
 
 const Post = styled.TouchableOpacity`

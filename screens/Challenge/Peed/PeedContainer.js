@@ -38,7 +38,6 @@ const formatData = (data, numColumns) => {
 };
 
 export default ({ navigation, route, cid }) => {
-  console.log(cid);
   const [images, setImages] = useState([]);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

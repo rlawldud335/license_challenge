@@ -55,7 +55,7 @@ export default ({ navigation }) => {
       let formData = new FormData();
       formData.append("title", commuTitle);
       formData.append("content", content);
-      formData.append("image", images);
+      formData.append("image", images[0]);
       const response = await Api.postFreeBoard(formData);
       if (response.code == 200) {
         navigation.reset({
@@ -81,7 +81,7 @@ export default ({ navigation }) => {
       let formData = new FormData();
       formData.append("title", commuTitle);
       formData.append("content", content);
-      formData.append("image", images);
+      formData.append("image", images[0]);
       formData.append("price", price);
       formData.append("previewFile", previewFile);
       formData.append("allFile", allFile);

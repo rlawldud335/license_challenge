@@ -30,9 +30,9 @@ export default ({ navigation }) => {
     }
   };
 
-  const postWithdrawPoint = async() => {
+  const postWithdrawPoint = async () => {
     console.log(point);
-    const response = await Api.postWithdrawPoint({point});
+    const response = await Api.postWithdrawPoint({ point });
     if (response.success == true) {
       navigation.reset({
         routes: [
@@ -40,7 +40,7 @@ export default ({ navigation }) => {
             name: "MainTab",
             params: {
               screen: "Mypage",
-            },          
+            },
           },
         ],
       });
@@ -85,9 +85,7 @@ export default ({ navigation }) => {
 
             <Title>환급 받을 은행을 선택해주세요.</Title>
             <RNPickerSelect
-              onValueChange={(value) =>
-                setBank(value)
-              }
+              onValueChange={(value) => setBank(value)}
               value={bank}
               items={[
                 { label: "NH농협", value: "NH농협" },
@@ -121,7 +119,7 @@ export default ({ navigation }) => {
                 { label: "BOA", value: "BOA" },
               ]}
               placeholder={{
-                label: '은행을 선택해주세요.',
+                label: "은행을 선택해주세요.",
                 value: null,
               }}
               style={PickerStyle}
@@ -148,7 +146,6 @@ export default ({ navigation }) => {
               <Text>{totalPoint} P</Text>
             </RowContent>
           </PointWrap>
-          
           <Footer>
             <RedButton fc={postWithdrawPoint} name={"환급하기"} />
           </Footer>
@@ -240,15 +237,15 @@ const Footer = styled.View`
 
 const PickerStyle = {
   inputIOS: {
-    color: 'black',
+    color: "black",
     paddingTop: 13,
     paddingHorizontal: 10,
     paddingBottom: 12,
   },
   inputAndroid: {
-    color: 'black',
+    color: "black",
   },
-  placeholderColor: 'black',
+  placeholderColor: "black",
   underline: { borderTopWidth: 0 },
   icon: {
     position: 'absolute',

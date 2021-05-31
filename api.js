@@ -149,6 +149,7 @@ const Api = {
   getChallengeEnter: (deposit, challengeId) =>
     postJsonReqest("/challenge/enter", { deposit, challengeId }),
 
+  getSaleBoardInfo: (boardId) => getRequest(`/board/saleboard/${boardId}`),
   postWithdrawPoint: (body) => postJsonReqest(`/point/withdraw`, body),
 };
 
