@@ -1,25 +1,31 @@
 import React from 'react';
 import IMP from 'iamport-react-native';
-import { WebView } from 'react-native-webview';
 
-//export default class Payment extends React.Component {
+//import Loading from '../Loading';
 
-export default function Payment({ route, navigation }) {
-    const { params } = route.params;
+export default ({ navigation, route }) => {
+  const { params } = route.params;
+  console.log("parmas",params);
+  console.log("params2222:", params);
+  console.log("pg:", params.pg);
+  const { pg } = params;
+  // const data = {
+  //   ...params,
+  //   app_scheme: 'expba40064ef55f4312b9da861780a9b781',
+  // };
 
-    console.log("params:", params);
-    const data = {
-        ...params,
-        app_scheme: 'expba40064ef55f4312b9da861780a9b781',
-    };
+  //console.log("data:", params.pg);
+  
+  return (
+    <IMP.Payment
+      userCode={getUserCode(pg)}
+    //  loading={<Loading />}
+      data={params}
+      callback={response => navigation.replace('PaymentResult', { response, amount:params.amount })}
+    />
+  );   
+}
 
-    return (
-
-        <IMP.Payment
-            userCode={'imp09408477'}
-            data={data}
-            callback={response => navigation.replace('PaymentResult', { response, amount:data.amount })}
-        />
-
-    )
+export function getUserCode(pg) {
+  return 'imp09408477';
 }

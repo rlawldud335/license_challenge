@@ -4,7 +4,6 @@ import { List, ListItem, Icon, Button, Text } from 'native-base';
 import Api from "../../../api";
 
 export default function PaymentResult({ route, navigation }) {
-  const [myPoint, setMyPoint] = useState();
 
   console.log("여기요ㅠㅠㅠ")
   const { response, amount } = route.params;
@@ -19,6 +18,7 @@ export default function PaymentResult({ route, navigation }) {
   
   const chargePoint = async () => {
     const response = await Api.postChargePoint(jsonData);
+
     if (response.code == 200) {
       setPaymentInfo(response);
       console.log(paymentInfo);

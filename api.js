@@ -4,23 +4,74 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const getRequest = async (path, params = {}) => {
   try {
     const token = await AsyncStorage.getItem("token");
-    const { data } = await axios.get(
-      `https://license-challenge.herokuapp.com/${path}`,
+    const response = await axios.get(
+      `https://license-challenge.herokuapp.com${path}`,
       {
         headers: {
-          authorization: `Basic ${token}`,
+          authorization: `Bearer ${token}`,
+          Accept: "*/*",
         },
         params,
       }
     );
-    return data;
+    return response;
   } catch (e) {
     console.log(e);
     return [];
   }
 };
 
-const postReqest = async (path, params = {}) => {};
+const postFormReqest = async (path, body) => {
+  try {
+    const token = await AsyncStorage.getItem("token");
+    const { data } = await axios.post(
+      `https://license-challenge.herokuapp.com${path}`,
+      body,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const postJsonReqest = async (path, body) => {
+  try {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      const { data } = await axios.post(
+        `https://license-challenge.herokuapp.com${path}`,
+        body,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return data;
+    } else {
+      const { data } = await axios.post(
+        `https://license-challenge.herokuapp.com${path}`,
+        body,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return data;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const Api = {
   licenseAll: (pageNum, numOfRows) =>
@@ -28,6 +79,7 @@ const Api = {
   challengeCategory: (pageNum, numOfRows, category) =>
     getRequest("challenge", { pageNum, numOfRows, category }),
   postChallenge: (params) => postReqest("/challenge", params),
+
   postAuthSignin: (email, password) =>
     postJsonReqest("/auth/signin", {
       email,
@@ -99,7 +151,15 @@ const Api = {
 
   postPayment: (body) => postJsonReqest("/point/payment", body),  
   postChargePoint: (body) => postJsonReqest("/point/charge", body),
-  
+
+  getSaleBoardInfo: (boardId) => getRequest(`/board/saleboard/${boardId}`),
+  postWithdrawPoint: (body) => postJsonReqest(`/point/withdraw`, body),
+
+  getSearchChallenge: (keyword, pageNum, numOfRows) =>
+    getRequest("/challenge/search", { keyword, pageNum, numOfRows }),
+
+  getJoinPeopleList: (challengeId) =>
+    getRequest(`/challenge/${challengeId}/join-people`),
 };
 
 export default Api;
