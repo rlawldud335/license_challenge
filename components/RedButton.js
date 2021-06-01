@@ -16,8 +16,8 @@ const Text = styled.Text`
   font-size: 17px;
 `;
 
-const RedButton = ({ fc, name }) => (
-  <Container onPress={fc}>
+const RedButton = ({ fc, name, style }) => (
+  <Container onPress={fc} style={style}>
     <Text>{name}</Text>
   </Container>
 );

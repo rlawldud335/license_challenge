@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components/native";
 
-const MultiLineTextInput = ({ onChange, plh }) => (
+const MultiLineTextInput = ({ onChange, plh, style }) => (
   <TextInput
     multiline
     numberOfLines={4}
     onChangeText={onChange}
     placeholder={plh}
+    style={style}
   ></TextInput>
 );
 

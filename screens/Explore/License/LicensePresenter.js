@@ -1,62 +1,50 @@
 import React from "react";
 import styled from "styled-components/native";
+import { Platform, Linking } from "react-native";
 
-export default ({ licenseData, getData, navigation }) => {
-  let preSC, preBC;
+let preSC = "",
+  preBC = "";
 
-  const renderItem = ({ item, index }) => {
-    if (index == 0) {
-      (preSC = ""), (preBC = "");
-    }
-    let isBC = preBC != item.bigCategory ? true : false;
-    let isSC = preSC != item.smallCategory ? true : false;
-    preBC = item.bigCategory;
-    preSC = item.smallCategory;
-    return (
-      <>
-        {isBC ? (
-          <BigCategory>
-            <Text>{item.bigCategory}</Text>
-          </BigCategory>
-        ) : null}
-        {isSC ? (
-          <SmallCategory>
-            <Text> - {item.smallCategory}</Text>
-          </SmallCategory>
-        ) : null}
-        <License
-          onPress={() => {
-            navigation.navigate("LicenseWebview", {
-              title: item.licenseName,
-              licenseId: item.licenseId,
-            });
-          }}
-        >
-          <LicenseText>{item.licenseName}</LicenseText>
-        </License>
-      </>
-    );
-  };
-  const handleLoadMore = () => {
-    getData();
-  };
+const renderItem = ({ license, index, navigation }) => {
+  if (index == 0) {
+    (preSC = ""), (preBC = "");
+  }
+  let isBC = preBC != license.bigCategory ? true : false;
+  let isSC = preSC != license.smallCategory ? true : false;
+  preBC = license.bigCategory;
+  preSC = license.smallCategory;
 
   return (
-    <LicenseList
-      data={licenseData}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.licenseId.toString()}
-      onEndReached={handleLoadMore}
-      onEndReachedThreshold={0.1}
-      showsVerticalScrollIndicator={false}
-    />
+    <>
+      {isBC ? (
+        <BigCategory>
+          <Text>{license.bigCategory}</Text>
+        </BigCategory>
+      ) : null}
+      {isSC ? (
+        <SmallCategory>
+          <Text> - {license.smallCategory}</Text>
+        </SmallCategory>
+      ) : null}
+      <License
+        onPress={() => {
+          Platform.OS != "web"
+            ? navigation.navigate("LicenseWebview", {
+                title: license.licenseName,
+                licenseId: license.licenseId,
+              })
+            : Linking.openURL(
+                `http://www.q-net.or.kr//crf005.do?id=crf00505&gSite=Q&gId=&jmCd=${license.licenseId}&examInstiCd=`
+              );
+        }}
+      >
+        <LicenseText>{license.licenseName}</LicenseText>
+      </License>
+    </>
   );
 };
 
-const LicenseList = styled.FlatList`
-  flex: 1;
-  background-color: white;
-`;
+export default React.memo(renderItem);
 
 const BigCategory = styled.View`
   height: 35px;

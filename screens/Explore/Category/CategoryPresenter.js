@@ -3,74 +3,34 @@ import styled from "styled-components/native";
 import Tag from "../../../components/Tag";
 import { View } from "react-native";
 
-const formatData = (data, numColumns) => {
-  const numberOfFullRows = Math.floor(data.length / numColumns);
-
-  let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns;
-  while (
-    numberOfElementsLastRow !== numColumns &&
-    numberOfElementsLastRow !== 0
-  ) {
-    data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
-    numberOfElementsLastRow++;
+const renderItem = ({ item, navigation }) => {
+  if (item.empty === true) {
+    return <View style={{ flex: 1, margin: 10 }} />;
   }
-
-  return data;
-};
-
-const numColumns = 2;
-export default ({ challengeData, getData, navigation }) => {
-  console.log(challengeData);
-  const renderItem = ({ item }) => {
-    if (item.empty === true) {
-      return <View style={{ flex: 1, margin: 10 }} />;
-    }
-    return (
-      <Challenge
-        onPress={() => {
-          navigation.navigate("ChallengeInfo", {
-            challengeId: item.challengeId,
-          });
-        }}
-      >
-        <TitleImage source={{ uri: item.challengeTitleImage }} />
-        <TitleName>{item.challengeTitle.slice(0, 21)}</TitleName>
-        <Tags>
-          <Tag tagName={`${item.deposit} P`} />
-          <Tag tagName={`일주일에 ${item.proofCount}번 인증`} />
-          <Tag tagName={`하루 ${item.proofCountOneDay}번 인증`} />
-          <Tag
-            tagName={`${item.chgStartDt.slice(0, 10)}  ~  ${item.chgEndDt.slice(
-              0,
-              10
-            )}`}
-          />
-        </Tags>
-      </Challenge>
-    );
-  };
-  const handleLoadMore = () => {
-    getData();
-  };
-
   return (
-    <ChallengeList
-      data={formatData(challengeData, numColumns)}
-      renderItem={renderItem}
-      numColumns={numColumns}
-      keyExtractor={(item) => item.challengeId}
-      showsVerticalScrollIndicator={false}
-      onEndReached={handleLoadMore}
-      onEndReachedThreshold={0.1}
-    />
+    <Challenge
+      onPress={() => {
+        navigation.navigate("ChallengeInfo", {
+          challengeId: item.challengeId,
+        });
+      }}
+    >
+      <TitleImage source={{ uri: item.challengeTitleImage }} />
+      <TitleName>{item.challengeTitle.slice(0, 20)}</TitleName>
+      <Tags>
+        <Tag tagName={`주 ${item.proofCount}회`} />
+        <Tag tagName={`하루 ${item.proofCountOneDay}회`} />
+        <Tag tagName={`${item.deposit} P`} />
+        {item.licenseName ? <Tag tagName={item.licenseName} /> : null}
+        <Tag tagName={`${item.proofAvailableDay}`} />
+        <Tag tagName={`${item.challengeCategory}`} />
+      </Tags>
+    </Challenge>
   );
 };
 
-const ChallengeList = styled.FlatList`
-  flex: 1;
-  padding: 10px 10px;
-  background-color: white;
-`;
+export default React.memo(renderItem);
+
 const Challenge = styled.TouchableOpacity`
   flex: 1;
   margin: 10px;
@@ -89,7 +49,7 @@ const TitleImage = styled.Image`
 const TitleName = styled.Text`
   font-family: "nanumBold";
   color: #3b1464;
-  font-size: 18px;
+  font-size: 17px;
   margin: 5px 10px;
 `;
 const Tags = styled.View`

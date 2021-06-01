@@ -1,9 +1,18 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components/native";
 
-const OneLineTextInput = ({ onChange, plh }) => (
-  <TextInput onChangeText={onChange} placeholder={plh}></TextInput>
-);
+const OneLineTextInput = forwardRef((props, ref) => {
+  return (
+    <TextInput
+      onChangeText={props.onChange}
+      placeholder={props.plh}
+      onSubmitEditing={props.onSubmit}
+      value={props.value}
+      ref={ref}
+      style={props.style}
+    ></TextInput>
+  );
+});
 
 const TextInput = styled.TextInput`
   width: 80%;
