@@ -2,7 +2,6 @@ import styled from "styled-components/native";
 import React from "react";
 import Menu from "../../../assets/icon/Menu";
 import { View, Linking } from "react-native";
-import * as FileSystem from "expo-file-system";
 
 export const CreateComment = ({ commentInfo }) => {
   return (
@@ -70,11 +69,7 @@ export const CreateBoardInfo = ({
       {previewFile ? (
         <>
           <PreviewFile
-            onPress={async () => {
-              const fileUri = FileSystem.documentDirectory + "tqtqtqt.jpg";
-              const file = await FileSystem.downloadAsync(previewFile, fileUri);
-              // console.log("Finished downloading to ", file.uri);
-            }}
+            onPress={() => Linking.openURL(previewFile)}
             style={{ marginTop: 20 }}
           >
             <Text style={{ color: "white" }}>미리보기 파일 다운로드</Text>
@@ -88,13 +83,7 @@ export const CreateBoardInfo = ({
       ) : null}
 
       {allFile ? (
-        <PreviewFile
-          onPress={async () => {
-            const fileUri = FileSystem.documentDirectory + "tqtqtqt.jpg";
-            const file = await FileSystem.downloadAsync(previewFile, fileUri);
-            // console.log("Finished downloading to ", file.uri);
-          }}
-        >
+        <PreviewFile onPress={() => Linking.openURL(allFile)}>
           <Text>전체 파일 다운로드</Text>
         </PreviewFile>
       ) : null}
@@ -153,6 +142,7 @@ const Profile = styled.Image`
   width: 50px;
   height: 50px;
   border-radius: 25px;
+  background-color: #eeeeee;
 `;
 
 const PUD = styled.View`

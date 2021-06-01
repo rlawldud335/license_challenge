@@ -146,6 +146,7 @@ const UserImage = styled.Image`
   width: 80px;
   height: 80px;
   border-radius: 40px;
+  background-color: #eeeeee;
 `;
 const UserInfo = styled.View`
   width: 70%;

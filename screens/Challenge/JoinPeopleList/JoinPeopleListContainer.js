@@ -31,6 +31,7 @@ export default ({ route }) => {
               borderBottomColor: "#eeeeee",
               borderBottomWidth: 1,
             }}
+            key={item.nickname}
           >
             <Image source={{ uri: item.profileImage }}></Image>
             <Name>{item.nickname}</Name>
@@ -62,6 +63,7 @@ const Image = styled.Image`
   width: 50px;
   height: 50px;
   border-radius: 25px;
+  background-color: #eeeeee;
 `;
 
 const SView = styled.ScrollView`
