@@ -151,6 +151,10 @@ const Api = {
 
   getJoinPeopleList: (challengeId) =>
     getRequest(`/challenge/${challengeId}/join-people`),
+
+  postChargePoint: (body) => postJsonReqest("/point/charge", body),
+  buyAttachedFile: (boardId, body) =>
+    postFormReqest(`/board/saleboard/${boardId}`, body),
 };
 
 export default Api;

@@ -9,7 +9,11 @@ export default ({ challenge }) => {
     <SView>
       <Image
         source={{ uri: challenge.challengeTitleImage }}
-        style={{ width: Platform.OS === "web" ? 720 : "100%", height: 250 }}
+        style={{
+          width: Platform.OS === "web" ? 720 : "100%",
+          height: 250,
+          backgroundColor: "#eeeeee",
+        }}
       />
 
       <Contents>
@@ -65,25 +69,16 @@ export default ({ challenge }) => {
         <IntroWrap>
           <Title title={"챌린지 소개글"} />
           <Leader>
-            {challenge.leaderProfileImage ? (
-              <Image
-                source={{ uri: challenge.leaderProfileImage }}
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 30,
-                }}
-              />
-            ) : (
-              <Image
-                source={require("../../../assets/img/pink-sky.jpg")}
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 30,
-                }}
-              />
-            )}
+            <Image
+              source={{ uri: challenge.leaderProfileImage }}
+              style={{
+                width: 60,
+                height: 60,
+                borderRadius: 30,
+                backgroundColor: "white",
+                margin: 5,
+              }}
+            />
             <Normal>{challenge.leaderName}</Normal>
             <Inro>
               <Text>{challenge.challengeIntroduction}</Text>

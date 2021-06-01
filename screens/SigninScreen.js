@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Keyboard,
   TouchableWithoutFeedback,
+  Platform,
 } from "react-native";
 import Api from "../api";
 
@@ -27,8 +28,13 @@ export default (props) => {
     }
   };
 
+  function dismissKeyboard() {
+    if (Platform.OS != "web") {
+      Keyboard.dismiss();
+    }
+  }
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
       <Container behavior="padding">
         {isLoading ? (
           <ActivityIndicator size="small" color="purple" />
@@ -41,6 +47,7 @@ export default (props) => {
               onChangeText={(text) => {
                 setEmail(text);
               }}
+              value={email}
             />
             <Password
               secureTextEntry={true}
@@ -49,6 +56,7 @@ export default (props) => {
               onChangeText={(text) => {
                 setPassword(text);
               }}
+              value={password}
             />
             <Signin onPress={() => sendCred(props)}>
               <Text>Sign in</Text>
