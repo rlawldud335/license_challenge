@@ -31,10 +31,9 @@ import PointManagement from "../../screens/Mypage/PointManagement";
 import PointCharge from "../../screens/Mypage/PointCharge";
 import PointWithdraw from "../../screens/Mypage/PointWithdraw";
 import BoardInfo from "../../screens/Community/BoardInfo";
-
+import JoinPeopleList from "../../screens/Challenge/JoinPeopleList";
 import Iamport from "../../screens/Mypage/Iamport";
 import PaymentResult from "../../screens/Mypage/PaymentResult";
-import JoinPeopleList from "../../screens/Challenge/JoinPeopleList";
 
 const Stack = createStackNavigator();
 
@@ -53,81 +52,6 @@ export default () => {
         },
         headerTitleAlign: "center",
       }}
-    />
-    <Stack.Screen
-      name="PointManagement"
-      component={PointManagement}
-      options={{
-        headerShown: true,
-        headerBackTitleVisible: false,
-        title: "포인트 관리",
-      }}
-    />
-    <Stack.Screen
-      name="PointCharge"
-      component={PointCharge}
-      options={{
-        headerShown: true,
-        headerBackTitleVisible: false,
-        title: "포인트 충전",
-      }}
-    />
-    <Stack.Screen
-      name="Iamport"
-      component={Iamport}
-      options={{
-        headerShown: true,
-        headerBackTitleVisible: false,
-        title: "포인트 카드결제",
-      }}
-    />
-    <Stack.Screen
-      name="PaymentResult"
-      component={Iamport}
-      options={{
-        headerShown: true,
-        headerBackTitleVisible: false,
-        title: "포인트 결제 결과",
-      }}
-    />
-    <Stack.Screen
-      name="PointWithdraw"
-      component={PointWithdraw}
-      options={{
-        headerShown: true,
-        headerBackTitleVisible: false,
-        title: "포인트 출금",
-      }}
-    />
-    <Stack.Screen
-      name="BoardInfo"
-      component={BoardInfo}
-      options={{
-        headerShown: true,
-        headerBackTitleVisible: false,
-        title: "",
-      }}
-    />
-    <Stack.Screen
-      name="DoChallengeTab"
-      component={DoChallengeTab}
-      title="Hello"
-      options={({ route }) => ({
-        headerShown: true,
-        headerBackTitleVisible: false,
-        headerStyle: {
-          height: 80,
-        },
-        headerTitleStyle: { flex: 1, textAlign: "center" },
-        headerLeftContainerStyle: { zIndex: 10 },
-        headerTitle: () => {
-          return (
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Image
-                style={{ width: WIDTH, height: 80, opacity: 0.35 }}
-                source={{ uri: route.params.challengeTitleImage }}
-              />
-              <Text
     >
       <Stack.Screen
         name="Loading"
@@ -309,6 +233,24 @@ export default () => {
           title: "포인트 출금",
         }}
       />
+          <Stack.Screen
+      name="Iamport"
+      component={Iamport}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 카드결제",
+      }}
+    />
+    <Stack.Screen
+      name="PaymentResult"
+      component={Iamport}
+      options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        title: "포인트 결제 결과",
+      }}
+    />
       <Stack.Screen
         name="BoardInfo"
         component={BoardInfo}

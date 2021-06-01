@@ -25,35 +25,95 @@ export default ({ navigation }) => {
     }
   };
 
-  const getChargeParams = async() => {
+  // const getPostPayment= async()=> {
+
+  //   let jsonData = JSON.stringify({
+  //     pay_method: "card",
+  //     amount: point
+  //   });
+
+  //   const response3 = await Api.postPayment(jsonData);
+  //   console.log(".response3:",response3)
+  //   await setPaymentInfo(response3);
+    
+  // }
+
+  // const getChargeParams = async() => {
+  //   await getPostPayment();
+
+  //   console.log("after getpostpayment : ", paymentInfo);
+
+  //   const params = {
+  //     pg: 'html5_inicis.INIBillTst',
+  //     pay_method: paymentInfo.pay_method,
+  //     merchant_uid: paymentInfo.merchant_uid,
+  //     amount: paymentInfo.amount,
+  //     buyer_name: paymentInfo.buyer_name,
+  //     buyer_tel: paymentInfo.buyer_tel,
+  //     buyer_email: paymentInfo.buyer_email,
+  //     escrow: false,
+  //     app_scheme: 'expba40064ef55f4312b9da861780a9b781',
+  //   };
+    
+  //   return navigation.navigate("Iamport", { params });
+  // };
+
+  const getChargeParams = async () => {
+    console.log(point);
+
+    let pay_method = "card"
+
+    // let formData = new FormData();
+    // formData.append("pay_method", pay_method);
+    // formData.append("amount", point);
 
     let jsonData = JSON.stringify({
-      pay_method: "card",
+      pay_method: pay_method,
       amount: point
     });
-    console.log(jsonData);
 
     const response3 = await Api.postPayment(jsonData);
     if (response3.code == 200) {
       setPaymentInfo(response3);
-      console.log("paymentInfo:",paymentInfo);
-    
+      console.log(paymentInfo);
 
-    const params = {
-      //        pg: 'html5_inicis.INIBillTst',
-      pg: 'kakao',
-      pay_method: response3.pay_method,
-      merchant_uid: response3.merchant_uid,
-      amount: response3.amount,
-      buyer_name: response3.buyer_name,
-      buyer_tel: response3.buyer_tel,
-      buyer_email: response3.buyer_email,
-      escrow: false,
-    };
-    console.log(params);
-    
-    navigation.navigate("Iamport", { params });
+      const params = {
+        pg: 'html5_inicis.INIBillTst',
+        pay_method: paymentInfo.pay_method,
+        merchant_uid: paymentInfo.merchant_uid,
+        amount: paymentInfo.amount,
+        buyer_tel: paymentInfo.buyer_tel,
+        buyer_email: paymentInfo.buyer_email,
+        escrow: false,
+        buyer_name: '홍길동'
+      };
+      console.log(params);
+
+      navigation.navigate("Iamport", {params});
+    }
+  };
+
+  const chargePoint = async () => {
+    console.log(point);
+    let jsonData = JSON.stringify({
+      "merchant_uid": "chargeTest-" + new Date().getTime(),
+      "point":point
+    });
+
+    console.log(jsonData);
+
+    try{
+    const response3 = await Api.postPayment(jsonData);
+    if (response3.success == true) {
+      setMyPoint(response3.balance);
+      alert(point,"p 충전 성공");
+    }
+    else{alert("충전에 실패했습니다. 다시 시도해주세요.");}
   }
+    catch{
+      alert("충전에 실패했습니다. 다시 시도해주세요.");
+    }
+    
   };
 
   useEffect(() => {
@@ -102,7 +162,6 @@ export default ({ navigation }) => {
               <Text>{totalPoint} P</Text>
             </RowContent>
           </PointWrap>
-
           <TouchableOpacity
             style={{
               width: "100%",
@@ -114,10 +173,32 @@ export default ({ navigation }) => {
               alignItems: "center",
               marginTop: "85%",
             }}
-            onPress={() => {
+            onPress={async() => {
+              await chargePoint();
+              
+            }}
+          >
+            <Text
+              style={{ color: "white", fontFamily: "nanumBold", fontSize: 17 }}
+            >
+              충전테스트
+            </Text>
+          </TouchableOpacity>
+          {/* <TouchableOpacity
+            style={{
+              width: "100%",
+              backgroundColor: "#FF5E5E",
+              bottom: 0,
+              height: 40,
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "85%",
+            }}
+            onPress={async() => {
               //결제모듈로 이동
               
-              getChargeParams();
+              await getChargeParams();
               
             }}
           >
@@ -126,7 +207,8 @@ export default ({ navigation }) => {
             >
               충전하기
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </Container>
