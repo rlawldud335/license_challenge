@@ -242,7 +242,6 @@ export default () => {
           title: "",
         }}
       />
-
       <Stack.Screen
         name="JoinPeopleList"
         component={JoinPeopleList}
@@ -250,6 +249,15 @@ export default () => {
           headerShown: true,
           headerBackTitleVisible: false,
           title: "참가자 리스트 조회",
+        }}
+      />
+      <Stack.Screen
+        name="UpdateMyInfo"
+        component={UpdateMyInfo}
+        options={{
+          headerShown: true,
+          headerBackTitleVisible: false,
+          title: "계정 관리",
         }}
       />
       <Stack.Screen

@@ -73,6 +73,68 @@ const postJsonReqest = async (path, body) => {
   }
 };
 
+const putJsonReqest = async (path, body) => {
+  try {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      const { data } = await axios.put(
+        `https://license-challenge.herokuapp.com${path}`,
+        body,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return data;
+    } else {
+      const { data } = await axios.put(
+        `https://license-challenge.herokuapp.com${path}`,
+        body,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return data;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const deleteJsonReqest = async (path) => {
+  try {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      const { data } = await axios.delete(
+        `https://license-challenge.herokuapp.com${path}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return data;
+    } else {
+      const { data } = await axios.delete(
+        `https://license-challenge.herokuapp.com${path}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return data;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const Api = {
   postAuthSignin: (email, password) =>
     postJsonReqest("/auth/signin", {
@@ -113,7 +175,10 @@ const Api = {
 
   getUserInfo: () => getRequest("/user/my-info"),
 
-  updateMyInfo: () => postFormReqest("/user/my-info", body),
+  updateMyInfo: (nickname, password, phoneNumber, profileImage) =>
+    putJsonReqest(`/user/my-info`, { nickname, password, phoneNumber, profileImage }),
+
+  withdrawalUser: () => deleteJsonReqest(`/user/withdrawal`),
 
   postFreeBoard: (body) => postFormReqest("/board/freeboard", body),
   postSaleBoard: (body) => postFormReqest("/board/saleboard", body),
