@@ -62,28 +62,18 @@ export default ({ route }) => {
     }
   };
 
-  function dismissKeyboard() {
-    if (Platform.OS != "web") {
-      Keyboard.dismiss();
-    }
-  }
-
   const payment = async () => {
     console.log(price);
     console.log(fileId);
 
-    let data = new FormData();
-    data.append("point", price);
-    data.append("fileId", fileId);
-
-    const response = await Api.buyAttachedFile(route.params.boardId, data);
-
-    if (response.status == 200) {
-      const saleBoard = await Api.getSaleBoardInfo(route.params.boardId);
-      setAllFile(saleBoard.data[0].allFile);
-    } else {
-      Alert.alert(response.message);
-    }
+    const response = await Api.buyAttachedFile(
+      route.params.boardId,
+      price,
+      fileId
+    );
+    const saleBoard = await Api.getSaleBoardInfo(route.params.boardId);
+    if (saleBoard.data[0]?.allFile) setAllFile(saleBoard.data[0].allFile);
+    Alert.alert(response.message);
   };
 
   useEffect(() => {

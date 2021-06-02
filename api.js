@@ -215,8 +215,8 @@ const Api = {
     getRequest(`/challenge/${challengeId}/join-people`),
 
   postChargePoint: (body) => postJsonReqest("/point/charge", body),
-  buyAttachedFile: (boardId, body) =>
-    postFormReqest(`/board/saleboard/${boardId}`, body),
+  buyAttachedFile: (boardId, point, fileId) =>
+    postJsonReqest(`/board/saleboard/${boardId}`, { point, fileId }),
   withdrawalUser: () => deleteJsonReqest(`/user/withdrawal`),
   updateMyInfo: (nickname, password, phoneNumber, profileImage) =>
     putJsonReqest(`/user/my-info`, {
