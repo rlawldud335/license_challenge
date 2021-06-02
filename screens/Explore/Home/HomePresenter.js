@@ -174,22 +174,20 @@ export const PopularChallenge = ({ navigation }) => {
           </ChallengeName>
         </ChallengeView>
         <ChallengeView>
-          <ChallengeImage source={require("../../../assets/img/food.jpg")} />
+          <ChallengeImage source={require("../../../assets/img/job1.jpg")} />
           <ChallengeName>
-            [한식조리기능사] 매일 1요리 만들기 챌린지{" "}
+            [전기기사자격증] 일주일에 3번 문제집 1장 풀기{" "}
           </ChallengeName>
         </ChallengeView>
         <ChallengeView>
-          <ChallengeImage source={require("../../../assets/img/food.jpg")} />
+          <ChallengeImage source={require("../../../assets/img/job2.jpg")} />
           <ChallengeName>
-            [한식조리기능사] 매일 1요리 만들기 챌린지{" "}
+            [건설기계정비기능사] 문제집 풀기 챌린지{" "}
           </ChallengeName>
         </ChallengeView>
         <ChallengeView>
-          <ChallengeImage source={require("../../../assets/img/food.jpg")} />
-          <ChallengeName>
-            [한식조리기능사] 매일 1요리 만들기 챌린지{" "}
-          </ChallengeName>
+          <ChallengeImage source={require("../../../assets/img/job3.jpg")} />
+          <ChallengeName>[공유압기능사] 매일 공부 챌린지 </ChallengeName>
         </ChallengeView>
       </ScrollView>
     </Container>
