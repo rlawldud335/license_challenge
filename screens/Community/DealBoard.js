@@ -95,7 +95,7 @@ const Title = styled.Text`
 `;
 
 const Vertical = styled.View`
-  width: 45%;
+  width: 40%;
   justify-content: center;
   margin: 0px 15px;
 `;

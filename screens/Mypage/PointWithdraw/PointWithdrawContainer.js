@@ -32,7 +32,8 @@ export default ({ navigation }) => {
 
   const postWithdrawPoint = async () => {
     console.log(point);
-    const response = await Api.postWithdrawPoint({ point });
+
+    const response = await Api.postWithdrawPoint({ point: point.toString() });
     if (response.success == true) {
       navigation.reset({
         routes: [
