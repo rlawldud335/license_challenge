@@ -29,7 +29,11 @@ export default ({ route, navigation }) => {
       type: `application/${fileType}`,
     };
   };
-
+  function dismissKeyboard() {
+    if (Platform.OS != "web") {
+      Keyboard.dismiss();
+    }
+  }
   const upload = async () => {
     setIsLoading(true);
     let data = new FormData();
@@ -73,7 +77,7 @@ export default ({ route, navigation }) => {
       <ActivityIndicator size="small" color="purple" />
     </View>
   ) : (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
       <KeyboardAvoidingView
         style={{
           flex: 1,

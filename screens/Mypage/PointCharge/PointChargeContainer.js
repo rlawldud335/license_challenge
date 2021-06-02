@@ -63,10 +63,14 @@ export default ({ navigation }) => {
   useEffect(() => {
     getMyPoint();
   }, []);
-
+  function dismissKeyboard() {
+    if (Platform.OS != "web") {
+      Keyboard.dismiss();
+    }
+  }
   return myPoint != undefined ? (
     <Container>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
         <KeyboardAvoidingView
           style={{
             flex: 1,
