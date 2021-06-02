@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Keyboard,
+  Platform,
 } from "react-native";
 import Api from "../../../api";
 import styled from "styled-components/native";
