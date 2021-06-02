@@ -92,33 +92,31 @@ export default ({ route }) => {
   }, []);
 
   return boardInfo ? (
-    <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
+    <>
       <KeyboardAvoidingView
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "center",
+          backgroundColor: "white",
+        }}
         behavior="padding"
-        style={{ flex: 1, backgroundColor: "white" }}
+        enabled
+        keyboardVerticalOffset={60}
       >
+        <ScrollView>
+          <CreateBoardInfo
+            boardInfo={boardInfo}
+            previewFile={previewFile}
+            allFile={allFile}
+            payment={payment}
+          />
+          <CreateComment commentInfo={commentInfo} />
+        </ScrollView>
         <View
           style={{
-            height: "93%",
+            height: 50,
             width: "100%",
-          }}
-        >
-          <ScrollView>
-            <CreateBoardInfo
-              boardInfo={boardInfo}
-              previewFile={previewFile}
-              allFile={allFile}
-              payment={payment}
-            />
-            <CreateComment commentInfo={commentInfo} />
-          </ScrollView>
-        </View>
-        <View
-          style={{
-            height: "7%",
-            width: "100%",
-            position: "absolute",
-            bottom: 0,
             backgroundColor: "#E3E0E0",
             borderTopColor: "#CACACA",
             borderTopWidth: 0.2,
@@ -146,7 +144,7 @@ export default ({ route }) => {
           <Send style={{ position: "absolute", left: "83%", zIndex: 5 }} />
         </View>
       </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    </>
   ) : (
     <View
       style={{

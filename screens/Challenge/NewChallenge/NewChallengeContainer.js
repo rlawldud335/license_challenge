@@ -138,6 +138,11 @@ export default ({ navigation }) => {
       }
     })();
   }, []);
+  function dismissKeyboard() {
+    if (Platform.OS != "web") {
+      Keyboard.dismiss();
+    }
+  }
 
   return Loading ? (
     <Container style={{ justifyContent: "center", alignItems: "center" }}>
@@ -147,7 +152,7 @@ export default ({ navigation }) => {
     <Container behavior="padding">
       <Body>
         <Scroll>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
             <CT>
               <CreateCategory
                 challengeCategory={challengeCategory}

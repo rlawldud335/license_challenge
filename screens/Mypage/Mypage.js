@@ -89,7 +89,7 @@ export default ({ navigation, loading }) => {
         <MaterialIcons name="navigate-next" size={24} color="black" />
       </Logout>
 
-      <Logout>
+      {/* <Logout>
         <Left>
           <IconWrap style={{ backgroundColor: "#C6E879" }}>
             <MaterialIcons name="card-giftcard" size={24} color="#395200" />
@@ -97,7 +97,7 @@ export default ({ navigation, loading }) => {
           <BtnText>기프티콘 관리</BtnText>
         </Left>
         <MaterialIcons name="navigate-next" size={24} color="black" />
-      </Logout>
+      </Logout> */}
 
       <Logout
         onPress={async () => {
