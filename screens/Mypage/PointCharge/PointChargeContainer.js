@@ -29,9 +29,35 @@ export default ({ navigation }) => {
     }
   };
 
-  const chargePoint = () => {
-    console.log(userInfo);
-    console.log(myPoint);
+  const chargePoint = async () => {
+    let jsonData = JSON.stringify({
+      merchant_uid: "chargeTest-" + new Date().getTime(),
+      point: point,
+    });
+
+    console.log(jsonData);
+
+    try {
+      const response3 = await Api.postChargePoint(jsonData);
+      if (response3.success == true) {
+        setMyPoint(response3.balance);
+        alert("충전 성공");
+        navigation.reset({
+          routes: [
+            {
+              name: "MainTab",
+              params: {
+                screen: "Mypage",
+              },
+            },
+          ],
+        });
+      } else {
+        alert("충전에 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch {
+      alert("충전에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   useEffect(() => {
@@ -92,10 +118,7 @@ export default ({ navigation }) => {
               alignItems: "center",
               marginTop: "85%",
             }}
-            onPress={() => {
-              //결제모듈로 이동
-              chargePoint();
-            }}
+            onPress={chargePoint}
           >
             <Text
               style={{ color: "white", fontFamily: "nanumBold", fontSize: 17 }}

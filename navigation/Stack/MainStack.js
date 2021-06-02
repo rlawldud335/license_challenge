@@ -32,6 +32,7 @@ import PointCharge from "../../screens/Mypage/PointCharge";
 import PointWithdraw from "../../screens/Mypage/PointWithdraw";
 import BoardInfo from "../../screens/Community/BoardInfo";
 import JoinPeopleList from "../../screens/Challenge/JoinPeopleList";
+import UpdateMyInfo from "../../screens/Mypage/UpdateMyInfo";
 
 const Stack = createStackNavigator();
 
@@ -248,6 +249,15 @@ export default () => {
           headerShown: true,
           headerBackTitleVisible: false,
           title: "참가자 리스트 조회",
+        }}
+      />
+      <Stack.Screen
+        name="UpdateMyInfo"
+        component={UpdateMyInfo}
+        options={{
+          headerShown: true,
+          headerBackTitleVisible: false,
+          title: "계정 관리",
         }}
       />
       <Stack.Screen

@@ -2,7 +2,6 @@ import styled from "styled-components/native";
 import React from "react";
 import Menu from "../../../assets/icon/Menu";
 import { View, Linking } from "react-native";
-import * as FileSystem from "expo-file-system";
 
 export const CreateComment = ({ commentInfo }) => {
   return (
@@ -84,9 +83,7 @@ export const CreateBoardInfo = ({
       ) : null}
 
       {allFile ? (
-        <PreviewFile
-          onPress={() => Linking.openURL(allFile)}
-        >
+        <PreviewFile onPress={() => Linking.openURL(allFile)}>
           <Text>전체 파일 다운로드</Text>
         </PreviewFile>
       ) : null}
@@ -145,6 +142,7 @@ const Profile = styled.Image`
   width: 50px;
   height: 50px;
   border-radius: 25px;
+  background-color: #eeeeee;
 `;
 
 const PUD = styled.View`

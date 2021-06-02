@@ -6,6 +6,10 @@ import {
   ActivityIndicator,
   TextInput,
   ScrollView,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
 } from "react-native";
 import Api from "../../../api";
 import Send from "../../../assets/icon/Send";
@@ -58,17 +62,23 @@ export default ({ route }) => {
     }
   };
 
-  const payment = async () => {    
+  function dismissKeyboard() {
+    if (Platform.OS != "web") {
+      Keyboard.dismiss();
+    }
+  }
+
+  const payment = async () => {
     console.log(price);
     console.log(fileId);
 
     let data = new FormData();
-    data.append("point",price);
-    data.append("fileId",fileId);
+    data.append("point", price);
+    data.append("fileId", fileId);
 
     const response = await Api.buyAttachedFile(route.params.boardId, data);
 
-    if(response.status == 200) {
+    if (response.status == 200) {
       const saleBoard = await Api.getSaleBoardInfo(route.params.boardId);
       setAllFile(saleBoard.data[0].allFile);
     } else {
@@ -82,56 +92,61 @@ export default ({ route }) => {
   }, []);
 
   return boardInfo ? (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      <View
-        style={{
-          height: "93%",
-          width: "100%",
-        }}
+    <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={{ flex: 1, backgroundColor: "white" }}
       >
-        <ScrollView>
-          <CreateBoardInfo
-            boardInfo={boardInfo}
-            previewFile={previewFile}
-            allFile={allFile}
-            payment={payment}
-          />
-          <CreateComment commentInfo={commentInfo} />
-        </ScrollView>
-      </View>
-      <View
-        style={{
-          height: "7%",
-          width: "100%",
-          position: "absolute",
-          bottom: 0,
-          backgroundColor: "#E3E0E0",
-          borderTopColor: "#CACACA",
-          borderTopWidth: 0.2,
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-        }}
-      >
-        <TextInput
+        <View
           style={{
-            width: "80%",
-            minWidth: 300,
-            backgroundColor: "white",
-            height: 35,
-            borderRadius: 10,
-            fontFamily: "nanumBold",
+            height: "93%",
+            width: "100%",
           }}
-          onChangeText={(text) => setMyComment(text)}
-          value={myComment}
-          onSubmitEditing={() => {
-            setMyComment("");
-            postData();
+        >
+          <ScrollView>
+            <CreateBoardInfo
+              boardInfo={boardInfo}
+              previewFile={previewFile}
+              allFile={allFile}
+              payment={payment}
+            />
+            <CreateComment commentInfo={commentInfo} />
+          </ScrollView>
+        </View>
+        <View
+          style={{
+            height: "7%",
+            width: "100%",
+            position: "absolute",
+            bottom: 0,
+            backgroundColor: "#E3E0E0",
+            borderTopColor: "#CACACA",
+            borderTopWidth: 0.2,
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center",
           }}
-        ></TextInput>
-        <Send style={{ position: "absolute", left: "83%", zIndex: 5 }} />
-      </View>
-    </View>
+        >
+          <TextInput
+            style={{
+              width: "80%",
+              minWidth: 300,
+              backgroundColor: "white",
+              height: 35,
+              borderRadius: 10,
+              fontFamily: "nanumBold",
+            }}
+            onChangeText={(text) => setMyComment(text)}
+            value={myComment}
+            onSubmitEditing={() => {
+              setMyComment("");
+              postData();
+            }}
+          ></TextInput>
+          <Send style={{ position: "absolute", left: "83%", zIndex: 5 }} />
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   ) : (
     <View
       style={{

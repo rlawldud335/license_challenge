@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   TouchableWithoutFeedback,
   Keyboard,
+  Platform,
 } from "react-native";
 import Api from "../api";
 
@@ -33,9 +34,13 @@ export default (props) => {
       Alert.alert("잘못된 Email혹은 Password입니다.");
     }
   };
-
+  function dismissKeyboard() {
+    if (Platform.OS != "web") {
+      Keyboard.dismiss();
+    }
+  }
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
       <Container behavior="padding">
         {isLoading ? (
           <ActivityIndicator size="small" color="purple" />
@@ -48,6 +53,7 @@ export default (props) => {
               onChangeText={(text) => {
                 setEmail(text);
               }}
+              value={email}
             />
             <Password
               secureTextEntry={true}
@@ -56,6 +62,7 @@ export default (props) => {
               onChangeText={(text) => {
                 setPassword(text);
               }}
+              value={password}
             />
             <Nickname
               placeholder="Nickname"
@@ -63,6 +70,7 @@ export default (props) => {
               onChangeText={(text) => {
                 setNickname(text);
               }}
+              value={nickname}
             />
             <PhoneNumber
               placeholder="PhoneNumber"
@@ -70,6 +78,7 @@ export default (props) => {
               onChangeText={(text) => {
                 setPhoneNumber(text);
               }}
+              value={phoneNumber}
             />
             <Signup onPress={() => sendCred(props)}>
               <Text>Sign Up</Text>

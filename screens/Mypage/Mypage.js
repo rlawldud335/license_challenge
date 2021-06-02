@@ -40,9 +40,10 @@ export default ({ navigation, loading }) => {
       </TitleView>
 
       <Profile
-              onPress={() => {
-                navigation.navigate("UpdateMyInfo");
-              }}>
+        onPress={() => {
+          navigation.navigate("UpdateMyInfo");
+        }}
+      >
         <UserImage source={{ uri: userData.profileImage }} />
         <UserInfo>
           <TextWrap>
@@ -146,6 +147,7 @@ const UserImage = styled.Image`
   width: 80px;
   height: 80px;
   border-radius: 40px;
+  background-color: #eeeeee;
 `;
 const UserInfo = styled.View`
   width: 70%;

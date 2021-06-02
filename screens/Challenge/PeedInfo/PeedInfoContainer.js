@@ -80,6 +80,8 @@ const ProofImage = styled.Image`
   width: ${WIDTH - 50}px;
   height: 300px;
   margin: 25px 0px;
+  background-color: #eeeeee;
+  border-radius: 10px;
 `;
 
 const Vertical = styled.View`
@@ -117,4 +119,5 @@ const Profile = styled.Image`
   width: 60px;
   height: 60px;
   border-radius: 30px;
+  background-color: #eeeeee;
 `;
