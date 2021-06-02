@@ -92,15 +92,17 @@ export default ({ route }) => {
   }, []);
 
   return boardInfo ? (
-    <KeyboardAvoidingView
-      behavior="padding"
-      style={{ flex: 1, backgroundColor: "white" }}
-    >
-      <View
+    <>
+      <KeyboardAvoidingView
         style={{
-          height: "93%",
-          width: "100%",
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "center",
+          backgroundColor: "white",
         }}
+        behavior="padding"
+        enabled
+        keyboardVerticalOffset={60}
       >
         <ScrollView>
           <CreateBoardInfo
@@ -111,38 +113,38 @@ export default ({ route }) => {
           />
           <CreateComment commentInfo={commentInfo} />
         </ScrollView>
-      </View>
-      <View
-        style={{
-          height: "7%",
-          width: "100%",
-          backgroundColor: "#E3E0E0",
-          borderTopColor: "#CACACA",
-          borderTopWidth: 0.2,
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-        }}
-      >
-        <TextInput
+        <View
           style={{
-            width: "80%",
-            minWidth: 300,
-            backgroundColor: "white",
-            height: 35,
-            borderRadius: 10,
-            fontFamily: "nanumBold",
+            height: 50,
+            width: "100%",
+            backgroundColor: "#E3E0E0",
+            borderTopColor: "#CACACA",
+            borderTopWidth: 0.2,
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center",
           }}
-          onChangeText={(text) => setMyComment(text)}
-          value={myComment}
-          onSubmitEditing={() => {
-            setMyComment("");
-            postData();
-          }}
-        ></TextInput>
-        <Send style={{ position: "absolute", left: "83%", zIndex: 5 }} />
-      </View>
-    </KeyboardAvoidingView>
+        >
+          <TextInput
+            style={{
+              width: "80%",
+              minWidth: 300,
+              backgroundColor: "white",
+              height: 35,
+              borderRadius: 10,
+              fontFamily: "nanumBold",
+            }}
+            onChangeText={(text) => setMyComment(text)}
+            value={myComment}
+            onSubmitEditing={() => {
+              setMyComment("");
+              postData();
+            }}
+          ></TextInput>
+          <Send style={{ position: "absolute", left: "83%", zIndex: 5 }} />
+        </View>
+      </KeyboardAvoidingView>
+    </>
   ) : (
     <View
       style={{
