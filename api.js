@@ -155,6 +155,7 @@ const Api = {
   postChargePoint: (body) => postJsonReqest("/point/charge", body),
   buyAttachedFile: (boardId, body) =>
     postFormReqest(`/board/saleboard/${boardId}`, body),
+  withdrawalUser: () => deleteJsonReqest(`/user/withdrawal`),
 };
 
 export default Api;
