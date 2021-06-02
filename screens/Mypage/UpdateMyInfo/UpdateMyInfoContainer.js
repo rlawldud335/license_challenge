@@ -81,9 +81,13 @@ export default ({ navigation }) => {
   useEffect(() => {
     getData();
   }, []);
-
+  function dismissKeyboard() {
+    if (Platform.OS != "web") {
+      Keyboard.dismiss();
+    }
+  }
   return userData != undefined ? (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
       <Container>
         <PickImage onPress={() => pickImage(setProfileImage)}>
           {profileImage ? (

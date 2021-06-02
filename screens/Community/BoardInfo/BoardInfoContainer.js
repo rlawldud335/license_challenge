@@ -92,61 +92,57 @@ export default ({ route }) => {
   }, []);
 
   return boardInfo ? (
-    <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
-      <KeyboardAvoidingView
-        behavior="padding"
-        style={{ flex: 1, backgroundColor: "white" }}
+    <KeyboardAvoidingView
+      behavior="padding"
+      style={{ flex: 1, backgroundColor: "white" }}
+    >
+      <View
+        style={{
+          height: "93%",
+          width: "100%",
+        }}
       >
-        <View
+        <ScrollView>
+          <CreateBoardInfo
+            boardInfo={boardInfo}
+            previewFile={previewFile}
+            allFile={allFile}
+            payment={payment}
+          />
+          <CreateComment commentInfo={commentInfo} />
+        </ScrollView>
+      </View>
+      <View
+        style={{
+          height: "7%",
+          width: "100%",
+          backgroundColor: "#E3E0E0",
+          borderTopColor: "#CACACA",
+          borderTopWidth: 0.2,
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+        }}
+      >
+        <TextInput
           style={{
-            height: "93%",
-            width: "100%",
+            width: "80%",
+            minWidth: 300,
+            backgroundColor: "white",
+            height: 35,
+            borderRadius: 10,
+            fontFamily: "nanumBold",
           }}
-        >
-          <ScrollView>
-            <CreateBoardInfo
-              boardInfo={boardInfo}
-              previewFile={previewFile}
-              allFile={allFile}
-              payment={payment}
-            />
-            <CreateComment commentInfo={commentInfo} />
-          </ScrollView>
-        </View>
-        <View
-          style={{
-            height: "7%",
-            width: "100%",
-            position: "absolute",
-            bottom: 0,
-            backgroundColor: "#E3E0E0",
-            borderTopColor: "#CACACA",
-            borderTopWidth: 0.2,
-            flexDirection: "row",
-            justifyContent: "space-around",
-            alignItems: "center",
+          onChangeText={(text) => setMyComment(text)}
+          value={myComment}
+          onSubmitEditing={() => {
+            setMyComment("");
+            postData();
           }}
-        >
-          <TextInput
-            style={{
-              width: "80%",
-              minWidth: 300,
-              backgroundColor: "white",
-              height: 35,
-              borderRadius: 10,
-              fontFamily: "nanumBold",
-            }}
-            onChangeText={(text) => setMyComment(text)}
-            value={myComment}
-            onSubmitEditing={() => {
-              setMyComment("");
-              postData();
-            }}
-          ></TextInput>
-          <Send style={{ position: "absolute", left: "83%", zIndex: 5 }} />
-        </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+        ></TextInput>
+        <Send style={{ position: "absolute", left: "83%", zIndex: 5 }} />
+      </View>
+    </KeyboardAvoidingView>
   ) : (
     <View
       style={{
