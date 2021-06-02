@@ -47,7 +47,7 @@ export default ({ navigation }) => {
         <Vertical>
           <LogDate>{item.dealDt.slice(0, 10)}</LogDate>
         </Vertical>
-        <Vertical>
+        <Vertical style={{ width: "50%" }}>
           <Text>{item.type}</Text>
         </Vertical>
         <Vertical>
@@ -162,7 +162,7 @@ const BtnWrap = styled.TouchableOpacity`
 const Text = styled.Text`
   font-family: "nanumBold";
   color: #3b1464;
-  font-size: 20px;
+  font-size: 19px;
   margin: 2px;
 `;
 

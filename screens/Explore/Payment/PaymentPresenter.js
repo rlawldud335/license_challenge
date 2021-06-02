@@ -172,7 +172,7 @@ const SView = styled.ScrollView``;
 
 const BigTitle = styled.Text`
   font-family: "nanumBold";
-  font-size: 24px;
+  font-size: 21px;
   color: #3b1464;
   text-align: center;
   margin-bottom: 10px;

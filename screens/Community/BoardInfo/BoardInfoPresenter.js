@@ -84,7 +84,7 @@ export const CreateBoardInfo = ({
 
       {allFile ? (
         <PreviewFile onPress={() => Linking.openURL(allFile)}>
-          <Text>전체 파일 다운로드</Text>
+          <Text style={{ color: "white" }}>전체 파일 다운로드</Text>
         </PreviewFile>
       ) : null}
 
