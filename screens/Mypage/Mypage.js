@@ -40,9 +40,10 @@ export default ({ navigation, loading }) => {
       </TitleView>
 
       <Profile
-              onPress={() => {
-                navigation.navigate("UpdateMyInfo");
-              }}>
+        onPress={() => {
+          navigation.navigate("UpdateMyInfo");
+        }}
+      >
         <UserImage source={{ uri: userData.profileImage }} />
         <UserInfo>
           <TextWrap>

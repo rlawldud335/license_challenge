@@ -33,7 +33,7 @@ import PointCharge from "../../screens/Mypage/PointCharge";
 import PointWithdraw from "../../screens/Mypage/PointWithdraw";
 import BoardInfo from "../../screens/Community/BoardInfo";
 import JoinPeopleList from "../../screens/Challenge/JoinPeopleList";
-import UpdateMyInfo from "../../screens/Mypage/UpdateMyInfo"
+import UpdateMyInfo from "../../screens/Mypage/UpdateMyInfo";
 
 const Stack = createStackNavigator();
 

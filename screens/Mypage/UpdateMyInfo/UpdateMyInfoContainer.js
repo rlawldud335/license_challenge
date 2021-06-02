@@ -14,7 +14,6 @@ import styled from "styled-components/native";
 import RedButton from "../../../components/RedButton";
 import Camera from "../../../assets/icon/Camera";
 
-
 export default ({ navigation }) => {
   const [userData, setUserData] = useState();
   const [profileImage, setProfileImage] = useState();
@@ -30,7 +29,12 @@ export default ({ navigation }) => {
   };
 
   const updateUserInfo = async () => {
-    const response = await Api.updateMyInfo(nickname, password, phoneNumber, profileImage);
+    const response = await Api.updateMyInfo(
+      nickname,
+      password,
+      phoneNumber,
+      profileImage
+    );
     if (response.success == true) {
       navigation.reset({
         routes: [
@@ -54,8 +58,8 @@ export default ({ navigation }) => {
         routes: [
           {
             name: "Signin",
-            params: { loading: false }
-          }
+            params: { loading: false },
+          },
         ],
       });
     } else {
@@ -82,7 +86,11 @@ export default ({ navigation }) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <PickImage onPress={() => pickImage(setProfileImage)}>
-          {profileImage ? <UserImage source={{ uri: profileImage }} /> : <UserImage source={{ uri: userData.profileImage }} />}
+          {profileImage ? (
+            <UserImage source={{ uri: profileImage }} />
+          ) : (
+            <UserImage source={{ uri: userData.profileImage }} />
+          )}
           <Camera style={{ position: "absolute" }} />
         </PickImage>
         <UserInfo>
