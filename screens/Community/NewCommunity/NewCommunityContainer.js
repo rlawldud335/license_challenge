@@ -42,6 +42,11 @@ export default ({ navigation }) => {
     })();
   }, []);
 
+  function dismissKeyboard() {
+    if (Platform.OS != "web") {
+      Keyboard.dismiss();
+    }
+  }
   const postData = async () => {
     if (commuTitle == "" || !commuTitle) {
       Alert.alert("제목을 입력하세요!");
@@ -115,7 +120,7 @@ export default ({ navigation }) => {
     <Container behavior="padding">
       <Body>
         <Scroll>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
             <CT>
               <CreateCategory
                 commuCategory={commuCategory}
