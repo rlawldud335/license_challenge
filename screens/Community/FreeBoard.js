@@ -76,6 +76,7 @@ const TimeName = styled.Text`
   font-family: "nanumBold";
   font-size: 14px;
   color: #3b1464;
+  width: 100;
 `;
 
 const Content = styled.Text`
