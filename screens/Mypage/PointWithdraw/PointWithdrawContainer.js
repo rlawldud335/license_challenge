@@ -8,6 +8,7 @@ import {
   Keyboard,
   ActivityIndicator,
   StyleSheet,
+  Platform,
 } from "react-native";
 import Api from "../../../api";
 import styled from "styled-components/native";
@@ -54,10 +55,14 @@ export default ({ navigation }) => {
   useEffect(() => {
     getMyPoint();
   }, []);
-
+  function dismissKeyboard() {
+    if (Platform.OS != "web") {
+      Keyboard.dismiss();
+    }
+  }
   return myPoint != undefined ? (
     <Container>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
         <KeyboardAvoidingView
           style={{
             flex: 1,
