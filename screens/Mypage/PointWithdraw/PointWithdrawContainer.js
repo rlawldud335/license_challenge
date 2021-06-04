@@ -8,6 +8,7 @@ import {
   Keyboard,
   ActivityIndicator,
   StyleSheet,
+  Platform,
 } from "react-native";
 import Api from "../../../api";
 import styled from "styled-components/native";
