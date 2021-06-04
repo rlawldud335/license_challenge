@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   Alert,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import MultiLineTextInput from "../.../../../../components/MultiLineTextInput";
 import RedButton from "../../../components/RedButton";

@@ -8,18 +8,24 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 
-export default ({ cid, challengeTitleImage, navigation }) => {
+export default ({ cid, challengeTitleImage, navigation, isEnd, deposit }) => {
   const [achieveRate, setAchieveRate] = useState();
-  const [achieveRateInfo, setAchieveRateInfo] = useState();
+  const [End, setEnd] = useState(isEnd);
 
   const getData = async () => {
     const response = await Api.getChallengeAchievementRate(cid);
-    const response2 = await Api.getChallengeAchievementRateInfo(cid);
-    if (response2.status == 200 && response.status == 200) {
+    if (response.status == 200) {
       setAchieveRate(response.data);
-      setAchieveRateInfo(response2.data);
+    }
+  };
+  const postBonus = async () => {
+    const response = await Api.postChallengeBonus(cid);
+    Alert.alert(response.message);
+    if (response.success == true) {
+      getData();
     }
   };
 
@@ -27,22 +33,51 @@ export default ({ cid, challengeTitleImage, navigation }) => {
     getData();
   }, []);
 
-  return achieveRate && achieveRateInfo ? (
+  return achieveRate ? (
     <Container>
-      <ProofPictureBtn
-        onPress={() =>
-          navigation.navigate("ProofPicture", {
-            item: {
-              challengeId: achieveRate.challengeId,
-              challengeTitle: achieveRate.challengeTitle,
-              challengeTitleImage: challengeTitleImage,
-            },
-          })
-        }
-      >
-        <Camera width="26" height="26" style={{ marginRight: 15 }} />
-        <Title style={{ color: "white" }}>사진 인증</Title>
-      </ProofPictureBtn>
+      {End ? (
+        <>
+          <View
+            style={{
+              backgroundColor: "#4287f5",
+              flexDirection: "column",
+              height: 80,
+              width: "100%",
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Title style={{ color: "white" }}>챌린지 결과</Title>
+            <Contents style={{ marginTop: 5 }}>
+              보증금 환급 : {achieveRate.refund_deposit ? deposit : 0} P
+            </Contents>
+            <Contents>보너스 포인트 : {achieveRate.refund_bonus} P</Contents>
+          </View>
+
+          <ProofPictureBtn
+            style={{ backgroundColor: "#f54242" }}
+            onPress={postBonus}
+          >
+            <Title style={{ color: "white" }}>보너스 포인트 받기</Title>
+          </ProofPictureBtn>
+        </>
+      ) : (
+        <ProofPictureBtn
+          onPress={() =>
+            navigation.navigate("ProofPicture", {
+              item: {
+                challengeId: achieveRate.challengeId,
+                challengeTitle: achieveRate.challengeTitle,
+                challengeTitleImage: challengeTitleImage,
+              },
+            })
+          }
+        >
+          <Camera width="26" height="26" style={{ marginRight: 15 }} />
+          <Title style={{ color: "white" }}>사진 인증</Title>
+        </ProofPictureBtn>
+      )}
       <ProofPictureBtn
         style={{ backgroundColor: "#DCBCFD" }}
         onPress={() =>
@@ -127,11 +162,9 @@ export default ({ cid, challengeTitleImage, navigation }) => {
             <Title style={{ fontSize: 15 }}>참가자 리스트 조회</Title>
           </TouchableOpacity>
         </View>
+        <Title>전체 참가자 인원 : {achieveRate.countAllchallengers} 명</Title>
         <Title>
-          전체 참가자 인원 : {achieveRateInfo.countAllchallengers} 명
-        </Title>
-        <Title>
-          오늘 인증 성공 인원 : {achieveRateInfo.countDailyProofSuccess} 명
+          오늘 인증 성공 인원 : {achieveRate.countDailyProofSuccess} 명
         </Title>
         <View
           style={{
@@ -141,11 +174,11 @@ export default ({ cid, challengeTitleImage, navigation }) => {
           }}
         />
         <Title style={{ marginVertical: 10 }}>참가자 인증 현황</Title>
-        <Title>~20% : {achieveRateInfo.achievementStatistics.to20} 명</Title>
-        <Title>~40% : {achieveRateInfo.achievementStatistics.to40} 명</Title>
-        <Title>~60% : {achieveRateInfo.achievementStatistics.to60} 명</Title>
-        <Title>~80% : {achieveRateInfo.achievementStatistics.to80} 명</Title>
-        <Title>~100% : {achieveRateInfo.achievementStatistics.to100} 명</Title>
+        <Title>~20% : {achieveRate.achievementStatistics.to20} 명</Title>
+        <Title>~40% : {achieveRate.achievementStatistics.to40} 명</Title>
+        <Title>~60% : {achieveRate.achievementStatistics.to60} 명</Title>
+        <Title>~80% : {achieveRate.achievementStatistics.to80} 명</Title>
+        <Title>~100% : {achieveRate.achievementStatistics.to100} 명</Title>
       </AchieveRateView>
     </Container>
   ) : (
@@ -218,4 +251,10 @@ const Title = styled.Text`
   font-family: "nanumBold";
   font-size: 18px;
   color: #3b1464;
+`;
+
+const Contents = styled.Text`
+  font-family: "nanumBold";
+  font-size: 16px;
+  color: white;
 `;

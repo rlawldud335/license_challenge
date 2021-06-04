@@ -13,6 +13,8 @@ const renderItem = ({ item, navigation }) => {
           challengeId: item.challengeId,
           challengeTitleImage: item.challengeTitleImage,
           challengeTitle: item.challengeTitle,
+          isEnd: false,
+          deposit: item.deposit,
         });
       }}
     >

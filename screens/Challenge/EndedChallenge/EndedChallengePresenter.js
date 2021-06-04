@@ -6,7 +6,17 @@ import { View, StyleSheet } from "react-native";
 
 const renderItem = ({ item, navigation }) => {
   return (
-    <Box>
+    <Box
+      onPress={() => {
+        navigation.navigate("DoChallengeTab", {
+          challengeId: item.challengeId,
+          challengeTitleImage: item.challengeTitleImage,
+          challengeTitle: item.challengeTitle,
+          isEnd: true,
+          deposit: item.deposit,
+        });
+      }}
+    >
       <Content>
         <TitleView>
           <Title>{item.challengeTitle.slice(0, 15)}</Title>
@@ -14,9 +24,12 @@ const renderItem = ({ item, navigation }) => {
         </TitleView>
 
         <TagWrap>
-          <Tag tagName={`일주일에 ${item.proofCount}번 인증`} />
-          <Tag tagName={`하루 ${item.proofCountOneDay}번 인증`} />
+          <Tag tagName={`주 ${item.proofCount}회`} />
+          <Tag tagName={`하루 ${item.proofCountOneDay}회`} />
           <Tag tagName={`${item.deposit} P`} />
+          <Tag tagName={`${item.proofAvailableDay}`} />
+          <Tag tagName={`${item.challengeCategory}`} />
+          {item.licenseName ? <Tag tagName={item.licenseName} /> : null}
         </TagWrap>
 
         <ProgressContainer>
@@ -37,7 +50,7 @@ const renderItem = ({ item, navigation }) => {
       </Content>
 
       <ImageBtn>
-        <Image source={{ uri: item.challengeTitleImage }} style={{}} />
+        <Image source={{ uri: item.challengeTitleImage }} />
       </ImageBtn>
     </Box>
   );

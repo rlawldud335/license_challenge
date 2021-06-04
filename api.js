@@ -225,6 +225,9 @@ const Api = {
       phoneNumber,
       profileImage,
     }),
+
+  postChallengeBonus: (challengeId) =>
+    postJsonReqest(`/challenge/${challengeId}/refund-bonus`),
 };
 
 export default Api;

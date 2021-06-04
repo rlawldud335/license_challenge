@@ -90,7 +90,7 @@ export default ({ route }) => {
         }}
         behavior="padding"
         enabled
-        keyboardVerticalOffset={70}
+        keyboardVerticalOffset={60}
       >
         <ScrollView>
           <CreateBoardInfo
@@ -103,7 +103,7 @@ export default ({ route }) => {
         </ScrollView>
         <View
           style={{
-            height: 70,
+            height: 50,
             width: "100%",
             backgroundColor: "#E3E0E0",
             borderTopColor: "#CACACA",

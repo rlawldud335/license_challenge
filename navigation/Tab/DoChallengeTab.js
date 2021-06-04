@@ -30,6 +30,8 @@ export default ({ route }) => {
             cid={route.params.challengeId}
             challengeTitleImage={route.params.challengeTitleImage}
             navigation={props.navigation}
+            isEnd={route.params.isEnd}
+            deposit={route.params.deposit}
           />
         )}
       />

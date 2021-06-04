@@ -55,6 +55,11 @@ export default ({ navigation }) => {
     getMyPoint();
   }, []);
 
+  function dismissKeyboard() {
+    if (Platform.OS != "web") {
+      Keyboard.dismiss();
+    }
+  }
   return myPoint != undefined ? (
     <Container>
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
