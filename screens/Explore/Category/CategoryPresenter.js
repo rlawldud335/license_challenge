@@ -23,7 +23,7 @@ const renderItem = ({ item, navigation }) => {
         <Tag tagName={`${item.deposit} P`} />
         {item.licenseName ? <Tag tagName={item.licenseName} /> : null}
         <Tag tagName={`${item.proofAvailableDay}`} />
-        <Tag tagName={`${item.challengeCategory}`} />
+        {/* <Tag tagName={`${item.challengeCategory}`} /> */}
       </Tags>
     </Challenge>
   );
