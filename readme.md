@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=3B1367&height=200&section=header&fontSize=90&animation=fadeIn&fontAlignY=38&descAlignY=51&descAlign=62)
+![header](https://capsule-render.vercel.app/api?type=waving&color=4000b5&height=150&section=header&fontSize=90&animation=fadeIn&fontAlignY=38&descAlignY=51&descAlign=62)
 
 <p align='center'> 창의융합종합설계2 프로젝트 </p>
 <div align="center">
