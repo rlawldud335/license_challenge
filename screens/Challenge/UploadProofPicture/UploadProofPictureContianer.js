@@ -108,7 +108,15 @@ export default ({ route, navigation }) => {
             }}
           />
         </View>
-        <View style={{ height: "10%", width: "100%", alignItems: "center" }}>
+        <View
+          style={{
+            position: "absolute",
+            height: "10%",
+            width: "100%",
+            alignItems: "center",
+            bottom: 0,
+          }}
+        >
           <RedButton name={"업로드하기"} fc={upload} />
         </View>
       </KeyboardAvoidingView>

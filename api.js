@@ -5,7 +5,7 @@ const getRequest = async (path, params = {}) => {
   try {
     const token = await AsyncStorage.getItem("token");
     const response = await axios.get(
-      `https://license-challenge.herokuapp.com${path}`,
+      `http://localhost:3000${path}`,
       {
         headers: {
           authorization: `Bearer ${token}`,
@@ -25,7 +25,7 @@ const postFormReqest = async (path, body) => {
   try {
     const token = await AsyncStorage.getItem("token");
     const { data } = await axios.post(
-      `https://license-challenge.herokuapp.com${path}`,
+      `http://localhost:3000${path}`,
       body,
       {
         headers: {
@@ -46,7 +46,7 @@ const postJsonReqest = async (path, body) => {
     const token = await AsyncStorage.getItem("token");
     if (token) {
       const { data } = await axios.post(
-        `https://license-challenge.herokuapp.com${path}`,
+        `http://localhost:3000${path}`,
         body,
         {
           headers: {
@@ -58,7 +58,7 @@ const postJsonReqest = async (path, body) => {
       return data;
     } else {
       const { data } = await axios.post(
-        `https://license-challenge.herokuapp.com${path}`,
+        `http://localhost:3000${path}`,
         body,
         {
           headers: {
@@ -78,7 +78,7 @@ const putJsonReqest = async (path, body) => {
     const token = await AsyncStorage.getItem("token");
     if (token) {
       const { data } = await axios.put(
-        `https://license-challenge.herokuapp.com${path}`,
+        `http://localhost:3000${path}`,
         body,
         {
           headers: {
@@ -90,7 +90,7 @@ const putJsonReqest = async (path, body) => {
       return data;
     } else {
       const { data } = await axios.put(
-        `https://license-challenge.herokuapp.com${path}`,
+        `http://localhost:3000${path}`,
         body,
         {
           headers: {
@@ -110,7 +110,7 @@ const deleteJsonReqest = async (path) => {
     const token = await AsyncStorage.getItem("token");
     if (token) {
       const { data } = await axios.delete(
-        `https://license-challenge.herokuapp.com${path}`,
+        `http://localhost:3000${path}`,
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -121,7 +121,7 @@ const deleteJsonReqest = async (path) => {
       return data;
     } else {
       const { data } = await axios.delete(
-        `https://license-challenge.herokuapp.com${path}`,
+        `http://localhost:3000${path}`,
         {
           headers: {
             "Content-Type": "application/json",

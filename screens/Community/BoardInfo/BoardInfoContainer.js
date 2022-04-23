@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  TouchableOpacity,
 } from "react-native";
 import Api from "../../../api";
 import Send from "../../../assets/icon/Send";
@@ -98,6 +99,7 @@ export default ({ route }) => {
             previewFile={previewFile}
             allFile={allFile}
             payment={payment}
+            price={price}
           />
           <CreateComment commentInfo={commentInfo} />
         </ScrollView>
@@ -129,7 +131,15 @@ export default ({ route }) => {
               postData();
             }}
           ></TextInput>
-          <Send style={{ position: "absolute", left: "83%", zIndex: 5 }} />
+          <TouchableOpacity
+            onPress={() => {
+              setMyComment("");
+              postData();
+            }}
+            style={{ position: "absolute", left: "83%", zIndex: 5 }}
+          >
+            <Send />
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </>

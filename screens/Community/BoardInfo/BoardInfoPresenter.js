@@ -45,6 +45,7 @@ export const CreateBoardInfo = ({
   previewFile,
   allFile,
   payment,
+  price,
 }) => {
   return (
     <View style={{ margin: 20 }}>
@@ -68,6 +69,10 @@ export const CreateBoardInfo = ({
 
       {previewFile ? (
         <>
+          <Title style={{ alignSelf: "flex-end", color: "#ff5e5e" }}>
+            {" "}
+            파일 가격 : {price} P{" "}
+          </Title>
           <PreviewFile
             onPress={() => Linking.openURL(previewFile)}
             style={{ marginTop: 20 }}

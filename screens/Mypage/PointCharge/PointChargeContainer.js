@@ -121,7 +121,7 @@ export default ({ navigation }) => {
               borderRadius: 10,
               justifyContent: "center",
               alignItems: "center",
-              marginTop: "85%",
+              marginTop: "55%",
             }}
             onPress={chargePoint}
           >
