@@ -1,7 +1,6 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=3B1367&height=300&section=header&fontSize=90&animation=fadeIn&fontAlignY=38&descAlignY=51&descAlign=62)
+![header](https://capsule-render.vercel.app/api?type=waving&color=3B1367&height=200&section=header&fontSize=90&animation=fadeIn&fontAlignY=38&descAlignY=51&descAlign=62)
 
 <p align='center'> 창의융합종합설계2 프로젝트 </p>
-
 <div align="center">
   <a >
     <img src="https://user-images.githubusercontent.com/40999597/164876838-1c1ed916-f3ff-418b-9028-d5735a8cef3b.png" alt="Logo" width="60" height="auto">
@@ -195,3 +194,8 @@ e-b5d7-6849e31580e4.png" alt="홈화면1" width="200" height="100%"/>
 </div>
 
 
+# 프로젝트 결과
+### 수상
+- KIT Engeenering Fair 동상
+<img src="https://user-images.githubusercontent.com/40999597/164886154-0b01edbb-bb63-44cb-9547-a62cd20024b4.jpg" alt="홈화면1" width="300" height="100%"/>
+  
