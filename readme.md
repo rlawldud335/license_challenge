@@ -1,3 +1,7 @@
+![header](https://capsule-render.vercel.app/api?type=waving&color=3B1367&height=300&section=header&fontSize=90&animation=fadeIn&fontAlignY=38&descAlignY=51&descAlign=62)
+
+<p align='center'> 창의융합종합설계2 프로젝트 </p>
+
 <div align="center">
   <a >
     <img src="https://user-images.githubusercontent.com/40999597/164876838-1c1ed916-f3ff-418b-9028-d5735a8cef3b.png" alt="Logo" width="60" height="auto">
