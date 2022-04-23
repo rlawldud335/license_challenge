@@ -148,8 +148,7 @@ https://just-platypus-340.notion.site/9569eb9828db4047a1c88cee5cee88e8
 <div style="display: flex">
     <img src="https://user-images.githubusercontent.com/40999597/164874963-19942e2a-1cac-45fb-ab4f-975fe523551f.png" alt="자격증검색" width="200" height="100%"/>
     <img src="https://user-images.githubusercontent.com/40999597/164874958-eef668e8-dd5e-46b5-bc43-4444d58f3698.png" alt="홈화면1" width="200" height="100%"/>
-    <img src="https://user-images.githubusercontent.com/40999597/164874956-bd183c3f-bdf6-413
-e-b5d7-6849e31580e4.png" alt="홈화면1" width="200" height="100%"/>
+    <img src="https://user-images.githubusercontent.com/40999597/164874956-bd183c3f-bdf6-413e-b5d7-6849e31580e4.png" alt="홈화면1" width="200" height="100%"/>
 </div>
 
 #### 판매게시판
