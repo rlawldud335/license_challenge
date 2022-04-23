@@ -50,20 +50,11 @@
 - AWS EC2
   
 
+## API문서
+https://just-platypus-340.notion.site/API-b844f48f3b20455ab083cf363c6250eb 
 
-## 실행 방법
-#### Front-end
-~~~
-npm start
-~~~
-#### Back-end
-~~~
-npm start
-~~~
-#### Intra
-~~~
-Test
-~~~
+## DB스키마
+https://just-platypus-340.notion.site/9569eb9828db4047a1c88cee5cee88e8
 
 
 ## 데모
@@ -75,8 +66,6 @@ Test
 
 ### 챌린지 결과
 <img src="./demoGIF/포인트환급.gif" alt="홈화면1"/>
-
-
 
 ### 커뮤니티
 <img src="./demoGIF/커뮤니티.gif" alt="홈화면1"/>
