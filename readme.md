@@ -6,28 +6,31 @@
   <p align="center">
     자격증 공부, 혼자 하지말고 같이하세요!
     <br />
-    <a href="">매일공부인증</a>
+    <a href="https://github.com/rlawldud335">김지영</a>
     ·
-    <a href="">커뮤니티</a>
+    <a href="https://github.com/hyejung-Kim">김혜정</a>
     ·
-    <a href="">일정알림</a>
+    <a href="https://github.com/dalbikim">김달비</a>
+    ·
+    <a href="https://github.com/jihy2on">김지현</a>
   </p>
 </div>
 <br>
 <br>
 
 # 프로젝트 소개
-## 주제제안서
-![자격증 챌린지 어플이 필요한 이유](https://user-images.githubusercontent.com/40999597/164878996-53d7da2f-6e33-400f-9367-b376f32ad66f.png)
+## 핵심기능
+![자격증 챌린지 어플이 필요한 이유](https://user-images.githubusercontent.com/40999597/164878996-53d7da2f-6e33-400f-9367-b376f32ad66f.png)  
+
 [주제제안서 발표자료 보기](https://drive.google.com/file/d/11gzE6Un4ljD0lYDAkLmX89Qd7-8FGXWL/view?usp=sharing)  
 1. 사람들과 공부인증 기능으로 매일 의지를 다지기!
 2. 인증률에 따른 포인트 환급 기능!
 3. 커뮤니티에서 자유로운 소통과 정리노트를 판매
 4. 자격증 접수, 시험 일정을 알림
 
----
 
-## 시스템 구조도 와 개발 스택
+
+## 개발 스택
 <img width="831" alt="스크린샷 2022-04-23 오후 2 35 27" src="https://user-images.githubusercontent.com/40999597/164879337-7fb19aab-bb27-4008-9cf5-ba1d99dd768b.png">
 
 #### Front-end
@@ -43,7 +46,7 @@
 - AWS S3
 - AWS EC2
   
----
+
 
 ## 실행 방법
 #### Front-end
@@ -55,9 +58,11 @@ npm start
 npm start
 ~~~
 #### Intra
-설명추가하기
+~~~
+Test
+~~~
 
----
+
 ## 데모
 ### 챌린지 생성
 <img src="./demoGIF/챌린지생성.gif" alt="홈화면1"/>
@@ -185,5 +190,4 @@ e-b5d7-6849e31580e4.png" alt="홈화면1" width="200" height="100%"/>
     <img src="https://user-images.githubusercontent.com/40999597/164876407-5ebc3512-75bf-4d4b-aa3e-3b58f413849c.png" alt="홈화면1" width="200" height="100%"/>
 </div>
 
----
 
