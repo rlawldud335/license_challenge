@@ -58,11 +58,11 @@ https://just-platypus-340.notion.site/9569eb9828db4047a1c88cee5cee88e8
 
 
 ## 데모
-### 챌린지 생성
-<img src="./demoGIF/챌린지생성.gif" alt="홈화면1"/>
-
 ### 챌린지 참가
 <img src="./demoGIF/챌린지.gif" alt="홈화면1"/>
+
+### 챌린지 생성
+<img src="./demoGIF/챌린지생성.gif" alt="홈화면1"/>
 
 ### 챌린지 결과
 <img src="./demoGIF/포인트환급.gif" alt="홈화면1"/>
